@@ -1,0 +1,17 @@
+.navbar {height:65px;
+    background-color:black;
+}
+.navbar .nav-item .nav-btn{ 
+    color: white;
+    font-size: 20px;
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+    font-weight: bold;
+    padding: 0 16px;
+    /* color: inherit; */
+    background: 0 0;
+    position: relative;
+    margin: 5px 25px;
+    border: none;
+
+   
+}
