@@ -2,8 +2,8 @@ import React from "react";
 import "../footer/footer.css";
 function footer() {
   return (
-    <div className="footer">
-      <div className="footer-wrapper container">
+    <div className="footer pt-5">
+      <div className="footer-wrapper container ">
         <div className="row">
           <div className="col-lg-4">
             <div>
