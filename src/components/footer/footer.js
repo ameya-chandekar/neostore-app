@@ -33,7 +33,7 @@ Locate Us
             <div>
               <h5>NewsLetter</h5>
               <p>Signup to get exclusive offer from our favorite brands and to be well up in the news<br></br>
-              <input  id="subscribeText" placeholder="your email..." type="text" class=""></input><br></br>
+              <input  id="subscribeText" placeholder="your email..." type="text" className=""></input><br></br>
               <button className="btn btn-light">Subscribe</button>
               </p>
               

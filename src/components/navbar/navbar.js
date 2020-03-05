@@ -29,7 +29,7 @@ function Navbar() {
                 </form>
               </li>
               <li>
-                <button classNameName="btn btn-light" style={{ width: '60px' }}> <i style={{ color: 'rgb(68, 68, 68)', padding: '7px 3px' }} className="fa fa-cart-arrow-down"></i> </button>
+                <button className="btn btn-light" style={{ width: '60px' }}> <i style={{ color: 'rgb(68, 68, 68)', padding: '7px 3px' }} className="fa fa-cart-arrow-down"></i> </button>
               </li>
               <li className="nav-item dropdown">
 

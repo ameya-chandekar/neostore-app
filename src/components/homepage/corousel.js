@@ -41,7 +41,7 @@ export class Corousel extends Component {
                 {path.map((m, index) =>
                   index === 0 ? (
                     <div className="carousel-item active">
-                      <img className="d-block w-100" src={m} alt="First slide" />
+                      <img  className="d-block w-100" src={m} alt="First slide" />
                     </div>
                   ) : (
                     <div className="carousel-item ">
