@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import Navbar from "../navbar/navbar";
-import Corousel from "../homepage/corousel"
+import Corousel from "./corousel"
 import Footer from "../footer/footer";
-import "../homepage/homepage.css";
+import "./homepage.css";
 import PopularProducts from "../products/productCards.js/popularProducts";
+import LoginPage from "../login/loginPage";
 export class HomePage extends Component {
   
 
@@ -12,12 +13,14 @@ export class HomePage extends Component {
    
     return (
       <div>
+            
         <Navbar />
 
         <Corousel/>
         
       <PopularProducts/>
         <Footer/>
+   
       </div>
     );
   }

@@ -45,7 +45,14 @@ export class PopularProducts extends Component {
   productCard = (ele) => {
     const product_details = this.state.data;
     const productCard = product_details.map(ele => {
-      return <ProductCard card={ele} />
+      return (
+
+        
+        <div className="col-lg-3 col-sm-12">
+        <ProductCard card={ele} />
+        </div>
+      
+      )
     })
     return productCard;
   }
@@ -58,11 +65,12 @@ export class PopularProducts extends Component {
         <div className="popular-product-wraapper mt-5 mb-5">
           <h5>Popular products</h5>
           <div>
-
+          <button className="btn"><b>View All</b></button>
+          <div className="row">
             {this.productCard()}
-
+</div>
           </div>
-          <button>View All</button>
+          
         </div>
 
 

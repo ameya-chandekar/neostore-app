@@ -1,0 +1,16 @@
+.loginPage{
+    padding: 0px 0 15% 0;
+}
+.formControl{ width: 100%;}
+.form-label-group{
+ 
+    margin-bottom: 10%;
+}
+.social-btn-wrapper{
+    margin-top: 60px;
+}
+.social-login{
+    width: 80%;
+    padding: 17px 0 17px 0;
+    margin: 10px 0 10px 0;
+}

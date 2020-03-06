@@ -1,5 +1,5 @@
 import React from "react";
-import "../footer/footer.css";
+import "./footer.css";
 function footer() {
   return (
     <div className="footer pt-5">
@@ -42,6 +42,7 @@ Locate Us
             </div>
           </div>
         </div>
+        <div className="row"><p>Copyright 2017 NeoSOFT Technologies All rights reserved | Design By Ameya Chandekar</p></div>
       </div>
     </div>
   );
