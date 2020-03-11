@@ -22,8 +22,8 @@ function Navbar() {
             <ul className="navbar-nav navbar-ul mr-5 ml-3">
                 <Link to="/"><button className=" btn nav-btn nav-item" href="#">Home </button></Link>
               
-      
-                <button className="btn nav-btn nav-item" href="#">Products</button>
+              <Link to="/Products"><button className="btn nav-btn nav-item" href="#">Products</button></Link>
+                
               
 
       
@@ -50,8 +50,8 @@ function Navbar() {
 
               <div className="dropdown-menu bg-light " aria-labelledby="navbarDropdown">
                
-              <Link to="/Loginpage"> <a className="dropdown-item " >Login</a></Link> 
-                <button className="dropdown-item" href="#">Register</button>
+              <Link to="/Loginpage"> <button className="dropdown-item " >Login</button></Link> 
+              <Link to="/RegisterPage"> <button className="dropdown-item" href="#">Register</button></Link> 
                 
               </div>
 </li>

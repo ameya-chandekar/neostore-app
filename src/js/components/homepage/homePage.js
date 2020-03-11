@@ -3,7 +3,7 @@ import Navbar from "../navbar/navbar";
 import Corousel from "./corousel"
 import Footer from "../footer/footer";
 import "./homepage.css";
-import PopularProducts from "../products/productCards.js/popularProducts";
+import PopularProducts from "../popularproducts/productCards.js/popularProducts";
 import LoginPage from "../login/loginPage";
 export class HomePage extends Component {
   
