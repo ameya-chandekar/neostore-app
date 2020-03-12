@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ProductCard from './productCard/productCard'
-import axios from 'axios'
 import { API } from '../../../api/api';
+import {Link} from 'react-router-dom'
 export class PopularProducts extends Component {
 
   constructor(props) {
@@ -51,7 +51,7 @@ export class PopularProducts extends Component {
             <div className="popular-product-wraapper mt-5 mb-5">
               <h5>Popular products</h5>
 
-              <button className="btn"><b>View All</b></button>
+              <Link to="/Products"> <button className="btn"><b>View All</b></button></Link>
 
             </div> </div>
 

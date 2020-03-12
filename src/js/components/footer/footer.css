@@ -1,4 +1,8 @@
-
+.footer a{text-decoration-line: blink;
+ color: gray;}
+ .footer a:hover{
+     color: white;
+ }
 .footer{
 
     background-color: black;

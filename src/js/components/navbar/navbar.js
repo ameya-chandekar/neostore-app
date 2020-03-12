@@ -1,5 +1,5 @@
 import React from 'react'
-import { Switch, BrowserRouter as Router, Route,Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import "./navbar.css"
 function Navbar() {
   return (
