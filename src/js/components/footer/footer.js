@@ -28,7 +28,7 @@ function footer() {
               <p>
               <a onClick={onResumeClick} >Terms and Conditions</a><br/>
               Gurantee and Return Policy<br/>
-              Contact Us<br/>
+             <Link to="/ContactUs"> Contact Us</Link><br/>
               Privacy Policy<br/>
               <Link to="/LocateUs">Locate Us</Link>
               </p>

@@ -5,6 +5,7 @@ import LoginPage from './js/components/login/loginPage'
 import { Switch, BrowserRouter as Router, Route } from 'react-router-dom'
 import RegisterPage from './js/components/Register/registerPage';
 import AllProducts from './js/components/Products/ProductsModule';
+import ContactUs from './js/components/footer/contactUs/contactUs'
 import locateUs from './js/components/footer/locateUs/locateUs';
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                 <Route exact path="/RegisterPage" component={RegisterPage} />
                 <Route exact path="/Products" component={AllProducts} />
                 <Route exact path="/LocateUs" component={locateUs}/>
+                <Route exact path="/ContactUs" component={ContactUs}/>
             </Switch>
 
 
