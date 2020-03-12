@@ -1,5 +1,11 @@
 import React from "react";
 import "./footer.css";
+import {Link} from 'react-router-dom'
+import PDF from '../../../assets/Terms_and_Conditions.pdf'
+
+function onResumeClick() {
+  window.open(PDF);
+}
 function footer() {
   return (
     <div className="footer pt-5">
@@ -20,11 +26,11 @@ function footer() {
             <div>
               <h5>Information</h5>
               <p>
-              Terms and Conditions
-Gurantee and Return Policy
-Contact Us
-Privacy Policy
-Locate Us
+              <a onClick={onResumeClick} >Terms and Conditions</a><br/>
+              Gurantee and Return Policy<br/>
+              Contact Us<br/>
+              Privacy Policy<br/>
+              <Link to="/LocateUs">Locate Us</Link>
               </p>
             </div>
           </div>
