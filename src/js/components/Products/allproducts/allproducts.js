@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import AllProductCard from '../allproductsCard'
 import { API } from '../../../api/api'
+import { connect } from 'react-redux';
+import * as actions from '../../../redux/actions';
 export class Allproducts extends Component {
     constructor(props) {
         super(props)
@@ -10,25 +12,13 @@ export class Allproducts extends Component {
 
         }
     }
-
     componentDidMount() {
-        let cb = {
-            success: (res) => {
-                console.log(res)
-                this.setState({
-                    data: res.product_details
-                });
-            },
-            error: (err) => {
-                console.log(err)
-            }
-        }
-
-        API.getAllProduct({}, cb)
+       
+        this.props.onGetAllProduct()
 
     }
     productCard = (ele) => {
-        const product_details = this.state.data;
+        const product_details = this.props.allProduct?this.props.allProduct:[];
         const productCard = product_details.map(ele => {
             return (
 
@@ -66,4 +56,20 @@ export class Allproducts extends Component {
     }
 }
 
-export default Allproducts
+const mapStateToProps = state => {
+    return {
+      allProduct: state.allProduct.allProduct.product_details,
+      
+    };
+    
+    
+  }
+  
+  const mapDispatchToProps = dispatch => {
+    return {
+      onGetAllProduct: () => dispatch(actions.getAllProduct()),
+    }
+  }
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(Allproducts);
+  

@@ -8,11 +8,12 @@ const live = false;
 
 const GET_PRODUCT = { type: 'GET', url: ROOT_URL + 'defaultTopRatingProduct/' };
 const GET_ALL_PRODUCT = { type: 'GET', url: ROOT_URL + 'commonProducts/' };
+const LOG_IN ={ type : 'POST' ,url:ROOT_URL + 'login/'}
 
 export const API = {
 	getProduct: (data, cb) => request(data, cb, GET_PRODUCT),
 	getAllProduct: (data, cb) => request(data, cb, GET_ALL_PRODUCT),
-	
+	logIn:(data,cb)=> request(data,cb,LOG_IN ),
 };
 
 async function request(requestData, cb, featureURL, secureRequest = buildHeader()) {

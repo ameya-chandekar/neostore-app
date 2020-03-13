@@ -17,7 +17,7 @@ export class HomePage extends Component {
 
         <Corousel/>
         
-      <PopularProducts/>
+          <PopularProducts/>
         <Footer/>
    
       </div>

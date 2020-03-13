@@ -2,38 +2,30 @@ import React, { Component } from 'react'
 import ProductCard from './productCard/productCard'
 import { API } from '../../../api/api';
 import {Link} from 'react-router-dom'
+
+import { connect } from 'react-redux';
+import * as actions from '../../../redux/actions';
+
 export class PopularProducts extends Component {
 
-  constructor(props) {
-    super(props)
+  // constructor(props) {
+  //   super(props)
 
-    this.state = {
-      data: []
+  //   this.state = {
+  //     data: []
 
-    }
-  }
+  //   }
+  // }
   componentDidMount() {
-    let cb = {
-      success: (res) => {
-        console.log(res)
-        this.setState({
-          data: res.product_details
-        });
-      },
-      error: (err) => {
-        console.log(err)
-      }
-    }
-
-    API.getProduct({}, cb)
+    this.props.onGetPoularProduct()
 
   }
-  productCard = (ele) => {
-    const product_details = this.state.data;
+  productCard = () => {
+    
+    const product_details = this.props.product ; //? this.props.product : []
+    console.log(product_details)
     const productCard = product_details.map(ele => {
       return (
-
-
         <div className="col-lg-3 col-sm-12">
           <ProductCard card={ele} />
         </div>
@@ -43,7 +35,7 @@ export class PopularProducts extends Component {
     return productCard;
   }
   render() {
-
+    //console.log('Product ::', this.props)
     return (
       <div className="popular-products text-center">
         <div className="row">
@@ -68,4 +60,18 @@ export class PopularProducts extends Component {
   }
 }
 
-export default PopularProducts
+
+const mapStateToProps = state => {
+  return {
+    product: state.product.popularProduct.product_details,
+  };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onGetPoularProduct: () => dispatch(actions.getPopularProduct()),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PopularProducts);
+

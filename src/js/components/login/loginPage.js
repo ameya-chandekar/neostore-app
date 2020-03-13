@@ -15,17 +15,29 @@ import FormControl from "@material-ui/core/FormControl";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import MailIcon from '@material-ui/icons/Mail';
+import { GoogleLogin } from 'react-google-login';
 import Navbar from '../navbar/navbar'
 import Footer from '../footer/footer'
 import "./loginPage.css"
+
+const responseGoogle = (response) => {
+    console.log(response);
+}
 export class LoginPage extends Component {
+
     constructor(props) {
         super(props)
+        // this.props.logout();
 
         this.state = {
-            showPassword: false
+            showPassword: false,
+            username: '',
+            password: '',
+            submitted: false
         }
     }
+    
+    //this is for password show/hide toggle
     handleClickShowPassword = () => {
         this.setState({
             showPassword: !this.state.showPassword
@@ -36,7 +48,28 @@ export class LoginPage extends Component {
             showPassword: true
         })
     }
+
+
+
+
+//this is to set state on change 
+    handleChange=(e) =>{
+        const { name, value } = e.target;
+        this.setState({ [name]: value });
+        
+    }
+    handleSubmit=(e)=> {
+        e.preventDefault();
+
+        this.setState({ submitted: true });
+        const { username, password } = this.state;
+        if (username && password) {
+            this.props.onLogIn(username, password);
+        }
+    }
     render() {
+        console.log("username",this.state.username);
+        console.log("password",this.state.password);
 
         return (
 
@@ -47,7 +80,16 @@ export class LoginPage extends Component {
                         <div className="col-lg-6 col-md-12">
                             <div className="social-btn-wrapper">
                                 <div className="row"><div className="col-12 "><button className="btn btn-lg btn-primary social-login"><h6>Login With Facebook</h6></button></div></div>
-                                <div className="row"><div className="col-12 "><button className="btn btn-lg btn-danger social-login"> <h6>Login With Google</h6></button></div></div>
+                                <GoogleLogin
+                                    clientId="1046035359147-c0uasts79ddvoa7obt5fltk2dud9b3sr.apps.googleusercontent.com"
+                                    render={renderProps => (
+                                        <button className="btn google-btn" onClick={renderProps.onClick} disabled={renderProps.disabled}><b><i class="fa fa-google"></i>Login With Google</b></button>
+                                    )}
+                                    buttonText="Login"
+                                    onSuccess={responseGoogle}
+                                    onFailure={responseGoogle}
+                                    cookiePolicy={'single_host_origin'}
+                                />
                                 <div className="row"><div className="col-12 "><button className="btn btn-lg btn- social-login"><h6>Login With Twiiter</h6></button></div></div>
 
                             </div>
@@ -59,15 +101,17 @@ export class LoginPage extends Component {
                                 <div class="card-body">
                                     <h3 class=" card-title text-left">
                                         <b>Login to NeoSTORE</b></h3>
-                                    <form class="form-signin">
+                                    <form class="form-signin" onSubmit={this.handleSubmit}>
                                         <div class="form-label-group">
                                             {/* <input type="email" id="inputEmail" class="form-control mt-3 mb-4 pt-4 pb-4" placeholder="Email Address" required autofocus /> */}
                                             <FormControl className="form-control" variant="outlined">
                                                 <InputLabel htmlFor="outlined-adornment-email">Email</InputLabel>
                                                 <OutlinedInput
-                                                    id="outlined-adornment-email"
+                                                    id="username"
+                                                    name="username"
                                                     type="text"
-                                                    // value={this.state.password}
+                                                    onChange={this.handleChange}
+                                                    //   value={this.state.password}
 
                                                     endAdornment={
                                                         <InputAdornment position="end">
@@ -89,10 +133,11 @@ export class LoginPage extends Component {
                                             <FormControl className="formControl" variant="outlined">
                                                 <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                                                 <OutlinedInput
-                                                    id="outlined-adornment-password"
+                                                    id="password"
+                                                    name="password"
                                                     type={this.state.showPassword ? 'text' : 'password'}
-                                                    value={this.state.password}
-                                                    onChange={""}
+                                                    //  value={this.state.password}
+                                                    onChange={this.handleChange}
                                                     endAdornment={
                                                         <InputAdornment position="end">
                                                             <IconButton
@@ -110,7 +155,7 @@ export class LoginPage extends Component {
                                             </FormControl>
                                         </div>
                                         <div>
-                                            <button class="btn btn-danger text-uppercase float-left" type="submit">Login</button>
+                                            <button  class="btn btn-danger text-uppercase float-left" type="submit">Login</button>
                                         </div>
                                     </form>
                                 </div>
@@ -119,8 +164,8 @@ export class LoginPage extends Component {
                     </div>
                     <div className="row " >
                         <div className="col-lg-12 d-flex justify-content-center">
-                            <button className="btn">Register Now</button>  <span style={{marginTop:"7px"}}>|</span>
-                        <button className="btn">Forgot Password</button>
+                            <button className="btn">Register Now</button>  <span style={{ marginTop: "7px" }}>|</span>
+                            <button className="btn">Forgot Password</button>
                         </div>
                     </div>
                 </div>
@@ -133,4 +178,24 @@ export class LoginPage extends Component {
     }
 }
 
-export default LoginPage
+
+
+const mapStateToProps = state => {
+    return {
+      allProduct: ,
+      
+    };
+    
+    
+  }
+  
+  const mapDispatchToProps = dispatch => {
+    return {
+      onLogIn: (username,password) => dispatch(actions.login(data)),
+    }
+  }
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+//   export default LoginPage
+
+

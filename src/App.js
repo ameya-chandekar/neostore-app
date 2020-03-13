@@ -7,6 +7,7 @@ import RegisterPage from './js/components/Register/registerPage';
 import AllProducts from './js/components/Products/ProductsModule';
 import ContactUs from './js/components/footer/contactUs/contactUs'
 import locateUs from './js/components/footer/locateUs/locateUs';
+import Subscribe from './js/screens/subscribe';
 function App() {
     return (
         <Router>
@@ -19,6 +20,7 @@ function App() {
                 <Route exact path="/Products" component={AllProducts} />
                 <Route exact path="/LocateUs" component={locateUs}/>
                 <Route exact path="/ContactUs" component={ContactUs}/>
+                <Route exact path="/Subscribe" component={Subscribe}/>
             </Switch>
 
 
