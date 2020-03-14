@@ -1,5 +1,5 @@
 import React from 'react'
-import { ROOT_URL } from '../../../../api/globals'
+import { ROOT_URL } from '../../../api/globals'
 import './productCard.css'
 import Rating from "@material-ui/lab/Rating";
 function ProductCard(props) {

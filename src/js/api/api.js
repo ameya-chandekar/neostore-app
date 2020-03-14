@@ -8,10 +8,14 @@ const live = false;
 
 const GET_PRODUCT = { type: 'GET', url: ROOT_URL + 'defaultTopRatingProduct/' };
 const GET_ALL_PRODUCT = { type: 'GET', url: ROOT_URL + 'commonProducts/' };
+const GET_ALL_CATEGORIES={type:'GET',url:ROOT_URL+'getAllCategories/'};
+const GET_ALL_COLORS={type:'GET',url:ROOT_URL+'getAllColors/'};
 const LOG_IN ={ type : 'POST' ,url:ROOT_URL + 'login/'}
 
 export const API = {
 	getProduct: (data, cb) => request(data, cb, GET_PRODUCT),
+	getAllCategories: (data, cb) => request(data, cb, GET_ALL_CATEGORIES),
+	getAllColors: (data, cb) => request(data, cb, GET_ALL_COLORS),
 	getAllProduct: (data, cb) => request(data, cb, GET_ALL_PRODUCT),
 	logIn:(data,cb)=> request(data,cb,LOG_IN ),
 };

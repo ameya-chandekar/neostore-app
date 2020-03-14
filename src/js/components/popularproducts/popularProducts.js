@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import ProductCard from './productCard/productCard'
-import { API } from '../../../api/api';
+import { API } from '../../api/api';
 import {Link} from 'react-router-dom'
 
 import { connect } from 'react-redux';
-import * as actions from '../../../redux/actions';
+import * as actions from '../../redux/actions';
 
 export class PopularProducts extends Component {
 
@@ -22,7 +22,7 @@ export class PopularProducts extends Component {
   }
   productCard = () => {
     
-    const product_details = this.props.product ; //? this.props.product : []
+    const product_details = this.props.product ? this.props.product : []; 
     console.log(product_details)
     const productCard = product_details.map(ele => {
       return (

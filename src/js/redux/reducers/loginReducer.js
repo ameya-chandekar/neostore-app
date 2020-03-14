@@ -2,8 +2,8 @@ import * as actionType from '../actions/actionTypes';
 import { updateObject } from '../utility/utility';
 
 const initialState = {
-    isValid: {}
-    
+    isLogin: false,
+    userdetails:{}
 }
 
 const reducer = (state = initialState, action) => {

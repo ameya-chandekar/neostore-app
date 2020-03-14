@@ -11,11 +11,16 @@ const authenticateUser = (payload) => {
 };
 export const login = (payload) => {
     return (dispatch, getState) => {
-        const data = {}
+        const data = {email:payload.username,pass:payload.password}
         //console.log(data);
         let cb = {
             success: (res) => {
-                dispatch(authenticateUser({isLogin:{ ...res }}))
+                console.log();
+                const newState={
+                    isLogin:true,
+                    userdetails: {...res}
+                }
+                dispatch(authenticateUser(newState))
 
             },
             error: (err) => {

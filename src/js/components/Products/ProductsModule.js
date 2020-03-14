@@ -3,8 +3,12 @@ import Navbar from '../navbar/navbar'
 import Footer from '../footer/footer'
 import CategoriesAccordian from './categories/categoriesAccordian'
 import AllProducts from './allproducts/allproducts'
+import {API} from'../../api/api'
 export class ProductsModule extends Component {
+   
     render() {
+  
+        
         return (
             <div>
                 <Navbar/>

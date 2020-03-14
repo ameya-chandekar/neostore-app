@@ -19,6 +19,8 @@ import { GoogleLogin } from 'react-google-login';
 import Navbar from '../navbar/navbar'
 import Footer from '../footer/footer'
 import "./loginPage.css"
+import { connect } from 'react-redux';
+import * as actions from '../../redux/actions/logInAction';
 
 const responseGoogle = (response) => {
     console.log(response);
@@ -64,7 +66,7 @@ export class LoginPage extends Component {
         this.setState({ submitted: true });
         const { username, password } = this.state;
         if (username && password) {
-            this.props.onLogIn(username, password);
+            this.props.onLogIn({username, password});
         }
     }
     render() {
@@ -182,7 +184,7 @@ export class LoginPage extends Component {
 
 const mapStateToProps = state => {
     return {
-      allProduct: ,
+      isLogin:state.login.isLogin
       
     };
     
@@ -191,11 +193,11 @@ const mapStateToProps = state => {
   
   const mapDispatchToProps = dispatch => {
     return {
-      onLogIn: (username,password) => dispatch(actions.login(data)),
+      onLogIn: (payload) => dispatch(actions.login(payload))
     }
   }
   
-  export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+  export default connect(null, mapDispatchToProps)(LoginPage);
 //   export default LoginPage
 
 

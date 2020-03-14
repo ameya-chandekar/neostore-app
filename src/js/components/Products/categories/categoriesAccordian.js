@@ -8,13 +8,55 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { typography } from 'material-ui/styles';
 import "./categories.css"
-export class CategoriesAccordian extends Component {
+import { API } from '../../../api/api'
+class CategoriesAccordian extends Component {
 
-    
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            Categorie: [],
+            Colors:[],
+        }
+    }
+
+    componentDidMount() {
+        const data = {};
+        let cb = {
+            success: (res) => {
+                this.setState({
+                    Categorie: res.category_details
+                    
+                });
+
+            },
+            error: (err) => {
+
+            }
+        }
+        let cb1 = {
+            success: (res) => {
+                this.setState({
+                
+                    Colors:res.color_details
+                });
+
+            },
+            error: (err) => {
+
+            }
+        }
+        API.getAllCategories(data, cb);
+        API.getAllColors(data, cb1);
 
 
+    }
 
+  
     render() {
+        let { Categorie,Colors } = this.state;
+        console.log("category",Categorie + "color",Colors);
+
         return (
             <div>
                 <div>
@@ -29,12 +71,6 @@ export class CategoriesAccordian extends Component {
                     </ExpansionPanel>
 
 
-
-
-
-
-
-
                     <ExpansionPanel>
                         <ExpansionPanelSummary
                             expandIcon={<ExpandMoreIcon />}
@@ -43,19 +79,18 @@ export class CategoriesAccordian extends Component {
                             <Typography >Categories</Typography>
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails >
-                            <div>
-                            <div className="btn Categories-btn">Sofa</div>
-                            <div className="btn Categories-btn">Bed</div>
-                            <div className="btn Categories-btn">Chair</div>
-                            <div className="btn Categories-btn">Table</div>
-                            <div className="btn Categories-btn">Almirah</div>
+                            <div className="row">
+                                {Categorie.map(el => {
+                                    return (
+
+                                        <div className=" col-12 btn Categories-btn"><h6>{el.category_name}</h6>
+                                        </div>
+                                    )
+                                })}
+
+
                             </div>
-                            
 
-                            
-                            
-
-                            
 
                         </ExpansionPanelDetails>
                     </ExpansionPanel>
@@ -74,10 +109,15 @@ export class CategoriesAccordian extends Component {
                             <Typography >Color</Typography>
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails>
-                            <Typography>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                                sit amet blandit leo lobortis eget.
-                            </Typography>
+                        <div className="row">
+                                {Colors.map(el => {
+                                    return (
+
+                                        <div className=" col-4 mb-2 Categories-btn "><button className="btn"  style={{backgroundColor:el.color_code,width:"80%",height:"100%",border:"0.5px solid "}}></button>
+                                        </div>
+                                    )
+                                })}
+                            </div>
                         </ExpansionPanelDetails>
                     </ExpansionPanel>
 
@@ -90,8 +130,8 @@ export class CategoriesAccordian extends Component {
             </div>
         )
     }
-}
 
+}
 export default CategoriesAccordian
 
 
