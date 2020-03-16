@@ -10,6 +10,7 @@ import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2'
 import productReducer from '../reducers/productReducer';
 import allProductReducer from '../reducers/allProductReducer'
 import loginReducer from '../reducers/loginReducer'
+import registerReducer from '../reducers/registerReducer'
 // MiddleWare
 import thunk from 'redux-thunk';
 
@@ -20,6 +21,7 @@ const AppRootReducer = combineReducers({
     product: productReducer,
     allProduct:allProductReducer,
     login:loginReducer,
+    register:registerReducer,
 
    
 

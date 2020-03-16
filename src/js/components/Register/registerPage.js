@@ -16,15 +16,33 @@ import TextField from "@material-ui/core/TextField";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import MailIcon from '@material-ui/icons/Mail';
+
+import  RadioGroup from '@material-ui/core/RadioGroup'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Radio from '@material-ui/core/Radio';
+import FormLabel from '@material-ui/core/FormLabel';
+
 import Navbar from '../navbar/navbar'
 import Footer from '../footer/footer'
 import "../Register/registerPage.css"
+import * as actions from '../../redux/actions/registerAction';
+import { connect } from 'react-redux';
 export class RegisterPage extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            showPassword: false
+            showPassword: false,
+            first_name:'',
+            last_name:'',
+            email:'',
+            pass:'',
+            confirmPass:'',
+            phone_no:'',
+            gender:'male',
+            submitted: false,
+
+
         }
     }
     handleClickShowPassword = () => {
@@ -38,7 +56,32 @@ export class RegisterPage extends Component {
         })
     }
 
+
+//this is to set state on change 
+handleChange=(e) =>{
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+    
+}
+handleSubmit=(e)=> {
+    e.preventDefault();
+
+    this.setState({ submitted: true });
+    const { first_name,last_name,email,pass,confirmPass,phone_no,gender} = this.state;
+    if (first_name && last_name && email && pass && confirmPass && phone_no && gender) {
+        this.props.onRegister({first_name,last_name,email,pass,confirmPass,phone_no,gender});
+    }
+    // if(this.props.isRegister){
+    //     this.props.history.push('/login');
+    // }
+}
+
+
     render() {
+        const { first_name,last_name,email,pass,confirmPass,phone_no,gender} = this.state;
+
+        console.table("fname:",first_name, "lname:",last_name, "email:",email, "pass:",pass, "cpass:",confirmPass,"number:",phone_no ,"gender:",gender)
+console.log(this.props.isRegister)
         return (
             <div>
                 <Navbar />
@@ -54,7 +97,7 @@ export class RegisterPage extends Component {
                                     <div class="card-body">
                                         <h3 class=" card-title text-left">
                                             <b>Register to NeoSTORE</b></h3>
-                                        <form class="form-signin">
+                                        <form class="form-signin" onSubmit={this.handleSubmit}>
                                             <div class="form-label-group">
                                                 {/* <input type="email" id="inputEmail" class="form-control mt-3 mb-4 pt-4 pb-4" placeholder="Email Address" required autofocus /> */}
                                                 <FormControl className="form-control" variant="outlined">
@@ -62,6 +105,8 @@ export class RegisterPage extends Component {
                                                     <OutlinedInput
                                                         id="outlined-adornment-email"
                                                         type="text"
+                                                        name="first_name"
+                                                        onChange={this.handleChange}
                                                         // value={this.state.password}
 
                                                         endAdornment={
@@ -87,6 +132,8 @@ export class RegisterPage extends Component {
                                                     <OutlinedInput
                                                         id="outlined-adornment-email"
                                                         type="text"
+                                                        name="last_name"
+                                                        onChange={this.handleChange}
                                                         // value={this.state.password}
 
                                                         endAdornment={
@@ -112,6 +159,8 @@ export class RegisterPage extends Component {
                                                     <OutlinedInput
                                                         id="outlined-adornment-email"
                                                         type="text"
+                                                        name="email"
+                                                        onChange={this.handleChange}
                                                         // value={this.state.password}
 
                                                         endAdornment={
@@ -137,8 +186,10 @@ export class RegisterPage extends Component {
                                                     <OutlinedInput
                                                         id="outlined-adornment-password"
                                                         type={this.state.showPassword ? 'text' : 'password'}
+                                                        name="pass"
+                                                        onChange={this.handleChange}
                                                         value={this.state.password}
-                                                        onChange={""}
+                                                      
                                                         endAdornment={
                                                             <InputAdornment position="end">
                                                                 <Icon
@@ -163,8 +214,10 @@ export class RegisterPage extends Component {
                                                     <OutlinedInput
                                                         id="outlined-adornment-password"
                                                         type={this.state.showPassword ? 'text' : 'password'}
+                                                        name="confirmPass"
+                                                        onChange={this.handleChange}
                                                         value={this.state.password}
-                                                        onChange={""}
+                                                       
                                                         endAdornment={
                                                             <InputAdornment position="end">
                                                                 <Icon
@@ -189,6 +242,8 @@ export class RegisterPage extends Component {
                                                     <OutlinedInput
                                                         id="outlined-adornment-email"
                                                         type="text"
+                                                        name="phone_no"
+                                                        onChange={this.handleChange}
                                                         // value={this.state.password}
 
                                                         endAdornment={
@@ -208,22 +263,15 @@ export class RegisterPage extends Component {
                                             </div>
 
 
-                                            {/* <FormControl component="fieldset">
+                                            <FormControl component="fieldset">
                                                 <FormLabel component="legend">Gender</FormLabel>
-                                                <RadioGroup defaultValue="female" aria-label="gender" name="customized-radios">
-                                                    <FormControlLabel value="female" control={<StyledRadio />} label="Female" />
-                                                    <FormControlLabel value="male" control={<StyledRadio />} label="Male" />
-                                                    <FormControlLabel value="other" control={<StyledRadio />} label="Other" />
-                                                    <FormControlLabel
-                                                        value="disabled"
-                                                        disabled
-                                                        control={<StyledRadio />}
-                                                        label="(Disabled option)"
-                                                    />
+                                                <RadioGroup defaultValue="male" aria-label="gender" name="customized-radios" name="gender" onChange={this.handleChange}>                                                   
+                                                    <FormControlLabel value="male" control={<Radio/>} label="Male" />  
+                                                    <FormControlLabel value="female" control={<Radio/>} label="Female" />                                      
                                                 </RadioGroup>
-                                            </FormControl> */}
+                                            </FormControl>
                                             <div>
-                                            <button class="btn btn-danger text-uppercase float-left" type="submit">Register</button>
+                                            <button type="submit" class="btn btn-danger text-uppercase float-left"  onClick={this.handleSubmit}>Register</button>
                                         </div>
                                         </form>
                                     </div>
@@ -239,5 +287,20 @@ export class RegisterPage extends Component {
         )
     }
 }
-
-export default RegisterPage
+const mapStateToProps = state => {
+    return {
+      isRegister:state.register.isRegister
+      
+    };
+    
+    
+  }
+  
+  const mapDispatchToProps = dispatch => {
+    return {
+      onRegister: (payload) => dispatch(actions.register(payload))
+    }
+  }
+  
+  export default connect(null, mapDispatchToProps)(RegisterPage);
+// export default RegisterPage
