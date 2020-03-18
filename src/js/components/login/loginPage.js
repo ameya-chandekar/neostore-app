@@ -68,7 +68,21 @@ export class LoginPage extends Component {
         if (username && password) {
             this.props.onLogIn({username, password});
         }
+        console.log(this.props.isLogin);
+        
     }
+
+
+    
+componentDidUpdate(prevProps){
+    if(this.props.isLogin){
+        console.log("redirected");
+    this.props.history.push('/Products')
+   
+    
+    }
+   
+}
     render() {
         console.log("username",this.state.username);
         console.log("password",this.state.password);
@@ -197,7 +211,7 @@ const mapStateToProps = state => {
     }
   }
   
-  export default connect(null, mapDispatchToProps)(LoginPage);
+  export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
 //   export default LoginPage
 
 

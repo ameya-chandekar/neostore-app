@@ -8,7 +8,8 @@ export class Allproducts extends Component {
         super(props)
 
         this.state = {
-            data: []
+            data: [],
+            catid:''
 
         }
     }
@@ -17,12 +18,15 @@ export class Allproducts extends Component {
         this.props.onGetAllProduct()
 
     }
+    // componentDidUpdate(){
+
+    //     this.props. onproductbycateg()
+    // }
     productCard = (ele) => {
         const product_details = this.props.allProduct?this.props.allProduct:[];
+        console.log("all the productsssssss",product_details)
         const productCard = product_details.map(ele => {
             return (
-
-
                 <div className="col-lg-4 col-sm-12">
                     <AllProductCard card={ele} />
                 </div>
@@ -58,8 +62,8 @@ export class Allproducts extends Component {
 
 const mapStateToProps = state => {
     return {
-      allProduct: state.allProduct.allProduct.product_details,
-      
+      allProduct:state.productbycateg.productdetails,
+        // productbycateg:state.productbycateg.productdetails.productbycateg.product_details
     };
     
     
@@ -68,6 +72,7 @@ const mapStateToProps = state => {
   const mapDispatchToProps = dispatch => {
     return {
       onGetAllProduct: () => dispatch(actions.getAllProduct()),
+    //    onproductbycateg:()=>dispatch(actions.getproductbycateg()),
     }
   }
   

@@ -8,6 +8,9 @@ const live = false;
 
 const GET_PRODUCT = { type: 'GET', url: ROOT_URL + 'defaultTopRatingProduct/' };
 const GET_ALL_PRODUCT = { type: 'GET', url: ROOT_URL + 'commonProducts/' };
+const GET_PRODUCT_BY_CATEG = { type: 'GET', url: ROOT_URL+'getProductByCateg/' };
+const GET_PRODUCT_BY_COLOR = { type: 'GET', url: ROOT_URL+'getProductBycolor/' };
+
 const GET_ALL_CATEGORIES={type:'GET',url:ROOT_URL+'getAllCategories/'};
 const GET_ALL_COLORS={type:'GET',url:ROOT_URL+'getAllColors/'};
 const REGISTER ={type :'POST',url:ROOT_URL+'register/' };
@@ -18,12 +21,19 @@ export const API = {
 	getAllCategories: (data, cb) => request(data, cb, GET_ALL_CATEGORIES),
 	getAllColors: (data, cb) => request(data, cb, GET_ALL_COLORS),
 	getAllProduct: (data, cb) => request(data, cb, GET_ALL_PRODUCT),
+	
+	getProductByCateg: (data, cb) => {
+		GET_PRODUCT_BY_CATEG.url = GET_PRODUCT_BY_CATEG.url + data;
+		return request({}, cb, GET_PRODUCT_BY_CATEG)
+	},
+	getProductByColor: (data, cb) => {
+		GET_PRODUCT_BY_COLOR.url = GET_PRODUCT_BY_COLOR.url + data;
+		return request({}, cb, GET_PRODUCT_BY_COLOR)
+	},
 	register:(data ,cb)=>request(data, cb, REGISTER),
 	logIn:(data,cb)=> request(data,cb,LOG_IN ),
 };
-
 async function request(requestData, cb, featureURL, secureRequest = buildHeader()) {
-
 	const url = featureURL.url;
 	if (!live) {
 		console.groupCollapsed('API REQUEST');
@@ -38,12 +48,13 @@ async function request(requestData, cb, featureURL, secureRequest = buildHeader(
 		let response;
 
 		if (featureURL.type == 'GET') {
+		
 			response = await axios.get(url, {
 				headers: secureRequest,
 				params: requestData,
 			});
 		} else if ('POST|PATCH|PUT'.includes(featureURL.type)) {
-			response = await axios[featureURL.type.toLocaleLowerCase()](url, requestData, {
+			response = await axios[featureURL.type.toLocaleLowerCase()](url,requestData, {
 				headers: secureRequest,
 			});
 		} else if ('DELETE'.includes(featureURL.type)) {

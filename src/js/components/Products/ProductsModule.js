@@ -3,7 +3,6 @@ import Navbar from '../navbar/navbar'
 import Footer from '../footer/footer'
 import CategoriesAccordian from './categories/categoriesAccordian'
 import AllProducts from './allproducts/allproducts'
-import {API} from'../../api/api'
 export class ProductsModule extends Component {
    
     render() {
@@ -14,10 +13,9 @@ export class ProductsModule extends Component {
                 <Navbar/>
                 <div className="allproducts">
                     <div className="row">
-                        <div className="col-lg-3 col-md-12"><CategoriesAccordian/></div>
+                        <div className="col-lg-3 col-md-12"><CategoriesAccordian /></div>
                         <div className="col-lg-9 col-md-12"><AllProducts/></div>
                     </div>
-                    
                 </div>
                 <Footer/>
             </div>

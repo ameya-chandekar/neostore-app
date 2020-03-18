@@ -2,5 +2,6 @@ export const POPULAR_PRODUCT = 'POPULAR_PRODUCT';
 export const ALL_PRODUCT = 'ALL_PRODUCT';
 export const LOG_IN ='LOG_IN';
 export const REGISTER="REGISTER";
-
+export const GET_PRODUCT_BY_CATEG="GET_PRODUCT_BY_CATEG";
+export const GET_PRODUCT_BY_COLOR="GET_PRODUCT_BY_COLOR";
 

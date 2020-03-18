@@ -24,6 +24,7 @@ export const register = (payload) => {
             },
             error: (err) => {
 
+
             }
         }
         API.register(data, cb)

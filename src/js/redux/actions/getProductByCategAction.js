@@ -2,38 +2,34 @@ import * as actionType from './actionTypes';
 import { API } from '../../api/api';
 
 
-const storeAllProduct = (payload) => {
+const productbycatid = (payload) => {
     // console.log(payload);
     return {
-        type: actionType.ALL_PRODUCT,
+        type: actionType.GET_PRODUCT_BY_CATEG,
         payload: payload
     };
 };
-export const getAllProduct = (payload) => {
-
+export const getproductbycateg = (payload) => {
     return (dispatch, getState) => {
-        const data = {}
-      
-
-        //console.log(data);
+        // let data={}
+        
+        const data =payload.catogorie_id
+        console.log("kkkkkkk",data);
         let cb = {
             success: (res) => {
-console.log("18--------18----18---180----18-",res);
-
+                console.log("on api calllllllll",res);
                 const newState={
                   
                     productdetails:[...res.product_details]
                 }
-                dispatch(storeAllProduct(newState))
+                dispatch(productbycatid(newState))
 
             },
             error: (err) => {
-               
+            //    console.log("abcdegjhhhhhh",err)
             }
         }
-
-        API.getAllProduct(data, cb)
-
+        API.getProductByCateg(data, cb)
     }
-
 }
+

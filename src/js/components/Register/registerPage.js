@@ -1,22 +1,16 @@
 import React, { Component } from 'react'
-import clsx from "clsx";
-import { makeStyles } from "@material-ui/core/styles";
-import IconButton from "@material-ui/core/IconButton";
+
+//imports for material ui
 import Icon from "@material-ui/core/Icon";
 import TextFieldsIcon from '@material-ui/icons/TextFields';
 import CallIcon from '@material-ui/icons/Call';
-import Input from "@material-ui/core/Input";
-import FilledInput from "@material-ui/core/FilledInput";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import InputLabel from "@material-ui/core/InputLabel";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
-import TextField from "@material-ui/core/TextField";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import MailIcon from '@material-ui/icons/Mail';
-
 import  RadioGroup from '@material-ui/core/RadioGroup'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Radio from '@material-ui/core/Radio';
@@ -25,6 +19,9 @@ import FormLabel from '@material-ui/core/FormLabel';
 import Navbar from '../navbar/navbar'
 import Footer from '../footer/footer'
 import "../Register/registerPage.css"
+
+//imports of redux
+
 import * as actions from '../../redux/actions/registerAction';
 import { connect } from 'react-redux';
 export class RegisterPage extends Component {
@@ -41,8 +38,6 @@ export class RegisterPage extends Component {
             phone_no:'',
             gender:'male',
             submitted: false,
-
-
         }
     }
     handleClickShowPassword = () => {
@@ -63,25 +58,46 @@ handleChange=(e) =>{
     this.setState({ [name]: value });
     
 }
-handleSubmit=(e)=> {
+  handleSubmit= async(e)=> {
     e.preventDefault();
 
-    this.setState({ submitted: true });
-    const { first_name,last_name,email,pass,confirmPass,phone_no,gender} = this.state;
-    if (first_name && last_name && email && pass && confirmPass && phone_no && gender) {
-        this.props.onRegister({first_name,last_name,email,pass,confirmPass,phone_no,gender});
-    }
-    // if(this.props.isRegister){
-    //     this.props.history.push('/login');
-    // }
+
+        this.setState({ submitted: true });
+        const { first_name,last_name,email,pass,confirmPass,phone_no,gender} = this.state;
+         if (first_name && last_name && email && pass && confirmPass && phone_no && gender) {
+             try {
+                 this.props.onRegister({first_name,last_name,email,pass,confirmPass,phone_no,gender} );
+                
+             } catch (error) {
+                 console.log(error);
+                 return false
+             }
+            
+            
+    } 
+ 
+    console.log(this.props.registered);
+    
+   
 }
 
 
+componentDidUpdate(prevProps){
+    if(this.props.registered){
+        console.log("redirected");
+    this.props.history.push('/Loginpage')
+   
+    
+    }
+}
+
     render() {
+        console.log("----------------------",this.props.registered);
+        
         const { first_name,last_name,email,pass,confirmPass,phone_no,gender} = this.state;
 
         console.table("fname:",first_name, "lname:",last_name, "email:",email, "pass:",pass, "cpass:",confirmPass,"number:",phone_no ,"gender:",gender)
-console.log(this.props.isRegister)
+// console.log(this.props.registered)
         return (
             <div>
                 <Navbar />
@@ -289,7 +305,7 @@ console.log(this.props.isRegister)
 }
 const mapStateToProps = state => {
     return {
-      isRegister:state.register.isRegister
+      registered:state.register.isRegister
       
     };
     
@@ -298,9 +314,9 @@ const mapStateToProps = state => {
   
   const mapDispatchToProps = dispatch => {
     return {
-      onRegister: (payload) => dispatch(actions.register(payload))
+      onRegister: (payload) => dispatch(actions.register(payload)) 
     }
   }
   
-  export default connect(null, mapDispatchToProps)(RegisterPage);
+  export default connect(mapStateToProps, mapDispatchToProps)(RegisterPage);
 // export default RegisterPage
