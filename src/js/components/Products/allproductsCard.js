@@ -1,18 +1,37 @@
-import React from 'react'
+// import React from 'react'
+
 import { ROOT_URL } from '../../api/globals'
+import { Link } from 'react-router-dom'
 import './allproductCard.css'
 import Rating from "@material-ui/lab/Rating";
-function AllProductCard(props) {
-  const productDetails = props.card;
 
 
-  return (
+import React, { Component } from 'react'
+import { connect } from 'react-redux';
+import * as actions from '../../redux/actions/index';
+ class AllproductsCard extends Component {
 
-    <div className="product-card m-3">
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+       pro_id:"",
+    }
+  }
+  handleclick=(p_id)=>{
+    this.props.onGetProductID({p_id})
+  }
+
+  render() {
+    const productDetails =this.props.card;
+
+    return (
+      <div>
+        <div className="product-card m-3">
       <div className="card " >
         <img className="card-img-top" src={ROOT_URL + productDetails.product_image} alt="Card image" />
         <div className="card-body">
-          <h6 className="card-title text-center"><a href="#">{productDetails.product_name}</a></h6>
+          <h6 className="card-title text-center"><Link to="/ProductDetails"><a href="#" onClick={()=>this.handleclick(productDetails.product_id)}>{productDetails.product_name}</a></Link></h6>
        
         </div>
         <div className="text-center">
@@ -26,8 +45,20 @@ function AllProductCard(props) {
         </div>
       </div>
     </div>
-
-  )
+      </div>
+    )
+  }
 }
 
-export default AllProductCard
+// export default AllproductsCard
+
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onGetProductID: (payload) => dispatch(actions.getproductid(payload)),
+  //    onproductbycateg:()=>dispatch(actions.getproductbycateg()),
+  }
+}
+
+export default connect(null, mapDispatchToProps)(AllproductsCard);
+

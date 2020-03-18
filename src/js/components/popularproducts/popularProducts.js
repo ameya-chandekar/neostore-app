@@ -37,7 +37,7 @@ export class PopularProducts extends Component {
   render() {
     //console.log('Product ::', this.props)
     return (
-      <div className="popular-products text-center">
+      <div className="popular-products text-center container">
         <div className="row">
           <div className="col-12">
             <div className="popular-product-wraapper mt-5 mb-5">

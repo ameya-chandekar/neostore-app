@@ -4,4 +4,4 @@ export const LOG_IN ='LOG_IN';
 export const REGISTER="REGISTER";
 export const GET_PRODUCT_BY_CATEG="GET_PRODUCT_BY_CATEG";
 export const GET_PRODUCT_BY_COLOR="GET_PRODUCT_BY_COLOR";
-
+export const PRODUCT_ID="PRODUCT_ID"

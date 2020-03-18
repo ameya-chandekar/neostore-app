@@ -9,6 +9,7 @@ import ContactUs from './js/components/footer/contactUs/contactUs'
 import locateUs from './js/components/footer/locateUs/locateUs';
 import Subscribe from './js/screens/subscribe';
 import Cart from './js/components/cart/cart'
+import ProductDetails from './js/components/Products/productdetails/productDetails';
 function App() {
     return (
         <Router>
@@ -23,6 +24,7 @@ function App() {
                 <Route exact path="/ContactUs" component={ContactUs}/>
                 <Route exact path="/Subscribe" component={Subscribe}/>
                 <Route exact path="/Cart" component={Cart}/>
+                <Route exact path="/ProductDetails" component={ProductDetails}/>
             </Switch>
 
 

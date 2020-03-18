@@ -23,12 +23,24 @@ export const API = {
 	getAllProduct: (data, cb) => request(data, cb, GET_ALL_PRODUCT),
 	
 	getProductByCateg: (data, cb) => {
-		GET_PRODUCT_BY_CATEG.url = GET_PRODUCT_BY_CATEG.url + data;
-		return request({}, cb, GET_PRODUCT_BY_CATEG)
+		// console.log("data inside api file",data)
+		// console.log("produccateg uyrl", GET_PRODUCT_BY_CATEG)
+
+		// GET_PRODUCT_BY_CATEG.url = GET_PRODUCT_BY_CATEG.url + data;
+		// return request({}, cb, GET_PRODUCT_BY_CATEG)
+		return request({}, cb, { type: 'GET', url: `${ROOT_URL}getProductByCateg/${data}`})
+		
 	},
+
+	// getProductByCateg: (data, cb) => {
+	// 	//GET_PRODUCT_BY_CATEG.url = GET_PRODUCT_BY_CATEG.url + data;
+	// 	return request({}, cb, { type: 'GET', url: `${ROOT_URL}getProductByCateg/${data}` })
+	// },
+
 	getProductByColor: (data, cb) => {
-		GET_PRODUCT_BY_COLOR.url = GET_PRODUCT_BY_COLOR.url + data;
-		return request({}, cb, GET_PRODUCT_BY_COLOR)
+		// GET_PRODUCT_BY_COLOR.url = GET_PRODUCT_BY_COLOR.url + data;
+		// return request({}, cb, GET_PRODUCT_BY_COLOR)
+		return request({}, cb, { type: 'GET', url: `${ROOT_URL}getProductBycolor/${data}` })
 	},
 	register:(data ,cb)=>request(data, cb, REGISTER),
 	logIn:(data,cb)=> request(data,cb,LOG_IN ),

@@ -12,18 +12,15 @@ const productbycolrid = (payload) => {
 export const getproductbycolor = (payload) => {
     return (dispatch, getState) => {
         // let data={}
-        
         const data =payload.color_id
         console.log("kkkkkkk",data);
         let cb = {
             success: (res) => {
-                console.log("on api calllllllll",res);
-                const newState={
-                  
+                console.log("on api colorrrr   calllllllll",res);
+                const newState={   
                     productdetails:[...res.product_details]
                 }
                 dispatch(productbycolrid(newState))
-
             },
             error: (err) => {
             //    console.log("abcdegjhhhhhh",err)

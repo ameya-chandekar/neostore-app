@@ -12,6 +12,7 @@ import allProductReducer from '../reducers/allProductReducer'
 import loginReducer from '../reducers/loginReducer'
 import registerReducer from '../reducers/registerReducer'
 import productListingReducer from '../reducers/productListingReducer'
+import productidreducer from '../reducers/productIdReducer'
 // MiddleWare
 import thunk from 'redux-thunk';
 
@@ -24,7 +25,7 @@ const AppRootReducer = combineReducers({
     login:loginReducer,
     register:registerReducer,
     productbycateg:productListingReducer,
-
+    productid:productidreducer,
    
 
 })

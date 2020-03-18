@@ -29,9 +29,6 @@ class CategoriesAccordian extends Component {
             // this.setState({
             //     cat_id:catogorie_id
             // })
-           
-             
-           
          console.log("categorie id to be passed",catogorie_id)
         this.props.onproductbycateg({catogorie_id})
         
@@ -151,7 +148,7 @@ class CategoriesAccordian extends Component {
 
 const mapStateToProps = state => {
     return {   
-    //   productbycateg:state.productbycateg.productdetails.productbycateg.product_details,
+   
     };
     
     
@@ -167,7 +164,7 @@ const mapStateToProps = state => {
   export default connect(mapStateToProps, mapDispatchToProps)(CategoriesAccordian);
   
 
-// export default CategoriesAccordian
+
 
 
 
