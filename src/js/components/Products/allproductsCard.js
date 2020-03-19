@@ -20,7 +20,7 @@ import * as actions from '../../redux/actions/index';
   }
   handleclick=(p_id)=>{
     this.props.onGetProductID({p_id})
-    console.log(p_id,"onclicj id to be passs");
+    console.log(p_id,"onclick id to be passs");
     
   }
 

@@ -16,10 +16,18 @@ export class ProductDetails extends Component {
   
     this.state = {
       data:[],
-     product_id:""  
+     product_id:"",
+     imageurl:""  
     }
   }
+handleimage=(imgurl)=>{
+  const url =imgurl;
+console.log(url,"879896re9r8w89er98w7r97r98wer986wr7w6rwe869r");
+this.setState({
+imageurl:url
+})
 
+}
   
 
   componentDidMount() {
@@ -33,10 +41,10 @@ export class ProductDetails extends Component {
 }
 
   render() {
-
+const {imageurl}=this.state
      console.log("product ------------- id",this.props.productid );
     const product_details = this.props.allProduct[0]?this.props.allProduct[0]:[];
-
+    const subimages=product_details.subImages_id?product_details.subImages_id.product_subImages:[];
    console.log("inside product detailsasmsnlaskndlkandlakdnalkndadalnaldna ",product_details)
     return (
       <div>
@@ -44,8 +52,25 @@ export class ProductDetails extends Component {
         <div className="product-detail container">
           <div className="row mt-5">
             <div className="col-lg-6 col-md-12">
-              <div>
-                <div className="details-img" ><img src={ROOT_URL+product_details.product_image}/></div>
+              <div classname="row">
+                <div className="details-img" ><img src={imageurl?imageurl:ROOT_URL+product_details.product_image}/></div>
+              </div>
+              <div className="row" style={{margin:"20px"}}>
+
+                {
+                  // console.log(subimages,"for map") 
+                subimages.map((el)=>{
+                  console.log(el)
+                return(
+                    <div className="col-4" style={{width:"50px",height:"80px" ,border:"1px solid"}}>
+                   <img src={ROOT_URL+el} style={{width:"100%",height:"100%", padding:"10px"}} 
+                   onClick={()=>this.handleimage(ROOT_URL+el)}/>
+                 </div>
+                )  
+               
+                })
+                }
+               
               </div>
             </div>
             <div className="col-lg-6 col-md-12">
