@@ -14,7 +14,9 @@ import registerReducer from '../reducers/registerReducer'
 import productListingReducer from '../reducers/productListingReducer'
 import productidreducer from '../reducers/productIdReducer'
 // MiddleWare
+
 import thunk from 'redux-thunk';
+
 
 //env
 
@@ -62,7 +64,7 @@ const devTools = composeEnhancers(applyMiddleware(...middlewares));
 const persistConfig = {
     key: 'root',
     storage: storage,
-    whitelist: [],
+    whitelist: ['productid'],
     stateReconciler: autoMergeLevel2,
 }
 

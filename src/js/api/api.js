@@ -8,8 +8,8 @@ const live = false;
 
 const GET_PRODUCT = { type: 'GET', url: ROOT_URL + 'defaultTopRatingProduct/' };
 const GET_ALL_PRODUCT = { type: 'GET', url: ROOT_URL + 'commonProducts/' };
-const GET_PRODUCT_BY_CATEG = { type: 'GET', url: ROOT_URL+'getProductByCateg/' };
-const GET_PRODUCT_BY_COLOR = { type: 'GET', url: ROOT_URL+'getProductBycolor/' };
+// const GET_PRODUCT_BY_CATEG = { type: 'GET', url: ROOT_URL+'getProductByCateg/' };
+// const GET_PRODUCT_BY_COLOR = { type: 'GET', url: ROOT_URL+'getProductBycolor/' };
 
 const GET_ALL_CATEGORIES={type:'GET',url:ROOT_URL+'getAllCategories/'};
 const GET_ALL_COLORS={type:'GET',url:ROOT_URL+'getAllColors/'};
@@ -42,6 +42,12 @@ export const API = {
 		// return request({}, cb, GET_PRODUCT_BY_COLOR)
 		return request({}, cb, { type: 'GET', url: `${ROOT_URL}getProductBycolor/${data}` })
 	},
+
+
+	getProductById: (data, cb) => {
+		return request({}, cb, { type: 'GET', url: `${ROOT_URL}getProductByProdId/${data}` })
+	},
+
 	register:(data ,cb)=>request(data, cb, REGISTER),
 	logIn:(data,cb)=> request(data,cb,LOG_IN ),
 };

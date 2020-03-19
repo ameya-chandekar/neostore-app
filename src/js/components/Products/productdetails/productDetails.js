@@ -8,72 +8,73 @@ import Rating from "@material-ui/lab/Rating";
 import '../productdetails/productDetails.css' 
 import { connect } from 'react-redux';
 import * as actions from '../../../redux/actions';
+import {ROOT_URL} from '../../../api/globals'
 export class ProductDetails extends Component {
   
   constructor(props) {
     super(props)
   
     this.state = {
-      data:[]
-       
+      data:[],
+     product_id:""  
     }
   }
 
-
+  
 
   componentDidMount() {
-       
-    this.props.onGetAllProduct()
- 
+    const {productid}=this.props
+    // this.setState({
+    //   product_id:productid,
+    // }) 
+    // const {product_id}=this.state
+    this.props.onGetProductByid({productid})
 
 }
+
   render() {
-const {productid}=this.props
+
      console.log("product ------------- id",this.props.productid );
-    const product_details = this.props.allProduct?this.props.allProduct:[];
-    const product = product_details.filter((productid)=>{
-      return product_details.product_id==this.props.productid
-      console.log("inside filter",productid);
-      
-    })
-console.log("final product daata",product);
-    
+    const product_details = this.props.allProduct[0]?this.props.allProduct[0]:[];
+
+   console.log("inside product detailsasmsnlaskndlkandlakdnalkndadalnaldna ",product_details)
     return (
       <div>
         <Navbar />
         <div className="product-detail container">
-          <div className="row">
+          <div className="row mt-5">
             <div className="col-lg-6 col-md-12">
               <div>
-                <div className="details-img">{/* <img src={ }/> */}</div>
+                <div className="details-img" ><img src={ROOT_URL+product_details.product_image}/></div>
               </div>
             </div>
             <div className="col-lg-6 col-md-12">
               <div>
-                <h1>WInchester fabric sofa</h1>
+                <h1>{product_details.product_name}</h1>
                 <span><Rating
                 name="read-only"
-                // value={productDetails.product_rating}
+                 value={product_details.product_rating}
                 readOnly
               /></span>
                 <hr />
-                <div>price:₹</div>
+                <div className="mt-2 mb-2">price:₹ <span>{product_details.product_cost}</span></div>
                 <div>
-                  color:<span className="item-color"></span>
+                  {/* color:<span className="item-color" style={{backgroundColor:product_details.colo_id.color_code}}></span> */}
+                </div>
+                <div className="mt-2 mb-2">
+                  <span>Share</span>  <span><i class="fa fa-share-alt"></i></span>
+                </div>
+                <div className=" sharebtn row mt-2 mb-2">
+                  <div className="col"><button className="btn btn-primary" ><i class="fa fa-facebook-square"></i></button></div>
+                  <div className="col"><button className="btn btn-danger"><i class="fa fa-google"></i></button></div>
+                  <div className="col"><button className="btn btn-success"><i class="fa fa-whatsapp"></i></button></div>
+                  <div className="col"><button className="btn btn-danger"><i class="fa fa-pinterest"></i></button></div>
+                  <div className="col"><button className="bbtn btn-info  "><i class="fa fa-twitter"></i></button></div>    
                 </div>
                 <div>
-                  share<span></span>
-                </div>
-                <div className="sharebtn">
-                  <button className="btn btn-primary" >Fb</button>
-                  <button className="btn btn-danger">G</button>
-                  <button className="btn btn-success">WA</button>
-                  <button className="btn btn-danger">P</button>
-                  <button className="bbtn btn-info">TW</button>
-                </div>
-                <div>
-                  <button className="btn btn-info ">Add to cart</button>
-                  <button className="btn btn-danger">Rate Product</button>
+                  <button className="btn btn-info mr-2">Add to cart</button>
+                  <span></span>
+                  <button className="btn btn-danger ml-2">Rate Product</button>
                 </div>
               </div>
             </div>
@@ -114,7 +115,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onGetAllProduct: () => dispatch(actions.getAllProduct()),
+    onGetProductByid: (payload) => dispatch(actions.getProductById(payload)),
   //    onproductbycateg:()=>dispatch(actions.getproductbycateg()),
   }
 }
