@@ -15,7 +15,7 @@ const GET_ALL_CATEGORIES={type:'GET',url:ROOT_URL+'getAllCategories/'};
 const GET_ALL_COLORS={type:'GET',url:ROOT_URL+'getAllColors/'};
 const REGISTER ={type :'POST',url:ROOT_URL+'register/' };
 const LOG_IN ={ type : 'POST' ,url:ROOT_URL + 'login/'};
-
+const ADD_TO_CART ={type :'POST',url:ROOT_URL+'addDataToCart/' };
 export const API = {
 	getProduct: (data, cb) => request(data, cb, GET_PRODUCT),
 	getAllCategories: (data, cb) => request(data, cb, GET_ALL_CATEGORIES),
@@ -47,7 +47,7 @@ export const API = {
 	getProductById: (data, cb) => {
 		return request({}, cb, { type: 'GET', url: `${ROOT_URL}getProductByProdId/${data}` })
 	},
-
+	addtocart:(data ,cb)=>request(data, cb, ADD_TO_CART),
 	register:(data ,cb)=>request(data, cb, REGISTER),
 	logIn:(data,cb)=> request(data,cb,LOG_IN ),
 };

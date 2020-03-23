@@ -4,6 +4,9 @@ import Corousel from "./corousel"
 import Footer from "../footer/footer";
 import "./homepage.css";
 import PopularProducts from "../popularproducts/popularProducts";
+import Addnewaddress from "../usersection/address/addnewaddress";
+import RecoverPassword from '../login/recoverPassword'
+
 export class HomePage extends Component {
   
 
@@ -14,11 +17,11 @@ export class HomePage extends Component {
       <div>
             
         <Navbar />
-
-        <Corousel/>
-        
-          <PopularProducts/>
+        <Corousel/> 
+        <PopularProducts/>
         <Footer/>
+        <Addnewaddress/>
+        <RecoverPassword/>
    
       </div>
     );

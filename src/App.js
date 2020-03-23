@@ -10,6 +10,7 @@ import locateUs from './js/components/footer/locateUs/locateUs';
 import Subscribe from './js/screens/subscribe';
 import Cart from './js/components/cart/cart'
 import ProductDetails from './js/components/Products/productdetails/productDetails';
+import Userdashboard from './js/components/usersection/userdashboard'
 function App() {
     return (
         <Router>
@@ -25,6 +26,7 @@ function App() {
                 <Route exact path="/Subscribe" component={Subscribe}/>
                 <Route exact path="/Cart" component={Cart}/>
                 <Route exact path="/ProductDetails" component={ProductDetails}/>
+                <Route exact path="/Userdashboard" component={Userdashboard}/>
             </Switch>
 
 

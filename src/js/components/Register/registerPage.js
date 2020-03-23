@@ -15,6 +15,7 @@ import  RadioGroup from '@material-ui/core/RadioGroup'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Radio from '@material-ui/core/Radio';
 import FormLabel from '@material-ui/core/FormLabel';
+import FormHelperText from'@material-ui/core/FormHelperText'
 
 import Navbar from '../navbar/navbar'
 import Footer from '../footer/footer'
@@ -37,7 +38,16 @@ export class RegisterPage extends Component {
             confirmPass:'',
             phone_no:'',
             gender:'male',
-            submitted: false,
+
+            first_nameError:'',
+            last_nameError:'',
+            emailError:'',
+            passError:'',
+            confirmPassError:'',
+            phone_noError:'',
+            
+
+            submittedError: false,
         }
     }
     handleClickShowPassword = () => {
@@ -59,6 +69,7 @@ handleChange=(e) =>{
     
 }
   handleSubmit= async(e)=> {
+    this.handlefnameChange();
     e.preventDefault();
 
 
@@ -91,13 +102,99 @@ componentDidUpdate(prevProps){
     }
 }
 
+
+
+//functions for validattions 
+handlefnameChange=(e)=>{
+    if(e.target.value=='')
+    {
+        this.setState({first_nameError:'Please enter first name'})
+        
+    }
+    else if(e.target.value.match(/^[a-zA-Z]*$/)){
+        this.setState({first_nameError:''})
+    }
+    else
+    {
+        this.setState({first_nameError:'cannot have number'})
+    }
+}
+handlelnameChange=(e)=>{
+    if(e.target.value=='')
+    {
+        this.setState({last_nameError:'Please enter last name'})
+    }
+    else if(e.target.value.match(/^[a-zA-Z]*$/)){
+        this.setState({last_nameError:''})
+    }
+    else
+    {
+        this.setState({last_nameError:''})
+    }
+}
+
+handleEmailChange=(e)=>{
+    if(e.target.value=='')
+    {
+        this.setState({emailError:'Please enter Email '})
+    }
+    else if(/^([a-zA-Z])+([0-9a-zA-Z\.\-])+\@+(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,10})+$/.test(e.target.value))
+    {
+        this.setState({emailError:''})
+    }
+    else
+    {
+        this.setState({emailError:'Enter a valid email'})
+    }
+}
+
+handlePassChange=(e)=>{
+    const  cond = /^[A-Za-z]\w{7,11}$/;
+     if(e.target.value=='')
+     {
+         this.setState({passError:'Please enter password '})
+     }
+     else if(e.target.value.match(cond))
+     {
+         this.setState({passError:''})
+     }
+     else
+     {
+         this.setState({passError:'password should have 8-12 characters and should contain only aplhanumeric values'})
+     }
+ }
+
+ handlePhoneNumber=(e)=>{
+    if(e.target.value=='')
+    {
+        this.setState({phone_noError:'Number Requred'})
+    }
+  
+    else
+    {
+        this.setState({phone_noError:''})
+    }
+}
+
+isNumber=(evt)=> {
+
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      
+        this.setState({phone_noError:'* only numbers allowed'}) 
+
+        return false;
+    }
+    return true;
+}
     render() {
-        console.log("----------------------",this.props.registered);
+        // console.log("----------------------",this.props.registered);
         
         const { first_name,last_name,email,pass,confirmPass,phone_no,gender} = this.state;
 
         console.table("fname:",first_name, "lname:",last_name, "email:",email, "pass:",pass, "cpass:",confirmPass,"number:",phone_no ,"gender:",gender)
-// console.log(this.props.registered)
+console.log(this.props.registered)
         return (
             <div>
                 <Navbar />
@@ -109,14 +206,15 @@ componentDidUpdate(prevProps){
                         </div>
                         <div className="row">
                             <div className="col-12">
-                                <div class="card card-signin my-5">
+                                <div class=" card-signin my-5">
                                     <div class="card-body">
                                         <h3 class=" card-title text-left">
                                             <b>Register to NeoSTORE</b></h3>
                                         <form class="form-signin" onSubmit={this.handleSubmit}>
                                             <div class="form-label-group">
                                                 {/* <input type="email" id="inputEmail" class="form-control mt-3 mb-4 pt-4 pb-4" placeholder="Email Address" required autofocus /> */}
-                                                <FormControl className="form-control" variant="outlined">
+                                                <FormControl className="form-control" variant="outlined" error={this.state.first_nameError ? true:false}
+                                            onChange={this.handlefnameChange} onBlur={this.handlefnameChange}>
                                                     <InputLabel htmlFor="outlined-adornment-email">First Name</InputLabel>
                                                     <OutlinedInput
                                                         id="outlined-adornment-email"
@@ -137,13 +235,15 @@ componentDidUpdate(prevProps){
                                                         }
                                                         labelWidth={70}
                                                     />
+                                                     <FormHelperText id="component-error-text">{this.state.first_nameError}</FormHelperText>
                                                 </FormControl>
 
                                             </div>
 
                                             <div class="form-label-group">
                                                 {/* <input type="email" id="inputEmail" class="form-control mt-3 mb-4 pt-4 pb-4" placeholder="Email Address" required autofocus /> */}
-                                                <FormControl className="form-control" variant="outlined">
+                                                <FormControl className="form-control" variant="outlined" error={this.state.last_nameError ? true:false}
+                                            onChange={this.handlelnameChange} onBlur={this.handlelnameChange}>
                                                     <InputLabel htmlFor="outlined-adornment-email">Last name</InputLabel>
                                                     <OutlinedInput
                                                         id="outlined-adornment-email"
@@ -164,13 +264,15 @@ componentDidUpdate(prevProps){
                                                         }
                                                         labelWidth={70}
                                                     />
+                                             <FormHelperText id="component-error-text">{this.state.last_nameError}</FormHelperText>
+                                                
                                                 </FormControl>
 
                                             </div>
 
                                             <div class="form-label-group">
                                                 {/* <input type="email" id="inputEmail" class="form-control mt-3 mb-4 pt-4 pb-4" placeholder="Email Address" required autofocus /> */}
-                                                <FormControl className="form-control" variant="outlined">
+                                                <FormControl className="form-control" variant="outlined"  error={this.state.emailError ? true:false}onChange={this.handleEmailChange} onBlur={this.handleEmailChange}>
                                                     <InputLabel htmlFor="outlined-adornment-email">Email Address</InputLabel>
                                                     <OutlinedInput
                                                         id="outlined-adornment-email"
@@ -191,13 +293,14 @@ componentDidUpdate(prevProps){
                                                         }
                                                         labelWidth={70}
                                                     />
+                                                    <FormHelperText id="component-error-text">{this.state.emailError}</FormHelperText>
                                                 </FormControl>
 
                                             </div>
 
                                             <div class="form-label-group">
                                                 {/* <input type="password" id="inputPassword" class="form-control mb-3 pt-4 pb-4" placeholder="Password" required /> */}
-                                                <FormControl className="formControl" variant="outlined">
+                                                <FormControl className="formControl" variant="outlined"  error={this.state.passError ? true:false}onChange={this.handlePassChange} onBlur={this.handlePassChange}>
                                                     <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                                                     <OutlinedInput
                                                         id="outlined-adornment-password"
@@ -220,12 +323,13 @@ componentDidUpdate(prevProps){
                                                         }
                                                         labelWidth={70}
                                                     />
+                                                    <FormHelperText id="component-error-text">{this.state.passError}</FormHelperText>
                                                 </FormControl>
                                             </div>
 
                                             <div class="form-label-group">
                                                 {/* <input type="password" id="inputPassword" class="form-control mb-3 pt-4 pb-4" placeholder="Password" required /> */}
-                                                <FormControl className="formControl" variant="outlined">
+                                                <FormControl className="formControl" variant="outlined" >
                                                     <InputLabel htmlFor="outlined-adornment-password">Confirm Password</InputLabel>
                                                     <OutlinedInput
                                                         id="outlined-adornment-password"
@@ -253,7 +357,9 @@ componentDidUpdate(prevProps){
 
                                             <div class="form-label-group">
                                                 {/* <input type="email" id="inputEmail" class="form-control mt-3 mb-4 pt-4 pb-4" placeholder="Email Address" required autofocus /> */}
-                                                <FormControl className="form-control" variant="outlined">
+                                                <FormControl className="form-control" variant="outlined" error={this.state.phone_noError ? true:false}onChange={this.handlePhoneNumber} onBlur={this.handlePhoneNumber}
+                                                onKeyUp={this.isNumber}>
+                                                
                                                     <InputLabel htmlFor="outlined-adornment-email">Mobile Number</InputLabel>
                                                     <OutlinedInput
                                                         id="outlined-adornment-email"
@@ -274,6 +380,7 @@ componentDidUpdate(prevProps){
                                                         }
                                                         labelWidth={70}
                                                     />
+                                                    <FormHelperText id="component-error-text">{this.state.phone_noError}</FormHelperText>
                                                 </FormControl>
 
                                             </div>

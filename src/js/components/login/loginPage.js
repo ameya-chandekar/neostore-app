@@ -21,6 +21,7 @@ import Footer from '../footer/footer'
 import "./loginPage.css"
 import { connect } from 'react-redux';
 import * as actions from '../../redux/actions/logInAction';
+import FormHelperText from'@material-ui/core/FormHelperText'
 
 const responseGoogle = (response) => {
     console.log(response);
@@ -35,7 +36,10 @@ export class LoginPage extends Component {
             showPassword: false,
             username: '',
             password: '',
-            submitted: false
+            submitted: false,
+            emailErrorText:'',
+            passErrorText:'',
+            // errormsg:"czxsc"
         }
     }
     
@@ -77,15 +81,50 @@ export class LoginPage extends Component {
 componentDidUpdate(prevProps){
     if(this.props.isLogin){
         console.log("redirected");
-    this.props.history.push('/Products')
+    this.props.history.push('/Userdashboard')
    
     
     }
    
 }
+
+
+// Functions for validation
+
+handleEmailChange=(e)=>{
+    if(e.target.value=='')
+    {
+        this.setState({emailErrorText:'Please enter Email '})
+    }
+    else if(/^([a-zA-Z])+([0-9a-zA-Z\.\-])+\@+(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,10})+$/.test(e.target.value))
+    {
+        this.setState({emailErrorText:''})
+    }
+    else
+    {
+        this.setState({emailErrorText:'Enter a valid email'})
+    }
+}
+handlePassChange=(e)=>{
+   const  cond = /^[A-Za-z]\w{7,11}$/;
+    if(e.target.value=='')
+    {
+        this.setState({passErrorText:'Please enter password '})
+    }
+    else if(e.target.value.match(cond))
+    {
+        this.setState({passErrorText:''})
+    }
+    else
+    {
+        this.setState({passErrorText:'password should have 8-12 characters and should contain only aplhanumeric values'})
+    }
+}
+
     render() {
         console.log("username",this.state.username);
         console.log("password",this.state.password);
+        // console.log("user response after login",this.props.userdetails.token)
 
         return (
 
@@ -99,7 +138,7 @@ componentDidUpdate(prevProps){
                                 <GoogleLogin
                                     clientId="1046035359147-c0uasts79ddvoa7obt5fltk2dud9b3sr.apps.googleusercontent.com"
                                     render={renderProps => (
-                                        <button className="btn google-btn" onClick={renderProps.onClick} disabled={renderProps.disabled}><b><i class="fa fa-google"></i>Login With Google</b></button>
+                                        <button className="btn google-btn" onClick={renderProps.onClick} disabled={renderProps.disabled}><b><i class="fa fa-google"></i> Login With Google</b></button>
                                     )}
                                     buttonText="Login"
                                     onSuccess={responseGoogle}
@@ -120,13 +159,15 @@ componentDidUpdate(prevProps){
                                     <form class="form-signin" onSubmit={this.handleSubmit}>
                                         <div class="form-label-group">
                                             {/* <input type="email" id="inputEmail" class="form-control mt-3 mb-4 pt-4 pb-4" placeholder="Email Address" required autofocus /> */}
-                                            <FormControl className="form-control" variant="outlined">
+                                            <FormControl className="form-control" variant="outlined" error={this.state.emailErrorText ? true:false}
+                                            onChange={this.handleEmailChange} onBlur={this.handleEmailChange}>
                                                 <InputLabel htmlFor="outlined-adornment-email">Email</InputLabel>
                                                 <OutlinedInput
                                                     id="username"
                                                     name="username"
                                                     type="text"
                                                     onChange={this.handleChange}
+                                                    errorText={this.state.errormsg}
                                                     //   value={this.state.password}
 
                                                     endAdornment={
@@ -141,12 +182,14 @@ componentDidUpdate(prevProps){
                                                     }
                                                     labelWidth={70}
                                                 />
+                                                 <FormHelperText id="component-error-text">{this.state.emailErrorText}</FormHelperText>
                                             </FormControl>
                                         </div>
 
                                         <div class="form-label-group">
                                             {/* <input type="password" id="inputPassword" class="form-control mb-3 pt-4 pb-4" placeholder="Password" required /> */}
-                                            <FormControl className="formControl" variant="outlined">
+                                            <FormControl className="formControl" variant="outlined" error={this.state.passErrorText ? true:false}
+                                            onChange={this.handlePassChange} onBlur={this.handlePassChange}>
                                                 <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                                                 <OutlinedInput
                                                     id="password"
@@ -168,10 +211,11 @@ componentDidUpdate(prevProps){
                                                     }
                                                     labelWidth={70}
                                                 />
+                                                <FormHelperText id="component-error-text">{this.state.passErrorText}</FormHelperText>
                                             </FormControl>
                                         </div>
                                         <div>
-                                            <button  class="btn btn-danger text-uppercase float-left" type="submit">Login</button>
+                                            <button  class="btn btn-danger text-uppercase float-left mb-5" type="submit">Login</button>
                                         </div>
                                     </form>
                                 </div>
@@ -198,7 +242,8 @@ componentDidUpdate(prevProps){
 
 const mapStateToProps = state => {
     return {
-      isLogin:state.login.isLogin
+      isLogin:state.login.isLogin,
+      userdetails:state.login.userdetails
       
     };
     

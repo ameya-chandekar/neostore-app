@@ -18,7 +18,13 @@ import * as actions from '../../redux/actions/index';
        pro_id:"",
     }
   }
-  handleclick=(p_id)=>{
+
+  handlecart=(p_id)=>{
+    this.props.onaddtocart({p_id})
+
+  }
+
+  handledetails=(p_id)=>{
     this.props.onGetProductID({p_id})
     console.log(p_id,"onclick id to be passs");
     
@@ -33,12 +39,12 @@ import * as actions from '../../redux/actions/index';
       <div className="card " >
         <img className="card-img-top" src={ROOT_URL + productDetails.product_image} alt="Card image" />
         <div className="card-body">
-          <h6 className="card-title text-center"><Link to="/ProductDetails"><a href="#" onClick={()=>this.handleclick(productDetails.product_id)}>{productDetails.product_name}</a></Link></h6>
+          <h6 className="card-title text-center"><Link to="/ProductDetails"><a href="#" onClick={()=>this.handledetails(productDetails.product_id)}>{productDetails.product_name}</a></Link></h6>
        
         </div>
         <div className="text-center">
         <p className="card-text"><b>₹{productDetails.product_cost}</b></p>
-          <button href="#" className="btn btn-danger"><b>Add To Cart</b></button>
+          <button href="#" className="btn btn-danger" onClick={()=>{this.handlecart(productDetails.product_id)}}><b>Add To Cart</b></button>
           <p><Rating
                 name="read-only"
                 value={productDetails.product_rating}
@@ -58,7 +64,8 @@ import * as actions from '../../redux/actions/index';
 const mapDispatchToProps = dispatch => {
   return {
     onGetProductID: (payload) => dispatch(actions.getproductid(payload)),
-  //    onproductbycateg:()=>dispatch(actions.getproductbycateg()),
+    onaddtocart: (payload) => dispatch(actions.addToCart(payload)),
+
   }
 }
 
