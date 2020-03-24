@@ -150,14 +150,14 @@ handlePassChange=(e)=>{
                             </div>
 
                         </div>
-                        <div className="col-lg-6 col-md-12">
+                        <div className="col-lg-6 col-md-12 login-card mt-3">
 
-                            <div class="card card-signin my-5">
-                                <div class="card-body">
+                            <div class=" card-signin my-5">
+                                <div class="">
                                     <h3 class=" card-title text-left">
                                         <b>Login to NeoSTORE</b></h3>
                                     <form class="form-signin" onSubmit={this.handleSubmit}>
-                                        <div class="form-label-group">
+                                        <div class="mb-3 mt-3">
                                             {/* <input type="email" id="inputEmail" class="form-control mt-3 mb-4 pt-4 pb-4" placeholder="Email Address" required autofocus /> */}
                                             <FormControl className="form-control" variant="outlined" error={this.state.emailErrorText ? true:false}
                                             onChange={this.handleEmailChange} onBlur={this.handleEmailChange}>
@@ -186,7 +186,7 @@ handlePassChange=(e)=>{
                                             </FormControl>
                                         </div>
 
-                                        <div class="form-label-group">
+                                        <div class="mb-3 mt-5">
                                             {/* <input type="password" id="inputPassword" class="form-control mb-3 pt-4 pb-4" placeholder="Password" required /> */}
                                             <FormControl className="formControl" variant="outlined" error={this.state.passErrorText ? true:false}
                                             onChange={this.handlePassChange} onBlur={this.handlePassChange}>

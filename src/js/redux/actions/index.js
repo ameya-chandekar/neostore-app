@@ -7,3 +7,4 @@ export {getproductbycolor} from './getproductbycoloraction';
 export {getproductid} from './producIdAction';
 export {getProductById} from './getProductByIdaction';
 export {addToCart} from'./adddtocartaction';
+export {addAddress} from './addAddressAction'

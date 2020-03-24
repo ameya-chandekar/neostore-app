@@ -12,6 +12,7 @@ import FormControl from "@material-ui/core/FormControl";
 // import TextField from "@material-ui/core/TextField";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import FormHelperText from'@material-ui/core/FormHelperText'
 
 import Navbar from "../navbar/navbar";
 import Footer from "../footer/footer";
@@ -24,11 +25,28 @@ import Footer from "../footer/footer";
     // this.props.logout();
 
     this.state = {
+      otp:'',
+      newPassword:'',
+      confirmPassword:'',
       showPassword: false,
+      submitted: false,
+      otpError:'',
+      passwordError:'',
+      confirmPasswordError:'',
 
-      submitted: false
+
+
+
+
     };
   }
+//this to set state as per value
+  handleChange=(e) =>{
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+    
+}
+
 
   //this is for password show/hide toggle
   handleClickShowPassword = () => {
@@ -42,44 +60,97 @@ import Footer from "../footer/footer";
     });
   };
 
+
+  handleotpChange=(e)=>{
+    if(e.target.value=='')
+    {
+        this.setState({otpError:'Please enter OTP'})
+        
+    }
+    else
+    {
+        this.setState({otpError:''})
+    }
+}
+
+handlepassChange=(e)=>{
+  const  cond = /^[A-Za-z]\w{7,11}$/;
+   if(e.target.value=='')
+   {
+       this.setState({passwordError:'Please enter password '})
+   }
+   else if(e.target.value.match(cond))
+   {
+       this.setState({passwordError:''})
+   }
+   else
+   {
+       this.setState({passwordError:'password should have 8-12 characters and should contain only aplhanumeric values'})
+   }
+}
+
+handlecpassChange=(e)=>{
+  
+   if(e.target.value=='')
+  {
+    this.setState({confirmPasswordError:'Please enter confirm password '})
+  }
+  else if(this.state.newPassword==this.state.confirmPassword){
+    this.setState({confirmPasswordError:''})
+  }
+else if(this.state.newPassword!=this.state.confirmPassword){
+  this.setState({confirmPasswordError:'should match with new password'})
+}
+  else
+   {
+       this.setState({confirmPasswordError:''})
+   }
+}
   render() {
     return (
       <div>
         <Navbar />
-        <div
-          className="recover-password mt-3 mb-3 text-center ml-auto mr-auto"
-          style={{ border: "1px groove", borderRadius:"5px", width: "40%" }}
+        <div className="row">
+          <div className="col-4"></div>
+          <div
+          className="recover-password my-3 text-center col-lg-4 col-md-12"
+          style={{ border: "1px groove", borderRadius:"5px", width: "" }}
         >
           <form>
             <div>
               <h3>Recover password</h3>
-             <div><hr/></div>
+             <div className="mx-3"><hr/></div>
             </div>
             <div>
-              {" "}
-              <p> Verification code has been sent to your registered mail ID</p>
+             
+              <p style={{color:"red",fontSize:"13px"}}> <b>* Verification code has been sent to your registered mail ID</b></p>
             </div>
             <div className="mb-5 ml-3 mr-3 ">
-              <FormControl className="form-control" variant="outlined">
+              <FormControl className="form-control" variant="outlined" error={this.state.otpError ? true:false}
+                                            onChange={this.handleotpChange} onBlur={this.handleotpChange}>
                 <InputLabel htmlFor="outlined-adornment-otp">
                   Verification Code
                 </InputLabel>
                 <OutlinedInput
                   id="otp"
-                  name="userotpname"
+                  name="userotp"
                   type=""
+                  onChange={this.handleChange}
                   // value={this.state.password}
                 />
+                 <FormHelperText id="component-error-text">{this.state.otpError}</FormHelperText>
               </FormControl>
             </div>
             <div className="mb-5 ml-3 mr-3">
-              <FormControl className="formControl" variant="outlined">
+              <FormControl className="formControl" variant="outlined" 
+               error={this.state.passwordError ? true:false}
+               onChange={this.handlepassChange} onBlur={this.handlepassChange}>
                 <InputLabel htmlFor="outlined-adornment-password">
                  New Password
                 </InputLabel>
                 <OutlinedInput
                   id="password"
-                  name="password"
+                  name="newPassword"
                   type={this.state.showPassword ? "text" : "password"}
                   //  value={this.state.password}
                   onChange={this.handleChange}
@@ -101,17 +172,19 @@ import Footer from "../footer/footer";
                   }
                   labelWidth={70}
                 />
+                 <FormHelperText id="component-error-text">{this.state.passwordError}</FormHelperText>
               </FormControl>
             </div>
 
             <div className="mb-5 ml-3 mr-3">
-              <FormControl className="formControl" variant="outlined">
+              <FormControl className="formControl" variant="outlined"  error={this.state.confirmPasswordError ? true:false}
+               onChange={this.handlecpassChange} onBlur={this.handlecpassChange}>
                 <InputLabel htmlFor="outlined-adornment-password">
                  Confirm Password
                 </InputLabel>
                 <OutlinedInput
                   id="password"
-                  name="password"
+                  name="confirmPassword"
                   type={this.state.showPassword ? "text" : "password"}
                   //  value={this.state.password}
                   onChange={this.handleChange}
@@ -133,12 +206,18 @@ import Footer from "../footer/footer";
                   }
                   labelWidth={70}
                 />
+                <FormHelperText id="component-error-text">{this.state.confirmPasswordError}</FormHelperText>
               </FormControl>
             </div>
             <div className="btn btn-primary mb-4">submit </div>
           </form>
         </div>
 
+
+          <div className="col-4"></div>
+
+        </div>
+        
         <Footer />
       </div>
     );

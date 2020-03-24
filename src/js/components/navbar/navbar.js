@@ -19,28 +19,29 @@ function Navbar() {
           </button>
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav navbar-ul mr-5 ml-3">
-              <Link to="/"><button className=" btn nav-btn nav-item" href="#">Home </button></Link>
+            <div className="m-auto d-flex flex-row">
+            <ul className="navbar-nav navbar-ul ">
+            <li>  <Link to="/"><button className=" btn nav-btn nav-item" href="#">Home </button></Link></li>
 
-              <Link to="/Products"><button className="btn nav-btn nav-item" href="#">Products</button></Link>
+              <li><Link to="/Products"><button className="btn nav-btn nav-item" href="#">Products</button></Link></li>
 
-
-
-
-              <button className="btn nav-btn nav-item" href="#"  >Order</button>
-
+              <li><button className="btn nav-btn nav-item" href="#"  >Order</button></li>
+              </ul>
+              </div>
+              <div className="m-auto d-flex  " >
+              <ul className="navbar-nav navbar-ul ">
               <li>
-                <form className="form-inline my-2 my-lg-0">
-                  <input className="form-control mr-sm-2 nav-search mr-3 ml-5" type="search" placeholder="Search.." aria-label="Search" />
+                <form className="form-inline  mt-2">
+                  <input className="form-control  nav-search" type="search" placeholder="Search.." aria-label="Search" />
                   {/* <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> */}
                 </form>
               </li>
               <li>
-                <Link to="/Cart"><button className="btn btn-light mr-3 ml-3" style={{ width: '60px' }}> <i style={{ color: 'rgb(68, 68, 68)', padding: '7px 3px' }} className="fa fa-cart-arrow-down"></i> </button></Link>
+                <Link to="/Cart"><button className="btn btn-light m-1 pr-3 pl-3" > <i style={{ color: 'rgb(68, 68, 68)', padding: '7px 3px' }} className="fa fa-cart-arrow-down"></i> </button></Link>
               </li>
               <li className="nav-item dropdown">
 
-                <button style={{ color: 'rgb(68, 68, 68)', borderRadius: '4px' }} className="btn btn-light dropdown-toggle mr-3 ml-3" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button style={{ color: 'rgb(68, 68, 68)', borderRadius: '4px' }} className=" m-1 btn btn-light dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <span style={{ backgroundColor: 'rgb(68, 68, 68)', borderRadius: '2px' }}>
                     <i style={{ color: 'white', padding: '7px 3px' }} className="fa fa-user"></i>
                   </span>
@@ -48,14 +49,16 @@ function Navbar() {
                 </button>
 
 
-                <div className="dropdown-menu bg-light " aria-labelledby="navbarDropdown">
+                <div className="dropdown-menu bg-light  " aria-labelledby="navbarDropdown">
 
                   <Link to="/Loginpage"> <button className="dropdown-item " >Login</button></Link>
                   <Link to="/RegisterPage"> <button className="dropdown-item" href="#">Register</button></Link>
 
                 </div>
               </li>
+             
             </ul>
+            </div>
           </div>
         </nav>
       </div></div>

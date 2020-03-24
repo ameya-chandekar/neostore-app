@@ -204,14 +204,14 @@ console.log(this.props.registered)
                             <div className="col-lg-6 col-md-12"><div ><button className="btn btn-lg btn-primary social-login"><h6>Login With Facebook</h6></button></div> </div>
                             <div className="col-lg-6 col-md-12"><div><button className="btn btn-lg btn-danger social-login"> <h6>Login With Google</h6></button></div></div>
                         </div>
-                        <div className="row">
+                        <div className="row register-card mb-3 mt-3 ">
                             <div className="col-12">
-                                <div class=" card-signin my-5">
-                                    <div class="card-body">
-                                        <h3 class=" card-title text-left">
+                                <div class="  mt-5">
+                                    <div class="">
+                                        <h3 class="  text-left">
                                             <b>Register to NeoSTORE</b></h3>
                                         <form class="form-signin" onSubmit={this.handleSubmit}>
-                                            <div class="form-label-group">
+                                            <div class="mb-5 mt-3">
                                                 {/* <input type="email" id="inputEmail" class="form-control mt-3 mb-4 pt-4 pb-4" placeholder="Email Address" required autofocus /> */}
                                                 <FormControl className="form-control" variant="outlined" error={this.state.first_nameError ? true:false}
                                             onChange={this.handlefnameChange} onBlur={this.handlefnameChange}>
@@ -240,7 +240,7 @@ console.log(this.props.registered)
 
                                             </div>
 
-                                            <div class="form-label-group">
+                                            <div class="mb-5 mt-3">
                                                 {/* <input type="email" id="inputEmail" class="form-control mt-3 mb-4 pt-4 pb-4" placeholder="Email Address" required autofocus /> */}
                                                 <FormControl className="form-control" variant="outlined" error={this.state.last_nameError ? true:false}
                                             onChange={this.handlelnameChange} onBlur={this.handlelnameChange}>
@@ -270,7 +270,7 @@ console.log(this.props.registered)
 
                                             </div>
 
-                                            <div class="form-label-group">
+                                            <div class="mb-5 mt-3">
                                                 {/* <input type="email" id="inputEmail" class="form-control mt-3 mb-4 pt-4 pb-4" placeholder="Email Address" required autofocus /> */}
                                                 <FormControl className="form-control" variant="outlined"  error={this.state.emailError ? true:false}onChange={this.handleEmailChange} onBlur={this.handleEmailChange}>
                                                     <InputLabel htmlFor="outlined-adornment-email">Email Address</InputLabel>
@@ -298,7 +298,7 @@ console.log(this.props.registered)
 
                                             </div>
 
-                                            <div class="form-label-group">
+                                            <div class="mb-5 mt-3">
                                                 {/* <input type="password" id="inputPassword" class="form-control mb-3 pt-4 pb-4" placeholder="Password" required /> */}
                                                 <FormControl className="formControl" variant="outlined"  error={this.state.passError ? true:false}onChange={this.handlePassChange} onBlur={this.handlePassChange}>
                                                     <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
@@ -327,7 +327,7 @@ console.log(this.props.registered)
                                                 </FormControl>
                                             </div>
 
-                                            <div class="form-label-group">
+                                            <div class="mb-5 mt-3">
                                                 {/* <input type="password" id="inputPassword" class="form-control mb-3 pt-4 pb-4" placeholder="Password" required /> */}
                                                 <FormControl className="formControl" variant="outlined" >
                                                     <InputLabel htmlFor="outlined-adornment-password">Confirm Password</InputLabel>
@@ -355,7 +355,7 @@ console.log(this.props.registered)
                                                 </FormControl>
                                             </div>
 
-                                            <div class="form-label-group">
+                                            <div class="mb-5 mt-3">
                                                 {/* <input type="email" id="inputEmail" class="form-control mt-3 mb-4 pt-4 pb-4" placeholder="Email Address" required autofocus /> */}
                                                 <FormControl className="form-control" variant="outlined" error={this.state.phone_noError ? true:false}onChange={this.handlePhoneNumber} onBlur={this.handlePhoneNumber}
                                                 onKeyUp={this.isNumber}>
@@ -394,7 +394,7 @@ console.log(this.props.registered)
                                                 </RadioGroup>
                                             </FormControl>
                                             <div>
-                                            <button type="submit" class="btn btn-danger text-uppercase float-left"  onClick={this.handleSubmit}>Register</button>
+                                            <button type="submit" class="btn btn-danger text-uppercase float-left mb-3"  onClick={this.handleSubmit}>Register</button>
                                         </div>
                                         </form>
                                     </div>

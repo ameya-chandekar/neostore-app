@@ -1,6 +1,10 @@
 .loginPage{
     padding: 0px 0 15% 0;
 }
+.login-card{
+    border: 1px groove;
+    border-radius: 5px;
+}
 .formControl{ width: 100%;}
 .form-label-group{
  

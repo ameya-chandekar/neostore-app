@@ -7,28 +7,150 @@ import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
-
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import FormHelperText from'@material-ui/core/FormHelperText';
 
+//imports of redux
+
+import * as actions from '../../../redux/actions/addAddressAction';
+import { connect } from 'react-redux';
 
 export class Addnewaddress extends Component {
+
+constructor(props) {
+  super(props);
+
+  this.state = {
+    submitted:'',
+    address:'',
+    pincode:'',
+    city:'',
+    state:'',
+    country:'',
+     addressError:'',
+     pincodeError:'',
+     cityError:'',
+     stateError:'',
+     countryError:'',
+  }
+}
+
+//this is to set state on change 
+handleChange=(e) =>{
+  const { name, value } = e.target;
+  this.setState({ [name]: value });
+  
+}
+
+ handleSubmit= async(e)=> {
+   
+    e.preventDefault();
+        this.setState({ submitted: true });
+        const { address,pincode,city,state,country } = this.state;
+         if (address && pincode && city && state && country) {
+             try {
+                 this.props.addAddress({address,pincode,city,state,country} );
+                
+             } catch (error) {
+                 console.log(error);
+                 return false
+             }
+            
+            
+    } 
+ 
+    console.log(this.props.registered);
+    
+   
+}
+
+//functions for validations
+handleAddressChange=(e)=>{
+  if(e.target.value=='')
+  {
+      this.setState({addressError:'Please enter first name'})      
+  }
+ 
+  else
+  {
+      this.setState({addressError:''})
+  }
+}
+
+isNumber=(evt)=> {
+
+  evt = (evt) ? evt : window.event;
+  var charCode = (evt.which) ? evt.which : evt.keyCode;
+  if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+    
+      this.setState({pincodeError:'* only numbers allowed'}) 
+
+      return false;
+  }
+
+  return true;
+}
+
+handleCityChange=(e)=>{
+  if(e.target.value=='')
+  {
+      this.setState({cityError:'Please enter city name'})
+      
+  }
+ 
+  else
+  {
+      this.setState({cityError:''})
+  }
+}
+
+handleStateChange=(e)=>{
+  if(e.target.value=='')
+  {
+      this.setState({stateError:'Please enter state'})
+      
+  }
+ 
+  else
+  {
+      this.setState({stateError:''})
+  }
+}
+
+handleCountryChange=(e)=>{
+  if(e.target.value=='')
+  {
+      this.setState({countryError:'Please enter state'})
+      
+  }
+ 
+  else
+  {
+      this.setState({countryError:''})
+  }
+}
+
+
   render() {
+    const {address,pincode,city,state,country}=this.state;
+    
+    
     return (
       <div>
         <Navbar />
         <div className="address  container mt-5 mb-5">
           <div className="row">
-              <div className="col">
+              <div className="col-12">
               <h4>My Account</h4>
             <hr />
               </div>
               </div>
             <div className="row">
-              <div className="col-lg-3">
+              <div className="col-lg-3 col-md-12">
               <ExpansionPanel>
               <ExpansionPanelSummary
                             expandIcon={<ExpandMoreIcon />}
@@ -56,7 +178,7 @@ export class Addnewaddress extends Component {
                         </ExpansionPanelDetails>
                     </ExpansionPanel>
               </div>
-              <div className="col-lg-9" >
+              <div className="col-lg-9 col-md-12" >
                 <form>
                   <div className="p-3 " style={{border:"1px groove ",borderRadius:"5px"}}>
                     <div className="">
@@ -68,66 +190,89 @@ export class Addnewaddress extends Component {
                         aria-label="minimum height"
                         rowsMin={3}
                         placeholder="Address"
-                      />
+                        error={this.state.addressError ? true:false}
+                        onChange={this.handleAddressChange} onBlur={this.handleAddressChange }
+                        onChange={this.handleChange}
+                        name="address"
+                        />
+                        <FormHelperText id="component-error-text">{this.state.addressError}</FormHelperText>
+                        
+                        
+                          
                       
                     </div>
                     <div className="mb-5">
-                      <FormControl className="form-control" variant="outlined">
+                      <FormControl className="form-control" variant="outlined" error={this.state.pincodeError ? true:false}
+                        onKeyUp={this.isNumber}>
                         <InputLabel htmlFor="outlined-adornment-email">
                          Pincode
                         </InputLabel>
                         <OutlinedInput
-                          id="username"
-                          name="username"
-                          type="text"              
+                          id="pincode"
+                          name="pincode"
+                          type="text"
+                          onChange={this.handleChange}              
                           // value={this.state.password}        
                         />
+                        <FormHelperText id="component-error-text">{this.state.pincodeError}</FormHelperText>
                       </FormControl>
                     </div>
                     <div className="row mb-5">
-                    <div className="col-3 ">
-                    <FormControl className="form-control" variant="outlined">
+                    <div className="col-lg-3 col-md-12 my-3">
+                    <FormControl className="form-control" variant="outlined"  
+                      error={this.state.cityError ? true:false}
+                      onChange={this.handleCityChange} onBlur={this.handleCityChange}>
                         <InputLabel htmlFor="outlined-adornment-email">
                        city
                         </InputLabel>
                         <OutlinedInput
-                          id="username"
-                          name="username"
-                          type="text"              
+                          id="city"
+                          name="city"
+                          type="text"
+                          onChange={this.handleChange}              
                           // value={this.state.password}        
                         />
+                         <FormHelperText id="component-error-text">{this.state.cityError}</FormHelperText>
                       </FormControl>
                     </div>
-                    <div className="col-3 ">
-                    <FormControl className="form-control" variant="outlined">
+                    <div className="col-lg-3 col-md-12 my-3 ">
+                    <FormControl className="form-control" variant="outlined" 
+                     error={this.state.stateError ? true:false}
+                     onChange={this.handleStateChange} onBlur={this.handleStateChange}>
                         <InputLabel htmlFor="outlined-adornment-email">
                          state
                         </InputLabel>
                         <OutlinedInput
-                          id="username"
-                          name="username"
-                          type="text"              
+                          id="state"
+                          name="state"
+                          type="text" 
+                          onChange={this.handleChange}             
                           // value={this.state.password}        
                         />
+                        <FormHelperText id="component-error-text">{this.state.stateError}</FormHelperText>
                       </FormControl>
                     </div>
                     </div>
                     <div className="mb-5">
-                    <FormControl className="form-control" variant="outlined">
+                    <FormControl className="form-control" variant="outlined" 
+                     error={this.state.countryError ? true:false}
+                     onChange={this.handleCountryChange} onBlur={this.handleCountryChange}>
                         <InputLabel htmlFor="outlined-adornment-email">
                         country
                         </InputLabel>
                         <OutlinedInput
-                          id="username"
-                          name="username"
-                          type="text"              
+                          id="country"
+                          name="country"
+                          type="text"   
+                          onChange={this.handleChange}           
                           // value={this.state.password}        
                         />
+                         <FormHelperText id="component-error-text">{this.state.countryError}</FormHelperText>
                       </FormControl>
                     </div>
                     <div><hr/></div>
                     <div className="mb-2">
-                        <button className="btn"> Save</button>
+                        <button className="btn" onClick={this.handleSubmit}>Save</button>
                         <button className="btn"> Cancel</button>
                     </div>
 
@@ -143,4 +288,21 @@ export class Addnewaddress extends Component {
   }
 }
 
-export default Addnewaddress;
+
+const mapStateToProps = state => {
+  return {
+    registered:state.register.isRegister
+    
+  };
+  
+  
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addAddress: (payload) => dispatch(actions.addAddress(payload)) 
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Addnewaddress);
+// export default Addnewaddress

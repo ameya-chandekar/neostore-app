@@ -15,6 +15,7 @@ const GET_ALL_CATEGORIES={type:'GET',url:ROOT_URL+'getAllCategories/'};
 const GET_ALL_COLORS={type:'GET',url:ROOT_URL+'getAllColors/'};
 const REGISTER ={type :'POST',url:ROOT_URL+'register/' };
 const LOG_IN ={ type : 'POST' ,url:ROOT_URL + 'login/'};
+const ADD_ADDRESS={type:'POST',url:'http://localhost:3000/address'};
 const ADD_TO_CART ={type :'POST',url:ROOT_URL+'addDataToCart/' };
 export const API = {
 	getProduct: (data, cb) => request(data, cb, GET_PRODUCT),
@@ -50,6 +51,11 @@ export const API = {
 	addtocart:(data ,cb)=>request(data, cb, ADD_TO_CART),
 	register:(data ,cb)=>request(data, cb, REGISTER),
 	logIn:(data,cb)=> request(data,cb,LOG_IN ),
+
+	addAddress:(data,cb)=>request(data,cb,ADD_ADDRESS)
+
+
+
 };
 async function request(requestData, cb, featureURL, secureRequest = buildHeader()) {
 	const url = featureURL.url;

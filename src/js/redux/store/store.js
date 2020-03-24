@@ -14,6 +14,7 @@ import registerReducer from '../reducers/registerReducer'
 import productListingReducer from '../reducers/productListingReducer'
 import productidreducer from '../reducers/productIdReducer'
 import cartreducer from '../reducers/cartReducer'
+import addAddressreducer from '../reducers/addAddressReducer'
 // MiddleWare
 
 import thunk from 'redux-thunk';
@@ -30,6 +31,7 @@ const AppRootReducer = combineReducers({
     productbycateg:productListingReducer,
     productid:productidreducer,
     cart:cartreducer,
+    addAddress:addAddressreducer,
    
 
 })

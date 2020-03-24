@@ -1,5 +1,11 @@
 .RegisterPage{
-    width: 80%;
+    width: 70%;
+ 
+
+}
+.register-card{
+    border: 1px groove;
+    border-radius: 5px;   
 }
 .RegisterPage-Social{ width: 70%;
 }

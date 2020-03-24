@@ -13,14 +13,31 @@ import FormControl from "@material-ui/core/FormControl";
 // import TextField from "@material-ui/core/TextField";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import FormHelperText from'@material-ui/core/FormHelperText'
+
  class ChangePassword extends Component {
 constructor(props) {
     super(props)
     this.state = {
         showPassword: false,
+        oldPassword:'',
+        newPassword:'',
+        cPassword:'',
+        oldpassError:'',
+        newPassError:'',
+        cPassError:'',
+
+
             }
 }
 
+
+//this to set state as per value
+handleChange=(e) =>{
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+    
+}
 
 //this is for password show/hide toggle
 handleClickShowPassword = () => {
@@ -34,19 +51,67 @@ handleMouseDownPassword = () => {
     })
 }
 
+
+//function for validation
+handleoldpassChange=(e)=>{
+    if(e.target.value==''){
+        this.setState({oldpassError:'old paswwor required'})
+    }
+    else{
+        this.setState({oldpassError:''})
+    }
+}
+
+
+handleNewPassChange=(e)=>{
+    const  cond = /^[A-Za-z]\w{7,11}$/;
+     if(e.target.value=='')
+     {
+         this.setState({newPassError:'Please enter password '})
+     }
+     else if(e.target.value.match(cond))
+     {
+         this.setState({newPassError:''})
+     }
+     else
+     {
+         this.setState({newPassError:'password should have 8-12 characters and should contain only aplhanumeric values'})
+     }
+  }
+
+  
+  handleCPassChange=(e)=>{
+  
+    if(e.target.value=='')
+   {
+     this.setState({cPassError:'Please enter confirm password '})
+   }
+   else if(this.state.newPassword==this.state.cPassword){
+     this.setState({cPassError:''})
+   }
+ else if(this.state.newPassword!=this.state.cPassword){
+   this.setState({cPassError:'should match with new password'})
+ }
+   else
+    {
+        this.setState({cPassError:''})
+    }
+ }
+
     render() {
         return (
             <div>
-                <div className="">
-                    <h2>ChangePassword</h2>
-                    <hr/>
-                    <div class="form-label-group">
+                <div className="text-center " style={{border:"1px groove" ,borderRadius:"5px"}}>
+                   <div className="m-3"><h2>ChangePassword</h2></div> 
+                    <div className="mr-3 ml-3"><hr/></div>
+                    <div class="  m-3">
                                             {/* <input type="password" id="inputPassword" class="form-control mb-3 pt-4 pb-4" placeholder="Password" required /> */}
-                                            <FormControl className="formControl" variant="outlined">
-                                                <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                                            <FormControl className="formControl" variant="outlined" error={this.state.oldpassError ? true:false}
+               onChange={this.handleoldpassChange} onBlur={this.handleoldpassChange}>
+                                                <InputLabel htmlFor="outlined-adornment-password"> Old Password</InputLabel>
                                                 <OutlinedInput
                                                     id="password"
-                                                    name="password"
+                                                    name="oldPassword"
                                                     type={this.state.showPassword ? 'text' : 'password'}
                                                     //  value={this.state.password}
                                                     onChange={this.handleChange}
@@ -64,16 +129,20 @@ handleMouseDownPassword = () => {
                                                     }
                                                     labelWidth={70}
                                                 />
+                                                                 <FormHelperText id="component-error-text">{this.state.oldpassError}</FormHelperText>
+
                                             </FormControl>
                                         </div>
 
-                                        <div class="form-label-group">
+                                        <div class=" m-3">
                                             {/* <input type="password" id="inputPassword" class="form-control mb-3 pt-4 pb-4" placeholder="Password" required /> */}
-                                            <FormControl className="formControl" variant="outlined">
-                                                <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                                            <FormControl className="formControl" variant="outlined"
+                                             error={this.state.newPassError ? true:false}
+                                             onChange={this.handleNewPassChange} onBlur={this.handleNewPassChange}>
+                                                <InputLabel htmlFor="outlined-adornment-password">New Password</InputLabel>
                                                 <OutlinedInput
                                                     id="password"
-                                                    name="password"
+                                                    name="newPassword"
                                                     type={this.state.showPassword ? 'text' : 'password'}
                                                     //  value={this.state.password}
                                                     onChange={this.handleChange}
@@ -91,16 +160,20 @@ handleMouseDownPassword = () => {
                                                     }
                                                     labelWidth={70}
                                                 />
+                                                 <FormHelperText id="component-error-text">{this.state.newPassError}</FormHelperText>
+
                                             </FormControl>
                                         </div>
 
-                                        <div class="form-label-group">
+                                        <div class=" m-3">
                                             {/* <input type="password" id="inputPassword" class="form-control mb-3 pt-4 pb-4" placeholder="Password" required /> */}
-                                            <FormControl className="formControl" variant="outlined">
-                                                <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                                            <FormControl className="formControl" variant="outlined"
+                                             error={this.state.cPassError ? true:false}
+                                             onChange={this.handleCPassChange} onBlur={this.handleCPassChange}>
+                                                <InputLabel htmlFor="outlined-adornment-password"> Confirm Password</InputLabel>
                                                 <OutlinedInput
                                                     id="password"
-                                                    name="password"
+                                                    name="cPassword"
                                                     type={this.state.showPassword ? 'text' : 'password'}
                                                     //  value={this.state.password}
                                                     onChange={this.handleChange}
@@ -118,8 +191,10 @@ handleMouseDownPassword = () => {
                                                     }
                                                     labelWidth={70}
                                                 />
+                                                 <FormHelperText id="component-error-text">{this.state.cPassError}</FormHelperText>
                                             </FormControl>
                                         </div>
+                                        <div className="btn btn-primary m-3"> submit</div>
                 </div>
             </div>
         )
