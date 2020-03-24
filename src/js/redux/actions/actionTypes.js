@@ -8,3 +8,5 @@ export const PRODUCT_ID="PRODUCT_ID";
 export const GET_PRODUCT_BY_ID="GET_PRODUCT_BY_ID";
 export const ADD_TO_CART ="ADD_TO_CART";
 export const ADD_ADDRESS ="ADD_ADDRESS";
+export const GET_ADDRESS="GET_ADDRESS";
+export const DELETE_ADDRESS="DELETE_ADDRESS";

@@ -4,6 +4,7 @@ import Footer from '../footer/footer'
 import Usersoption from'../usersection/useroptions/usersoption'
 import ProfileDetails from'./profiledetails/profileDetails'
 import ChangePassword from './changepassword/changePassword'
+import ShowAddress from './address/showAddress'
 //css
 import '../usersection/userdashboard.css'
 export class  Userdashboard extends Component {
@@ -20,10 +21,11 @@ export class  Userdashboard extends Component {
                     </div>
 
                     <div className="col-lg-8 col-md-12">
-                        <ProfileDetails/>
+                        {/* <ProfileDetails/>
                         
-                        <ChangePassword/>
-                        
+                        <ChangePassword/> */}
+                        <ShowAddress/>
+
                     </div>
                    
                     </div>

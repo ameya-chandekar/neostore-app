@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { buildHeader, ipInfoHeader } from './helpers';
 import { ROOT_URL } from './globals';
+import { DELETE_ADDRESS } from '../redux/actions/actionTypes';
 
 
 //App API's
@@ -16,6 +17,8 @@ const GET_ALL_COLORS={type:'GET',url:ROOT_URL+'getAllColors/'};
 const REGISTER ={type :'POST',url:ROOT_URL+'register/' };
 const LOG_IN ={ type : 'POST' ,url:ROOT_URL + 'login/'};
 const ADD_ADDRESS={type:'POST',url:'http://localhost:3000/address'};
+const GET_ADDRESS={type:'GET',url:'http://localhost:3000/address'};
+
 const ADD_TO_CART ={type :'POST',url:ROOT_URL+'addDataToCart/' };
 export const API = {
 	getProduct: (data, cb) => request(data, cb, GET_PRODUCT),
@@ -52,7 +55,12 @@ export const API = {
 	register:(data ,cb)=>request(data, cb, REGISTER),
 	logIn:(data,cb)=> request(data,cb,LOG_IN ),
 
-	addAddress:(data,cb)=>request(data,cb,ADD_ADDRESS)
+	addAddress:(data,cb)=>request(data,cb,ADD_ADDRESS),
+	getAddress:(data,cb)=>request(data,cb,GET_ADDRESS),
+	deleteAddress: (data, cb) => {
+		return request({}, cb, { type: 'DELETE', url: `http://localhost:3000/address/${data}` })
+	}
+
 
 
 
