@@ -11,7 +11,8 @@ export class  Userdashboard extends Component {
     render() {
         return (
             <div>
-                <Navbar/>
+             <Navbar  login={localStorage.getItem('login_user_data') ? 'true' : 'false'}/>
+
                 <div className="user-dashboard container mt-5 mb-5 ">
                     <h2>My Account</h2>
                     <hr/>
@@ -21,11 +22,11 @@ export class  Userdashboard extends Component {
                     </div>
 
                     <div className="col-lg-8 col-md-12">
-                        {/* <ProfileDetails/>
-                        
-                        <ChangePassword/> */}
-                        <ShowAddress/>
 
+                        {/* 
+                        <ProfileDetails/>
+                        <ShowAddress/> */}
+                        <ChangePassword/>
                     </div>
                    
                     </div>

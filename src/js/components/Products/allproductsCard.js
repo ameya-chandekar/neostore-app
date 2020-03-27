@@ -20,8 +20,15 @@ import * as actions from '../../redux/actions/index';
   }
 
   handlecart=(p_id)=>{
-    this.props.onaddtocart({p_id})
-
+    const data1 = localStorage.getItem('login_user_data');
+    const userData = JSON.parse(data1);
+    const user_token=userData.token;
+    if(user_token){
+    this.props.onaddtocart({p_id,user_token})
+    }
+    else{
+      alert("please login first")
+    }
   }
 
   handledetails=(p_id)=>{

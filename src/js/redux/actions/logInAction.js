@@ -16,12 +16,12 @@ export const login = (payload) => {
         let cb = {
             success: (res) => {
                 console.log();
+                
                 const newState={
                     isLogin:true,
                     userdetails: {...res}
                 }
                 dispatch(authenticateUser(newState))
-
             },
             error: (err) => {
                

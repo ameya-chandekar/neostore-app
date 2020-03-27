@@ -47,13 +47,15 @@ handleChange=(e) =>{
 }
 
  handleSubmit= async(e)=> {
-   
+  const data1 = localStorage.getItem('login_user_data');
+  const userData = JSON.parse(data1);
+  const user_token = userData.token
     e.preventDefault();
         this.setState({ submitted: true });
         const { address,pincode,city,state,country } = this.state;
          if (address && pincode && city && state && country) {
              try {
-                 this.props.addAddress({address,pincode,city,state,country} );
+                 this.props.addAddress({address,pincode,city,state,country,user_token} );
                 
              } catch (error) {
                  console.log(error);
@@ -63,16 +65,32 @@ handleChange=(e) =>{
             
     } 
  
-    console.log(this.props.registered);
+    console.log(this.props.isAdded);
     
    
 }
 
+componentDidUpdate(prevProps){
+ 
+ 
+}
+
+componentDidMount(){
+  const {isAdded}=this.props
+  console.log(isAdded,"added address successfully");
+  
+  if(isAdded){
+      console.log("redirected" );
+   this.props.history.push('/Userdashboard')
+ 
+  
+  }
+}
 //functions for validations
 handleAddressChange=(e)=>{
   if(e.target.value=='')
   {
-      this.setState({addressError:'Please enter first name'})      
+      this.setState({addressError:'Please enter address'})      
   }
  
   else
@@ -137,11 +155,12 @@ handleCountryChange=(e)=>{
 
   render() {
     const {address,pincode,city,state,country}=this.state;
+    console.table(address,pincode,city,state,country,"sdssdsdsdsdsdsdsdsdsdsdsdsdsdsddsdsdsdsdsdsdsddsd")
     
     
     return (
       <div>
-        <Navbar />
+        <Navbar  login={localStorage.getItem('login_user_data') ? 'true' : 'false'}/>
         <div className="address  container mt-5 mb-5">
           <div className="row">
               <div className="col-12">
@@ -291,18 +310,16 @@ handleCountryChange=(e)=>{
 
 const mapStateToProps = state => {
   return {
-    registered:state.register.isRegister
+    isAdded:state.Address.isAdded,
     
-  };
-  
-  
+  }; 
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    addAddress: (payload) => dispatch(actions.addAddress(payload)) 
-  }
+    addAddress:(payload)=> dispatch(actions.addAddress(payload)) ,
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Addnewaddress);
-// export default Addnewaddress
+

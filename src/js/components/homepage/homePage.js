@@ -4,8 +4,7 @@ import Corousel from "./corousel"
 import Footer from "../footer/footer";
 import "./homepage.css";
 import PopularProducts from "../popularproducts/popularProducts";
-import Addnewaddress from "../usersection/address/addnewaddress";
-import RecoverPassword from '../login/recoverPassword'
+
 
 export class HomePage extends Component {
   
@@ -16,12 +15,10 @@ export class HomePage extends Component {
     return (
       <div>
             
-        <Navbar />
+            <Navbar  login={localStorage.getItem('login_user_data') ? 'true' : 'false'}/>
         <Corousel/> 
         <PopularProducts/>
         <Footer/>
-        <Addnewaddress/>
-        <RecoverPassword/>
    
       </div>
     );

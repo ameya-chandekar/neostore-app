@@ -14,7 +14,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import FormHelperText from'@material-ui/core/FormHelperText'
-
+import { API } from '../../../api/api';
  class ChangePassword extends Component {
 constructor(props) {
     super(props)
@@ -37,6 +37,15 @@ handleChange=(e) =>{
     const { name, value } = e.target;
     this.setState({ [name]: value });
     
+}
+
+//submition of form
+handleSubmit=()=>{
+    const data1 = localStorage.getItem('login_user_data');
+    const userData = JSON.parse(data1);
+    const user_token = userData.token
+    const {oldPassword,newPassword,cPassword}=this.state
+    API.changePass({oldPassword,newPassword,cPassword,user_token})
 }
 
 //this is for password show/hide toggle
@@ -194,7 +203,7 @@ handleNewPassChange=(e)=>{
                                                  <FormHelperText id="component-error-text">{this.state.cPassError}</FormHelperText>
                                             </FormControl>
                                         </div>
-                                        <div className="btn btn-primary m-3"> submit</div>
+                                        <div className="btn btn-primary m-3" onClick={this.handleSubmit}> submit</div>
                 </div>
             </div>
         )

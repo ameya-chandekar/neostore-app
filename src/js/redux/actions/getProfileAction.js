@@ -2,36 +2,34 @@ import * as actionType from './actionTypes';
 import { API } from '../../api/api';
 
 
-const Address = (payload) => {
+const Profile = (payload) => {
     // console.log(payload);
     return {
-        type: actionType.DELETE_ADDRESS,
+        type: actionType.GET_PROFILE_DATA,
         payload: payload
     };
 };
-
-export const deleteAddress = (payload) => {
+export const getProfileData = (payload) => {
     return (dispatch, getState) => {
-        const data = payload.addressid
+        let data={}
         const data2 = {"Authorization" : `Bearer ${payload.user_token}`}
-        console.log(data2,"address id tokennnnnnnnnnnfrom action");
-        
+        // const data =payload.user_id
+        console.log("kkkkkkk",data);
         let cb = {
             success: (res) => {
-                console.log();
+                
                 const newState={
-                  
-                    Addresses:[...res]
+                    
+                    profile:{...res}
                 }
-                dispatch(Address(newState))
+                dispatch(Profile(newState))
 
             },
             error: (err) => {
-
-
+            //    console.log("abcdegjhhhhhh",err)
             }
         }
-        API.deleteAddress(data, cb,data2)
+        API.getProfileData(data, cb,data2)
     }
 }
 

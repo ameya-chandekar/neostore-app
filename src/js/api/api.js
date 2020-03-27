@@ -16,10 +16,15 @@ const GET_ALL_CATEGORIES={type:'GET',url:ROOT_URL+'getAllCategories/'};
 const GET_ALL_COLORS={type:'GET',url:ROOT_URL+'getAllColors/'};
 const REGISTER ={type :'POST',url:ROOT_URL+'register/' };
 const LOG_IN ={ type : 'POST' ,url:ROOT_URL + 'login/'};
-const ADD_ADDRESS={type:'POST',url:'http://localhost:3000/address'};
-const GET_ADDRESS={type:'GET',url:'http://localhost:3000/address'};
+const ADD_ADDRESS={type:'POST',url:ROOT_URL+'address/'};
+const GET_ADDRESS={type:'GET',url:ROOT_URL+'getCustAddress/'};
+
 
 const ADD_TO_CART ={type :'POST',url:ROOT_URL+'addDataToCart/' };
+const GET_CART_PRODUCT={type :'GET',url:ROOT_URL+'getCustCartData/' };
+
+
+const GET_PROFILE={type:'GET',url:ROOT_URL+'getCustProfile/'};
 export const API = {
 	getProduct: (data, cb) => request(data, cb, GET_PRODUCT),
 	getAllCategories: (data, cb) => request(data, cb, GET_ALL_CATEGORIES),
@@ -27,11 +32,7 @@ export const API = {
 	getAllProduct: (data, cb) => request(data, cb, GET_ALL_PRODUCT),
 	
 	getProductByCateg: (data, cb) => {
-		// console.log("data inside api file",data)
-		// console.log("produccateg uyrl", GET_PRODUCT_BY_CATEG)
 
-		// GET_PRODUCT_BY_CATEG.url = GET_PRODUCT_BY_CATEG.url + data;
-		// return request({}, cb, GET_PRODUCT_BY_CATEG)
 		return request({}, cb, { type: 'GET', url: `${ROOT_URL}getProductByCateg/${data}`})
 		
 	},
@@ -51,19 +52,30 @@ export const API = {
 	getProductById: (data, cb) => {
 		return request({}, cb, { type: 'GET', url: `${ROOT_URL}getProductByProdId/${data}` })
 	},
-	addtocart:(data ,cb)=>request(data, cb, ADD_TO_CART),
+
+
+	addtocart:(data ,cb,data2)=>request(data, cb, ADD_TO_CART,data2),
+	// getCartProduct: (data, cb) => {
+	
+	// 	return request({}, cb, { type: 'GET', url: `${ROOT_URL}getCartData/${data}` })
+	// },
+	getCartProduct:(data ,cb,data2)=>request(null, cb, GET_CART_PRODUCT,data2),
+	deleteCartProduct:(data ,cb,data2)=>{
+		return request({}, cb, { type: 'DELETE', url: `${ROOT_URL}deleteCustomerCart/${data}`},data2)
+	},
+
 	register:(data ,cb)=>request(data, cb, REGISTER),
 	logIn:(data,cb)=> request(data,cb,LOG_IN ),
 
-	addAddress:(data,cb)=>request(data,cb,ADD_ADDRESS),
-	getAddress:(data,cb)=>request(data,cb,GET_ADDRESS),
-	deleteAddress: (data, cb) => {
-		return request({}, cb, { type: 'DELETE', url: `http://localhost:3000/address/${data}` })
-	}
+	addAddress:(data,cb,data2)=>request(data,cb,ADD_ADDRESS,data2),
+	getAddress:(data,cb,data2)=>request(data,cb,GET_ADDRESS,data2),
+	
+	deleteAddress: (data, cb,data2) => {
+		return request({}, cb, { type: 'DELETE', url: `${ROOT_URL}deladdress/${data}`} ,data2)
+	},
 
-
-
-
+	getProfileData:(data,cb,data2)=>request(data,cb,GET_PROFILE,data2),
+	
 };
 async function request(requestData, cb, featureURL, secureRequest = buildHeader()) {
 	const url = featureURL.url;

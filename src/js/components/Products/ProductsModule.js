@@ -10,7 +10,7 @@ export class ProductsModule extends Component {
         
         return (
             <div>
-                <Navbar/>
+                <Navbar  login={localStorage.getItem('login_user_data') ? 'true' : 'false'}/>
                 <div className="allproducts">
                     <div className="row">
                         <div className="col-lg-3 col-md-12"><CategoriesAccordian /></div>

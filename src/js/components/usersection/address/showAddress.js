@@ -3,21 +3,39 @@ import { connect } from 'react-redux';
 // import * as actions from '../../../redux/actions';
 import * as actions from '../../../redux/actions';
 
+import{Link} from 'react-router-dom'
+
 export class ShowAddress extends Component {
 
     handleDelete=(addressid)=>{
         console.log(addressid);
-        
-this.props.deleteAddress(addressid);
+        const data1 = localStorage.getItem('login_user_data');
+        const userData = JSON.parse(data1);
+        const user_token = userData.token
+        this.props.deleteAddress({addressid,user_token});
     }
+
     componentDidMount(){
-        // this.props.getAddress()
+        const data1 = localStorage.getItem('login_user_data');
+        const userData = JSON.parse(data1);
+        const user_token = userData.token
+        this.props.getAddress({user_token})
+        const {address}=this.props
+        console.log(address,"vadvavadvavdavdvadvavd") 
     }
+    
   componentDidUpdate() {
-    this.props.getAddress()
+    const data1 = localStorage.getItem('login_user_data');
+    const userData = JSON.parse(data1);
+    const user_token = userData.token
+    this.props.getAddress({user_token})
+    const {address}=this.props
+    console.log(address,"vadvavadvavdavdvadvavd") 
 }
     render() {
-        const address=this.props.address        
+        const {address}=this.props
+        const add =address.customer_address
+        console.log(address,"vadvavadvavdavdvadvavd") 
         return (
             <div>
                 <div className="addresses " style={{border:"1px groove",borderRadius:"5px"}}>
@@ -25,8 +43,8 @@ this.props.deleteAddress(addressid);
                    
                     {
                   // console.log(subimages,"for map") 
-                address.map((el)=>{
-                  console.log(el)
+               add?add.map((el)=>{
+                  console.log(el,"masderedafafjfaschoddddd")
                 return(
                     <div className="address m-2" style={{border:"1px groove",borderRadius:"5px"}}>
                         <div className="row m-1">
@@ -35,7 +53,7 @@ this.props.deleteAddress(addressid);
                         </span>
                             </div>
                             <div className="col-1">
-                                <div className="btn btn-danger" onClick={()=>this.handleDelete(el.id)}>✘</div>
+                                <div className="btn btn-danger" onClick={()=>this.handleDelete(el.address_id)}>✘</div>
                             </div>
                         </div>
                         <div className="row m-1">
@@ -55,10 +73,10 @@ this.props.deleteAddress(addressid);
                         </div>
                     </div>
                 )  
-                })
+                }):null
                 }
                     <div><hr/></div>
-                    <div className="btn btn-light m-1"> Add Address</div>
+                    <Link to="/addAddress"><div className="btn btn-light m-1"> Add Address</div></Link>
                 </div>
             </div>
         )
@@ -68,7 +86,7 @@ this.props.deleteAddress(addressid);
 
 const mapStateToProps = state => {
     return {
-     address:state.getAddress.Addresses,
+     address:state.Address.Addresses,
      
     }
     
@@ -84,4 +102,3 @@ const mapStateToProps = state => {
   }
   
   export default connect(mapStateToProps, mapDispatchToProps)(ShowAddress);
-// export default ShowAddress

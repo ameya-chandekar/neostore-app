@@ -11,11 +11,11 @@ import Subscribe from './js/screens/subscribe';
 import Cart from './js/components/cart/cart'
 import ProductDetails from './js/components/Products/productdetails/productDetails';
 import Userdashboard from './js/components/usersection/userdashboard'
+import  Addnewaddress  from './js/components/usersection/address/addnewaddress';
+import  ShowAddress  from './js/components/usersection/address/showAddress';
 function App() {
     return (
         <Router>
-
-
             <Switch>
                 <Route exact path="/" component={HomePage} />
                 <Route exact path="/LoginPage" component={LoginPage} />
@@ -27,6 +27,7 @@ function App() {
                 <Route exact path="/Cart" component={Cart}/>
                 <Route exact path="/ProductDetails" component={ProductDetails}/>
                 <Route exact path="/Userdashboard" component={Userdashboard}/>
+                <Route exact path="/addAddress" component={Addnewaddress}/>              
             </Switch>
 
 

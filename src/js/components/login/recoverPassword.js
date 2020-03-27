@@ -109,7 +109,7 @@ else if(this.state.newPassword!=this.state.confirmPassword){
   render() {
     return (
       <div>
-        <Navbar />
+      <Navbar  login={localStorage.getItem('login_user_data') ? 'true' : 'false'}/>
         <div className="row">
           <div className="col-4"></div>
           <div

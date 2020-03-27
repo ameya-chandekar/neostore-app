@@ -12,12 +12,13 @@ const cartdata = (payload) => {
 export const addToCart = (payload) => {
     return (dispatch, getState) => {
         const data = { product_id:payload.p_id,quantity:"1"}
+        const data2 = {"Authorization" : `Bearer ${payload.user_token}`}
         let cb = {
             success: (res) => {
                 // console.log();
                 const newState = {
                     isAdded: true,
-                    productdetails: { ...res }
+                    cartProductdetails: { ...res }
                 }
                 dispatch(cartdata(newState))
             },
@@ -26,7 +27,7 @@ export const addToCart = (payload) => {
 
             }
         }
-        API.addtocart(data, cb)
+        API.addtocart(data, cb, data2)
     }
 }
 

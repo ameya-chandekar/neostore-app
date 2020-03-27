@@ -80,12 +80,15 @@ export class LoginPage extends Component {
     
 componentDidUpdate(prevProps){
     if(this.props.isLogin){
-        console.log("redirected");
-    this.props.history.push('/Userdashboard')
+        console.log("redirected" );
+        console.log("user response after login ----------------",this.props.userdetails);
+        const {userdetails}=this.props
+
+        localStorage.setItem('login_user_data',JSON.stringify(userdetails))
+        
+        this.props.history.push('/')
    
-    
     }
-   
 }
 
 
@@ -122,6 +125,9 @@ handlePassChange=(e)=>{
 }
 
     render() {
+
+        console.log("login responseeee",this.props.userdetails);
+        
         console.log("username",this.state.username);
         console.log("password",this.state.password);
         // console.log("user response after login",this.props.userdetails.token)

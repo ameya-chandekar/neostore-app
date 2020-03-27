@@ -12,15 +12,15 @@ const Address = (payload) => {
 export const getAddress = (payload) => {
     return (dispatch, getState) => {
         let data={}
-        
+        const data2 = {"Authorization" : `Bearer ${payload.user_token}`}
         // const data =payload.user_id
         console.log("kkkkkkk",data);
         let cb = {
             success: (res) => {
                 
                 const newState={
-                  
-                    Addresses:[...res]
+                    
+                    Addresses:{...res}
                 }
                 dispatch(Address(newState))
 
@@ -29,7 +29,7 @@ export const getAddress = (payload) => {
             //    console.log("abcdegjhhhhhh",err)
             }
         }
-        API.getAddress(data, cb)
+        API.getAddress(data, cb,data2)
     }
 }
 

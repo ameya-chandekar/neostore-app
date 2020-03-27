@@ -1,35 +1,31 @@
 import * as actionType from './actionTypes';
 import { API } from '../../api/api';
 
-
-const address = (payload) => {
+const cartdata = (payload) => {
     // console.log(payload);
     return {
-        type: actionType.ADD_ADDRESS,
+        type: actionType.DELETE_CART_PRODUCT,
         payload: payload
     };
 };
-export const addAddress = (payload) => {
+export const deleteCartProduct = (payload) => {
     return (dispatch, getState) => {
-        const data = { address: payload.address, pincode: payload.pincode, city: payload.city,state: payload.state, country: payload.country}
+        const data = payload.p_id
         const data2 = {"Authorization" : `Bearer ${payload.user_token}`}
         let cb = {
             success: (res) => {
-                console.log("from add addresss action");
+
                 const newState = {
                     isAdded: true,
-                    Addresses:[...res]
-                   
-                }
-                dispatch(address(newState))
-
+                    cartProductdetails: { ...res }                }
+                dispatch(cartdata(newState))
             },
             error: (err) => {
 
 
             }
         }
-        API.addAddress(data, cb,data2)
+        API.deleteCartProduct(data, cb, data2)
     }
 }
 
