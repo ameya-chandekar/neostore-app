@@ -14,14 +14,17 @@ const GET_ALL_PRODUCT = { type: 'GET', url: ROOT_URL + 'commonProducts/' };
 
 const GET_ALL_CATEGORIES={type:'GET',url:ROOT_URL+'getAllCategories/'};
 const GET_ALL_COLORS={type:'GET',url:ROOT_URL+'getAllColors/'};
+const GET_ALL_SEARCH={type:'GET',url:ROOT_URL+'getProductBySearchText/'};
 const REGISTER ={type :'POST',url:ROOT_URL+'register/' };
 const LOG_IN ={ type : 'POST' ,url:ROOT_URL + 'login/'};
+const GET_ORDERS={type:'GET',url:ROOT_URL+'getOrderDetails/'};
+const GET_ORDER_INVOICE={type:'POST',url:ROOT_URL+'getInvoiceOfOrder/'};
 const ADD_ADDRESS={type:'POST',url:ROOT_URL+'address/'};
 const GET_ADDRESS={type:'GET',url:ROOT_URL+'getCustAddress/'};
-
+const CHANGE_PASS={type:'POST',url:ROOT_URL+'changePassword/'}
 
 const ADD_TO_CART ={type :'POST',url:ROOT_URL+'addDataToCart/' };
-const GET_CART_PRODUCT={type :'GET',url:ROOT_URL+'getCustCartData/' };
+const GET_CART_PRODUCT={type :'GET',url:ROOT_URL+'getCartData/' };
 
 
 const GET_PROFILE={type:'GET',url:ROOT_URL+'getCustProfile/'};
@@ -52,6 +55,9 @@ export const API = {
 	getProductById: (data, cb) => {
 		return request({}, cb, { type: 'GET', url: `${ROOT_URL}getProductByProdId/${data}` })
 	},
+	getProductBySearchText: (data, cb) => {
+		return request({}, cb, { type: 'GET', url: `${ROOT_URL}getProductBySearchText/${data}` })
+	},
 
 
 	addtocart:(data ,cb,data2)=>request(data, cb, ADD_TO_CART,data2),
@@ -75,7 +81,9 @@ export const API = {
 	},
 
 	getProfileData:(data,cb,data2)=>request(data,cb,GET_PROFILE,data2),
-	
+	changePassword:(data,cb,data2)=>request(data,cb,CHANGE_PASS,data2),
+	getOrders:(data,cb,data2)=>request(data,cb,GET_ORDERS,data2),
+	getOrderPDF:(data,cb,data2)=>request(data,cb,GET_ORDER_INVOICE,data2),
 };
 async function request(requestData, cb, featureURL, secureRequest = buildHeader()) {
 	const url = featureURL.url;

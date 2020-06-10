@@ -17,7 +17,7 @@ export const getCartProduct = (payload) => {
             success: (res) => {
                 console.log("cart p from action ",res);
                 const newState = {
-                    isAdded: true,
+                    // isAdded: true,
                     cartProductdetails:{...res}
                 }
                 dispatch(cartdata(newState))

@@ -3,11 +3,10 @@ import Navbar from '../navbar/navbar'
 import Footer from '../footer/footer'
 import Usersoption from'../usersection/useroptions/usersoption'
 import ProfileDetails from'./profiledetails/profileDetails'
-import ChangePassword from './changepassword/changePassword'
-import ShowAddress from './address/showAddress'
+
 //css
-import '../usersection/userdashboard.css'
-export class  Userdashboard extends Component {
+import '../usersection/userProfile.css'
+export class  UserProfile extends Component {
     render() {
         return (
             <div>
@@ -23,10 +22,9 @@ export class  Userdashboard extends Component {
 
                     <div className="col-lg-8 col-md-12">
 
-                        {/* 
+                        
                         <ProfileDetails/>
-                        <ShowAddress/> */}
-                        <ChangePassword/>
+                       
                     </div>
                    
                     </div>
@@ -38,4 +36,4 @@ export class  Userdashboard extends Component {
     }
 }
 
-export default Userdashboard
+export default UserProfile

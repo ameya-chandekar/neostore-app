@@ -10,9 +10,12 @@ import locateUs from './js/components/footer/locateUs/locateUs';
 import Subscribe from './js/screens/subscribe';
 import Cart from './js/components/cart/cart'
 import ProductDetails from './js/components/Products/productdetails/productDetails';
-import Userdashboard from './js/components/usersection/userdashboard'
+import UserProfile from './js/components/usersection/userProfile'
 import  Addnewaddress  from './js/components/usersection/address/addnewaddress';
 import  ShowAddress  from './js/components/usersection/address/showAddress';
+import UserOrders from './js/components/usersection/userOrders'
+import UserAddress from './js/components/usersection/userAddress'
+import UserChangePassword from './js/components/usersection/userChangePassword'
 function App() {
     return (
         <Router>
@@ -26,8 +29,13 @@ function App() {
                 <Route exact path="/Subscribe" component={Subscribe}/>
                 <Route exact path="/Cart" component={Cart}/>
                 <Route exact path="/ProductDetails" component={ProductDetails}/>
-                <Route exact path="/Userdashboard" component={Userdashboard}/>
-                <Route exact path="/addAddress" component={Addnewaddress}/>              
+                <Route exact path="/UserProfile" component={UserProfile}/>
+                <Route exact path="/UserOrders" component={UserOrders}/>
+                <Route exact path="/UserAddress" component={UserAddress}/>
+                <Route exact path="/UserChangePassword" component={UserChangePassword}/>  
+
+                <Route exact path="/addAddress" component={Addnewaddress}/>
+                
             </Switch>
 
 

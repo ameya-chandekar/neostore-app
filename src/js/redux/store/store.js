@@ -17,6 +17,7 @@ import cartreducer from '../reducers/cartReducer'
 import addAddressreducer from '../reducers/addAddressReducer'
 import getAddressReducer from '../reducers/getAddressReducer'
 import getProfileData from'../reducers/profileReducer'
+import getOrders from '../reducers/orderReducer'
 // MiddleWare
 
 import thunk from 'redux-thunk';
@@ -36,6 +37,7 @@ const AppRootReducer = combineReducers({
     Address:addAddressreducer,
     getAddress:getAddressReducer,
     getProfile:getProfileData,
+    Orders:getOrders,
    
 
 })

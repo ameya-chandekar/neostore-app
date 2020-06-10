@@ -15,6 +15,13 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import FormHelperText from'@material-ui/core/FormHelperText'
 import { API } from '../../../api/api';
+
+
+//redux
+import { connect } from 'react-redux';
+import * as actions from '../../../redux/actions/changePasswordAction';
+
+
  class ChangePassword extends Component {
 constructor(props) {
     super(props)
@@ -45,7 +52,7 @@ handleSubmit=()=>{
     const userData = JSON.parse(data1);
     const user_token = userData.token
     const {oldPassword,newPassword,cPassword}=this.state
-    API.changePass({oldPassword,newPassword,cPassword,user_token})
+    this.props.changePass({oldPassword,newPassword,cPassword,user_token})
 }
 
 //this is for password show/hide toggle
@@ -210,4 +217,20 @@ handleNewPassChange=(e)=>{
     }
 }
 
-export default ChangePassword
+
+// const mapStateToProps = state => {
+//     return {
+//       cartProducts: state.cart.cartProductdetails,
+  
+//     };
+  
+  
+//   }
+  
+  const mapDispatchToProps = dispatch => {
+    return {
+        changePass: (payload) => dispatch(actions.changePassword(payload)),
+    }
+  }
+  
+  export default connect(null, mapDispatchToProps)(ChangePassword); 

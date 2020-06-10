@@ -15,6 +15,11 @@ const reducer = (state = initialState, action) => {
             return updateObject(state, action.payload)
         case actionType.GET_PRODUCT_BY_ID:
             return updateObject(state, action.payload)
+        case actionType.GET_PRODUCT_BY_SEARCH:
+            return updateObject(state, action.payload)
+
+
+            
         default:
             return state;
     }
