@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Navbar from'../../navbar/navbar'
 import userIcon from '../../assets/images/profile-placeholder.png';
 import { Link } from 'react-router-dom';
 import ReorderIcon from '@material-ui/icons/Reorder';
@@ -6,7 +7,6 @@ import PersonIcon from '@material-ui/icons/Person';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import SyncAltIcon from '@material-ui/icons/SyncAlt';
 import UserProfile from '../UserProfile/UserProfile';
-import Header from '../Header/Header';
 import { getProfileData } from '../../api/api';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import EditIcon from '@material-ui/icons/Edit';
@@ -22,11 +22,15 @@ import {
 } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import FormHelperText from "@material-ui/core/FormHelperText";
-import {editUserProfile} from '../../api/api';
+// import {editUserProfile} from '../../api/api';
 
+//redux
+import { connect } from 'react-redux';
+// import * as actions from '../../../redux/actions';
+import * as actions from '../../../redux/actions/getProfileAction';
+import * as actions from '../../../redux/actions/editProfileDetailsAction';
 
-
-export class EditUserProfile extends Component {
+export class EditProfileDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -43,7 +47,7 @@ export class EditUserProfile extends Component {
     }
 
     componentDidMount() {
-        const profileData = getProfileData()
+        const profileData = this.props.getProfile()
             .then((res) => {
                 console.log(res.data.customer_proile);
 
@@ -83,8 +87,10 @@ export class EditUserProfile extends Component {
     }
 
     editHandler=async ()=>{
-        
-        const result=await editUserProfile(this.state.submitData)
+        const data1 = localStorage.getItem('login_user_data');
+        const userData = JSON.parse(data1);
+        const user_token = userData.token
+        const result=await editProfileDetails(this.state.submitData,user_token)
         .then(res=>{
             sweetalert2.fire({
                 'title':'Profile edited successfully',
@@ -102,7 +108,7 @@ export class EditUserProfile extends Component {
 
 
         return (
-            <div><Header login={localStorage.getItem('loginUserData') ? 'true' : 'false'} />
+            <div>      <Navbar  login={localStorage.getItem('login_user_data') ? 'true' : 'false'}/>
                 <div className="container m-4">
                     <div className="row">
                         <div className="col-12">
@@ -229,5 +235,22 @@ export class EditUserProfile extends Component {
     }
 }
 
-export default EditUserProfile
+
+
+const mapStateToProps = state => {
+    return {
+     Profile:state.getProfile.profile,
+     
+    }
+    
+    
+  }
+  const mapDispatchToProps = dispatch => {
+    return {
+      getProfile: (payload) => dispatch(actions.getProfileData(payload)),
+      editProfileDetails:(payload)=> dispatch(actions.editProfileDetails(payload))
+     }
+  }
+export default connect(mapStateToProps, mapDispatchToProps)( EditProfileDetails);
+
 

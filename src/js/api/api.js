@@ -84,7 +84,9 @@ export const API = {
 	changePassword:(data,cb,data2)=>request(data,cb,CHANGE_PASS,data2),
 	getOrders:(data,cb,data2)=>request(data,cb,GET_ORDERS,data2),
 	getOrderPDF:(data,cb,data2)=>request(data,cb,GET_ORDER_INVOICE,data2),
-};
+	editProfileDetails:(data ,cb,data2)=>{
+		return request({}, cb, { type: 'PUT', url: `${ROOT_URL}profile/${data}`},data2)
+	},
 async function request(requestData, cb, featureURL, secureRequest = buildHeader()) {
 	const url = featureURL.url;
 	if (!live) {

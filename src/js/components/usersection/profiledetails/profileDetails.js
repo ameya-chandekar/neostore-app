@@ -3,6 +3,10 @@ import { connect } from 'react-redux';
 // import * as actions from '../../../redux/actions';
 import * as actions from '../../../redux/actions/getProfileAction';
 import '../profiledetails/profileDetails.css'
+import { Link } from 'react-router-dom';
+
+
+
 export class ProfileDetails extends Component {
   
   
@@ -57,7 +61,8 @@ export class ProfileDetails extends Component {
                             
                             <div><hr/></div>
                            
-                        <button className="btn btn-primary">Edit</button>
+                        
+                        <Link to="/editProfile" className="btn"><button className="btn btn-primary">Edit</button></Link>
                         
                         </div>
                         
