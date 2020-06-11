@@ -111,8 +111,8 @@ console.log("forrrrrr atiiiiii",id)
     return (
       <div>
         <div className="product-card m-3">
-      <div className="card " >
-        <img className="card-img-top" src={ROOT_URL + productDetails.product_image} alt="Card image" />
+      <div className="card p" >
+        <img className="card-img-top p-2 m-2" src={ROOT_URL + productDetails.product_image} alt="Card image" />
         <div className="card-body">
           <h6 className="card-title text-center"><Link to="/ProductDetails"><a href="#" onClick={()=>this.handledetails(productDetails.product_id)}>{productDetails.product_name}</a></Link></h6>
        
@@ -120,7 +120,8 @@ console.log("forrrrrr atiiiiii",id)
         <div className="text-center">
         <p className="card-text"><b>₹{productDetails.product_cost}</b></p>
           <button href="#" className="btn btn-danger" onClick={()=>{this.handlecart(productDetails.product_id,productDetails)}}><b>Add To Cart</b></button>
-          <p><Rating
+          <p>
+              <Rating
                 name="read-only"
                 value={productDetails.product_rating}
                 readOnly

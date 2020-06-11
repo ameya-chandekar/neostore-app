@@ -8,7 +8,7 @@ import ShowAddress from './address/showAddress'
 import ShowOrders from './orders/showOrders'
 
 //css
-import '../usersection/userProfile.css'
+
 export class  UserOrders extends Component {
     render() {
         return (

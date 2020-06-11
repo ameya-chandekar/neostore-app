@@ -202,8 +202,10 @@ subtractOne = (id) => {
 
 
                 {
-                this.state.cartData.length>0 ? this.state.cartData.map((el) => {
-                    // console.log(el, "ameyaaaaaaaaaaaaaaaaaaaaaaaa");
+              
+              
+              this.state.cartData.length>0 ? this.state.cartData.map((el) => {
+                    console.log(el, "ameyaaaaaaaaaaaaaaaaaaaaaaaa");
                     return (
                       <div className="row ">
                         <ul className="list-group list-group-flush ">
@@ -219,9 +221,9 @@ subtractOne = (id) => {
                                 </div>
                               </div>
                               <div className="col-3">
-                                <span className="btn btn-danger px-1" style={{borderRadius:"50%",padding:"0px"}}onClick={()=>this.subtractOne(el._id)} >-</span>&nbsp;&nbsp;
+                                <span className="btn btn-danger px-1 mt-1" style={{borderRadius:"50%",padding:"2px"}}onClick={()=>this.subtractOne(el._id)} >-</span>&nbsp;&nbsp;
                                 <span className="p-1" style={{ border: "1px solid" }}>{el.quantity}</span>&nbsp;&nbsp;
-                                <span className="btn btn-danger px-1" style={{borderRadius:"50%",padding:"0px"}} onClick={()=>this.addOne(el._id)} >+</span></div>
+                                <span className="btn btn-danger px-1 mt-1" style={{borderRadius:"50%",padding:"2px"}} onClick={()=>this.addOne(el._id)} >+</span></div>
                               <div className=""></div>
                               <div className="col-1 ">{el.product_id.product_cost}</div>
                               <div className="col-1 ">{el.product_cost*el.quantity}</div>

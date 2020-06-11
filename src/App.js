@@ -10,12 +10,12 @@ import locateUs from './js/components/footer/locateUs/locateUs';
 import Subscribe from './js/screens/subscribe';
 import Cart from './js/components/cart/cart'
 import ProductDetails from './js/components/Products/productdetails/productDetails';
-import UserProfile from './js/components/usersection/userProfile'
+import UserProfile from './js/components/usersection/userProfile/userProfile'
 import  Addnewaddress  from './js/components/usersection/address/addnewaddress';
 import  ShowAddress  from './js/components/usersection/address/showAddress';
 import UserOrders from './js/components/usersection/userOrders'
-import UserAddress from './js/components/usersection/userAddress'
-import UserChangePassword from './js/components/usersection/userChangePassword'
+import UserAddress from './js/components/usersection/userAddress/userAddress'
+import UserChangePassword from './js/components/usersection/changepassword/changePassword'
 function App() {
     return (
         <Router>

@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import Navbar from '../navbar/navbar'
-import Footer from '../footer/footer'
-import Usersoption from'../usersection/useroptions/usersoption'
-import ProfileDetails from'./profiledetails/profileDetails'
+import Navbar from '../../navbar/navbar'
+import Footer from '../../footer/footer'
+import Usersoption from'../../usersection/useroptions/usersoption'
+import ProfileDetails from'../profiledetails/profileDetails'
 
 //css
-import '../usersection/userProfile.css'
+// import '../usersection/userProfile.css'
 export class  UserProfile extends Component {
     render() {
         return (
