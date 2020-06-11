@@ -65,18 +65,18 @@ this.props.onSearch({searchText})
               <div  >
                 <ul className="navbar-nav navbar-ul ">
                   <li className="  ml-5 mr-1">
-                    <form className="form-inline  mt-2">
-                      <input className="form-control  nav-search px-5 " name="searchText" type="search" placeholder="Search product here.." aria-label="Search"
+                    <form className="form-inline  mt-2 ">
+                      <input className="form-control  nav-search px-5 searchbar " name="searchText" type="search" placeholder="Search product here.." aria-label="Search"
                       onChange={this.handleSearch} />
                       {/* <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> */}
                     </form>
                   </li>
                   <li>
-                    <Link to="/Cart"><button className="btn btn-light m-1 px-4" > <i style={{ color: 'rgb(68, 68, 68)', padding: '7px 3px' }} className="fa fa-cart-arrow-down"></i> </button></Link>
+                    <Link to="/Cart"><button className="btn btn-light mt-2 px-4" > <i style={{ color: 'rgb(68, 68, 68)', padding: '7px 3px' }} className="fa fa-cart-arrow-down"></i> </button></Link>
                   </li>
                   <li className="nav-item dropdown ">
 
-                    <button style={{ color: 'rgb(68, 68, 68)', borderRadius: '4px' }} className=" px-4 m-1 btn btn-light dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button style={{ color: 'rgb(68, 68, 68)', borderRadius: '4px' }} className=" px-4 mt-2 ml-1 btn btn-light dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <span style={{ backgroundColor: 'rgb(68, 68, 68)', borderRadius: '2px' }}>
                         <i style={{ color: 'white', padding: '7px 3px' }} className="fa fa-user"></i>
                       </span>
