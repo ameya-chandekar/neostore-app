@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import Navbar from'../../navbar/navbar'
-import userIcon from '../../assets/images/profile-placeholder.png';
+import Usersoption from'../useroptions/usersoption'
+// import userIcon from '../../assets/images/profile-placeholder.png';
 import { Link } from 'react-router-dom';
 import ReorderIcon from '@material-ui/icons/Reorder';
 import PersonIcon from '@material-ui/icons/Person';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import SyncAltIcon from '@material-ui/icons/SyncAlt';
-import UserProfile from '../UserProfile/UserProfile';
-import { getProfileData } from '../../api/api';
+// import UserProfile from '../UserProfile/UserProfile';
+import { getProfileData } from '../../../api/api';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import EditIcon from '@material-ui/icons/Edit';
 import sweetalert2 from 'sweetalert2';
@@ -28,7 +29,7 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import { connect } from 'react-redux';
 // import * as actions from '../../../redux/actions';
 import * as actions from '../../../redux/actions/getProfileAction';
-import * as actions from '../../../redux/actions/editProfileDetailsAction';
+import * as action from '../../../redux/actions/editProfileDetailsAction';
 
 export class EditProfileDetails extends Component {
     constructor(props) {
@@ -47,14 +48,18 @@ export class EditProfileDetails extends Component {
     }
 
     componentDidMount() {
-        const profileData = this.props.getProfile()
-            .then((res) => {
-                console.log(res.data.customer_proile);
+        const data1 = localStorage.getItem('login_user_data');
+        const userData = JSON.parse(data1);
+        const user_token = userData.token
+        const {Profile}=this.props
+        const profileData = this.props.getProfile({user_token})
+            // .then((res) => {
+            //     console.log(Profile.customer_proile);
 
                 this.setState({
-                    userData: res.data.customer_proile
+                    userData: Profile.customer_proile
                 })
-            })
+            // })
 
     }
 
@@ -90,18 +95,20 @@ export class EditProfileDetails extends Component {
         const data1 = localStorage.getItem('login_user_data');
         const userData = JSON.parse(data1);
         const user_token = userData.token
-        const result=await editProfileDetails(this.state.submitData,user_token)
-        .then(res=>{
-            sweetalert2.fire({
-                'title':'Profile edited successfully',
-                'icon':'success'
-            })
-        }).catch(err=>{
-            sweetalert2.fire({
-                'title':'OOps.. some error occured',
-                'text':`Error details: ${err}`
-            })
-        })
+        console.log(user_token,"token for edit profile")
+        const submitData =this.state.submitData
+        const result=await this.props.editProfileDetails({submitData,user_token})
+        // .then(res=>{
+        //     sweetalert2.fire({
+        //         'title':'Profile edited successfully',
+        //         'icon':'success'
+        //     })
+        // }).catch(err=>{
+        //     sweetalert2.fire({
+        //         'title':'OOps.. some error occured',
+        //         'text':`Error details: ${err}`
+        //     })
+        // })
     }
 
     render() {
@@ -120,12 +127,7 @@ export class EditProfileDetails extends Component {
                     {this.state.userData ?
                         <div className="row">
                             <div className="col-6 text-center">
-                                <img src={userIcon} alt="userIcon" height="30%" style={{ borderRadius: "100%" }} />
-                                <h4 className="text-danger mt-2">{this.state.userData.first_name} {this.state.userData.last_name}</h4>
-                                <div className="mb-2"><Link to="/order"><Button variant="outlined" fullWidth><ReorderIcon /> &nbsp;Order</Button></Link></div>
-                                <div className="mb-2"><Link to="/profile"><Button variant="outlined" fullWidth><PersonIcon /> &nbsp; Profile</Button></Link></div>
-                                <div className="mb-2"><Link to="/address"><Button variant="outlined" fullWidth><MenuBookIcon /> &nbsp; Addresses</Button></Link></div>
-                                <div className="mb-2"><Link to="/changePassword"><Button variant="outlined" fullWidth><SyncAltIcon /> &nbsp; Change Password</Button></Link></div>
+                            <Usersoption/>
                             </div>
                             <div className="col-6 mt-2">
 
@@ -248,7 +250,7 @@ const mapStateToProps = state => {
   const mapDispatchToProps = dispatch => {
     return {
       getProfile: (payload) => dispatch(actions.getProfileData(payload)),
-      editProfileDetails:(payload)=> dispatch(actions.editProfileDetails(payload))
+      editProfileDetails:(payload)=> dispatch(action.editProfileDetails(payload))
      }
   }
 export default connect(mapStateToProps, mapDispatchToProps)( EditProfileDetails);

@@ -11,10 +11,13 @@ const Profile = (payload) => {
 };
 export const editProfileDetails = (payload) => {
     return (dispatch, getState) => {
-        let data={}
-        const data2 = {"Authorization" : `Bearer ${payload.user_token}`}
+        let data=payload.submitData
+        // const data2 = {"Authorization" : `Bearer ${payload.user_token}`}
+
+        const data2={ Authorization: 'Bearer ' + payload.user_token}
         // const data =payload.user_id
         console.log("kkkkkkk",data);
+        console.log(data2,"token in edit actiion")
         let cb = {
             success: (res) => {
                 

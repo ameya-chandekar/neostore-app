@@ -15,7 +15,7 @@ import  Addnewaddress  from './js/components/usersection/address/addnewaddress';
 import  ShowAddress  from './js/components/usersection/address/showAddress';
 import UserOrders from './js/components/usersection/userOrders'
 import UserAddress from './js/components/usersection/userAddress/userAddress'
-import UserChangePassword from './js/components/usersection/changepassword/changePassword'
+import UserChangePassword from './js/components/usersection/changepassword/userChangePassword'
 import EditProfileDetails from'./js/components/usersection/profiledetails/editProfileDetails'
 function App() {
     return (
