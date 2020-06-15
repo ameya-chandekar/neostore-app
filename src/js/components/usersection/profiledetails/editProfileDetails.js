@@ -131,7 +131,7 @@ export class EditProfileDetails extends Component {
                             </div>
                             <div className="col-6 mt-2">
 
-                                <div className="container card ">
+                                <div className="container" style={{border:'1px groove' ,borderRadius:'5px'} }>
                                     <h3 className="mt-2">Edit Profile</h3>
                                     <FormControl className="mb-3 mt-3" variant="outlined" error={this.state.firstNameErrorText ? true : false} fullWidth defaultValue={this.state.userData.first_name} onChange={this.handleChangeInput} onBlur={this.handleChangeInput}>
                                         <label>First Name</label>

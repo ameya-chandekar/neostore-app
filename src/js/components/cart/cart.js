@@ -177,11 +177,15 @@ subtractOne = (id) => {
         <Navbar login={localStorage.getItem('login_user_data') ? 'true' : 'false'} />
         <div className="row">
           <Stepper  style={{ width: "100%" }}>
-            {steps.map(label => (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
+          
+              <Step key="Cart">
+                <StepLabel><Link to="/Cart">Cart</Link></StepLabel>
               </Step>
-            ))}
+           
+              <Step key="Address">
+              <StepLabel><Link to="/deliveryAddress"> Delivery Address</Link></StepLabel>
+              </Step>
+         
           </Stepper>
         </div>
 

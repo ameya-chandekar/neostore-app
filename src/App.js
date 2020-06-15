@@ -17,6 +17,9 @@ import UserOrders from './js/components/usersection/userOrders'
 import UserAddress from './js/components/usersection/userAddress/userAddress'
 import UserChangePassword from './js/components/usersection/changepassword/userChangePassword'
 import EditProfileDetails from'./js/components/usersection/profiledetails/editProfileDetails'
+import DeliveryAddress from'./js/components/cart/deliveryAddress'
+import RecoverPassword from'./js/components/login/recoverPassword'
+import ForgotPassword from './js/components/login/forgotPassword'
 function App() {
     return (
         <Router>
@@ -29,11 +32,14 @@ function App() {
                 <Route exact path="/ContactUs" component={ContactUs}/>
                 <Route exact path="/Subscribe" component={Subscribe}/>
                 <Route exact path="/Cart" component={Cart}/>
+                <Route exact path="/deliveryAddress" component={DeliveryAddress}/>
                 <Route exact path="/ProductDetails" component={ProductDetails}/>
 
                 <Route exact path="/UserProfile" component={UserProfile}/>
-                <Route path="/editProfile" component={EditProfileDetails}/>
-                
+                <Route exact path="/editProfile" component={EditProfileDetails}/>
+                <Route exact path="/recoverPassword" component={RecoverPassword}/> 
+                <Route exact path="/forgotPassword" component={ForgotPassword}/> 
+      
                 <Route exact path="/UserOrders" component={UserOrders}/>
                 <Route exact path="/UserAddress" component={UserAddress}/>
                 <Route exact path="/UserChangePassword" component={UserChangePassword}/>  

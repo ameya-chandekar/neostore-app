@@ -26,7 +26,7 @@ const CHANGE_PASS={type:'POST',url:ROOT_URL+'changePassword/'}
 const ADD_TO_CART ={type :'POST',url:ROOT_URL+'addDataToCart/' };
 const GET_CART_PRODUCT={type :'GET',url:ROOT_URL+'getCartData/' };
 
-const EDIT_PROFILE_DETAILS={type:'PUT',url:ROOT_URL+'profile/'}
+const EDIT_PROFILE_DETAILS={type:'PUT',url:ROOT_URL+'profile'}
 
 const GET_PROFILE={type:'GET',url:ROOT_URL+'getCustProfile/'};
 export const API = {

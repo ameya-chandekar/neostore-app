@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 // import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import Icon from "@material-ui/core/Icon";
-
+import {Link} from 'react-router-dom'
 // import Input from "@material-ui/core/Input";
 // import FilledInput from "@material-ui/core/FilledInput";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
@@ -230,8 +230,8 @@ handlePassChange=(e)=>{
                     </div>
                     <div className="row " >
                         <div className="col-lg-12 d-flex justify-content-center">
-                            <button className="btn">Register Now</button>  <span style={{ marginTop: "7px" }}>|</span>
-                            <button className="btn">Forgot Password</button>
+                         <Link to="/RegisterPage">   <button className="btn">Register Now</button> </Link> <span style={{ marginTop: "7px" }}>|</span>
+                         <Link to="/forgotPassword">   <button className="btn">Forgot Password</button></Link>
                         </div>
                     </div>
                 </div>
