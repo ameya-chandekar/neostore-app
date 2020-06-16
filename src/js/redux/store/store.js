@@ -18,6 +18,7 @@ import addAddressreducer from '../reducers/addAddressReducer'
 import getAddressReducer from '../reducers/getAddressReducer'
 import getProfileData from'../reducers/profileReducer'
 import getOrders from '../reducers/orderReducer'
+import forgotpassword from '../reducers/forgotPasswordReducer'
 // MiddleWare
 
 import thunk from 'redux-thunk';
@@ -38,6 +39,7 @@ const AppRootReducer = combineReducers({
     getAddress:getAddressReducer,
     getProfile:getProfileData,
     Orders:getOrders,
+    otpData:forgotpassword
    
 
 })

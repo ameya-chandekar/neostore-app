@@ -16,6 +16,11 @@ import FormHelperText from'@material-ui/core/FormHelperText'
 
 import Navbar from "../navbar/navbar";
 import Footer from "../footer/footer";
+import sweetalert2 from 'sweetalert2';
+
+//redux
+import { connect } from 'react-redux';
+import * as actions from '../../redux/actions/recoverPasswordAction';
 
 // import { connect } from "react-redux";
 // import * as actions from "";
@@ -105,6 +110,85 @@ else if(this.state.newPassword!=this.state.confirmPassword){
    {
        this.setState({confirmPasswordError:''})
    }
+}
+
+//submit handler
+
+handleSubmit = async (e) => {
+  e.preventDefault();
+  if (isNaN(this.state.otp)) {
+      this.setState({
+        otpError: 'It should be a number'
+      })
+  }
+  else if (!(this.state.otp >= 999 && this.state.otp < 10000)) {
+      this.setState({
+          otpError: 'Authentication code should be of 4 digits'
+      })
+  }
+  else if (this.state.otp === 0) {
+      this.setState({
+          otpError: 'Please enter authentication code'
+      })
+  }
+  else {
+      this.setState({
+          otpError: ''
+      })
+  }
+  const passwordFormat = /^[A-Za-z]\w{7,11}$/;
+  if (this.state.password === "") {
+      this.setState({
+          passwordErr: `Please enter password`
+      })
+  }
+  else if (!this.state.password.match(passwordFormat) == null) {
+      this.setState({
+          passwordErr: 'Invalid password format (8-12) alphanumeric allowed'
+      })
+  }
+
+  if (this.state.confirmPassword === "") {
+      this.setState({
+          confirmPasswordErr: `Please enter password again`
+      })
+  }
+  else if (this.state.password !== this.state.confirmPassword) {
+      this.setState({
+          confirmPasswordErr: `Passwords don't match`
+      })
+  }
+  else {
+      this.setState({
+          confirmPasswordErr: ''
+      })
+  }
+
+
+  if (this.state.otpError === '' && this.state.passwordErr === '' && this.state.confirmPasswordErr === '') {
+      const data = {
+          'otpCode': `${this.state.otp}`,
+          'newPass': `${this.state.password}`,
+          'confirmPass': `${this.state.confirmPassword}`
+      }
+      await this.props.recoverPassword(data)
+          .then(res => {
+
+              sweetalert2.fire({
+                  'text': 'Password changed successfully, you can now login'
+              })
+              setTimeout(() => { this.props.history.push('/login') }, 2000);
+          }).catch(err => {
+              sweetalert2.fire({
+                  'text': `Error: ${err}`
+              })
+          })
+  }
+  else {
+      sweetalert2.fire({
+          'text': 'Please enter all the fields correctly'
+      })
+  }
 }
   render() {
     return (
@@ -224,4 +308,19 @@ else if(this.state.newPassword!=this.state.confirmPassword){
   }
 }
 
-export default RecoverPassword;
+
+const mapStateToProps = state => {
+  return {
+    otpData:state.otpData.otpData
+      };
+  
+  
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    recoverPassword: (payload) => dispatch(actions.recoverPassword(payload))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecoverPassword);

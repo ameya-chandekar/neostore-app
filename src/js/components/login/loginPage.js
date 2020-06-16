@@ -246,23 +246,23 @@ handlePassChange=(e)=>{
 
 
 
-const mapStateToProps = state => {
-    return {
-      isLogin:state.login.isLogin,
-      userdetails:state.login.userdetails
-      
-    };
-    
-    
-  }
-  
-  const mapDispatchToProps = dispatch => {
-    return {
-      onLogIn: (payload) => dispatch(actions.login(payload))
+    const mapStateToProps = state => {
+        return {
+        isLogin:state.login.isLogin,
+        userdetails:state.login.userdetails
+        
+        };
+        
+        
     }
-  }
-  
-  export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+    
+    const mapDispatchToProps = dispatch => {
+        return {
+        onLogIn: (payload) => dispatch(actions.login(payload))
+        }
+    }
+    
+    export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
 //   export default LoginPage
 
 

@@ -45,7 +45,7 @@ function footer() {
             </div>
           </div>
         </div>
-        <div className="row "> <div className="col-12 text-center"><p > Copyright 2017 NeoSOFT Technologies All rights reserved | Design By Ameya Chandekar</p></div></div>
+        <div className="row "> <div className="col-12 text-center"><p > Copyright 2020 NeoSOFT Technologies All rights reserved | Design By Ameya Chandekar</p></div></div>
       </div> 
     </div>
   );
