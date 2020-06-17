@@ -3,6 +3,7 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Navbar from '../navbar/navbar';
+import Footer from '../footer/footer'
 // import { getCustomerAddress, updateAddress, addToCartApi } from '../../api/api';
 import sweetalert2 from 'sweetalert2';
 import { Link } from 'react-router-dom';
@@ -10,14 +11,14 @@ import { Link } from 'react-router-dom';
 //redux
 import { connect } from 'react-redux';
 // import * as actions from '../../../redux/actions';
-import * as actions from '../../redux/actions/getAddressAction';
+import * as actions from '../../redux/actions';
+import * as action from '../../redux/actions/updateAddressAction';
 
 export class SelectAddress extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            userAddress: [],
             checked: false,
             id: '',
             show: false
@@ -34,17 +35,6 @@ export class SelectAddress extends Component {
             await this.props.getAddress({ user_token })
             const { address } = this.props
             console.log(address, "proceed to checout page")
-            this.props.address ?
-                this.setState({
-                    userAddress: this.props.address,
-
-                }) :
-                sweetalert2.fire({
-                    'title': 'No address found',
-                    'text': `Add address to proceed `,
-                    'icon': 'warning'
-                }
-                )
         }
 
         else {
@@ -54,6 +44,14 @@ export class SelectAddress extends Component {
             })
         }
     }
+    // componentDidUpdate() {
+    //     const data1 = localStorage.getItem('login_user_data');
+    //     const userData = JSON.parse(data1);
+    //     const user_token = userData.token
+    //     this.props.getAddress({user_token})
+    //     const {address}=this.props
+    //     console.log(address,"vadvavadvavdavdvadvavd") 
+    // }
 // For handling select address from selected address
 selectAddress = (el) => {
     const data = {
@@ -66,13 +64,17 @@ selectAddress = (el) => {
         'pincode': `${el.pincode}`,
 
     }
-    // updateAddress(data)
-    // .then(res => {
-    //     this.setState({ show: true })
-    //     sweetalert2.fire({text:'You Can Proceed to buy now'})
-    // }).catch(err => {
-    //     alert(`Oops... some error occured. Details : ${err}`)
-    // })
+    const data1 = localStorage.getItem('login_user_data');
+    const userData = JSON.parse(data1);
+    const user_token = userData.token
+    if(this.props.updateAddress({data ,user_token}))
+    {
+        this.setState({ show: true })
+        sweetalert2.fire({text:'You Can Proceed to buy now'})
+    }
+    else{
+        alert(`Oops... some error occured. Details : `)
+    }
 
 
 
@@ -109,6 +111,8 @@ radioHandler = (e, id) => {
 
 render() {
     const steps = ['Cart', 'Delivery Address'];
+    const {address}=this.props
+    const add =address.customer_address
     return (
         <div>
             <Navbar login={localStorage.getItem('login_user_data') ? 'true' : 'false'} />
@@ -127,7 +131,7 @@ render() {
 
                 <div className="mt-4 mb-4" style={{ border: "1px groove", borderRadius: "5px" }}>
                     <div className="card-Navbar"><h2>Addresses</h2></div>
-                    {this.state.userAddress.length > 0 ? this.state.userAddress.map(el => {
+                    {add? add.map(el => {
                         return <div className="">
                             <div className=" card-body m-2" style={{ border: "1px groove", borderRadius: "5px" }}>
                                 <div className="row m-1">
@@ -170,6 +174,7 @@ render() {
                 </div>
 
             </div>
+            <Footer/>
         </div>
     )
 }
@@ -189,6 +194,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         getAddress: (payload) => dispatch(actions.getAddress(payload)),
+        updateAddress:(payload)=>dispatch(action.updateAddress(payload))
 
     }
 }

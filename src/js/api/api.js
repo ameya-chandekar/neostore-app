@@ -21,6 +21,7 @@ const GET_ORDERS={type:'GET',url:ROOT_URL+'getOrderDetails/'};
 const GET_ORDER_INVOICE={type:'POST',url:ROOT_URL+'getInvoiceOfOrder/'};
 const ADD_ADDRESS={type:'POST',url:ROOT_URL+'address/'};
 const GET_ADDRESS={type:'GET',url:ROOT_URL+'getCustAddress/'};
+const UPDATE_ADDRESS={type:'PUT',url:ROOT_URL+'updateAddress/'};
 const CHANGE_PASS={type:'POST',url:ROOT_URL+'changePassword/'}
 
 const ADD_TO_CART ={type :'POST',url:ROOT_URL+'addDataToCart/' };
@@ -82,7 +83,7 @@ export const API = {
 
 	addAddress:(data,cb,data2)=>request(data,cb,ADD_ADDRESS,data2),
 	getAddress:(data,cb,data2)=>request(data,cb,GET_ADDRESS,data2),
-	
+	updateAddress:(data,cb,data2)=>request(data,cb,UPDATE_ADDRESS,data2),
 	deleteAddress: (data, cb,data2) => {
 		return request({}, cb, { type: 'DELETE', url: `${ROOT_URL}deladdress/${data}`} ,data2)
 	},
