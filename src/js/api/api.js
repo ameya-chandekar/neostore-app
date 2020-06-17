@@ -30,7 +30,7 @@ const EDIT_PROFILE_DETAILS={type:'PUT',url:ROOT_URL+'profile'}
 
 const GET_PROFILE={type:'GET',url:ROOT_URL+'getCustProfile/'};
 const FORGOT_PASSWORD={type:'POST',url:ROOT_URL+'forgotPassword'};
-
+const RECOVER_PASSWORD={type:'POST',url:ROOT_URL+'recoverPassword'};
 export const API = {
 	getProduct: (data, cb) => request(data, cb, GET_PRODUCT),
 	getAllCategories: (data, cb) => request(data, cb, GET_ALL_CATEGORIES),
@@ -75,7 +75,11 @@ export const API = {
 
 	register:(data ,cb)=>request(data, cb, REGISTER),
 	logIn:(data,cb)=> request(data,cb,LOG_IN ),
-    forgotPassword:(data,cb)=> request(data,cb,FORGOT_PASSWORD),
+	forgotPassword:(data,cb)=> request(data,cb,FORGOT_PASSWORD),
+	
+	recoverPassword:(data,data2)=>request(data,RECOVER_PASSWORD,data2),
+
+
 	addAddress:(data,cb,data2)=>request(data,cb,ADD_ADDRESS,data2),
 	getAddress:(data,cb,data2)=>request(data,cb,GET_ADDRESS,data2),
 	

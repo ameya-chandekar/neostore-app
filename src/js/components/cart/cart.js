@@ -274,9 +274,9 @@ subtractOne = (id) => {
                     </div>
                   </li>
                   <li className="list-group-item">
-                    <div className="btn btn-primary" style={{ width: "100%" }}>
+                  <Link to="/selectAddress"><div className="btn btn-primary" style={{ width: "100%" }}>
                       proceed to buy
-                                                </div>
+                                                </div></Link>
                   </li>
                 </ul>
               </div>
