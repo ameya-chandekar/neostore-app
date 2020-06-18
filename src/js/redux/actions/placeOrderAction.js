@@ -13,7 +13,7 @@ export const placeOrder = (payload) => {
     return (dispatch, getState) => {
         const data = payload.data1
         const data2 = {"Authorization" : `Bearer ${payload.user_token}`}
-        console.log(data2,"ab kya kare bhaiyaa")
+    
         let cb = {
             success: (res) => {
                 console.log("from add addresss action");

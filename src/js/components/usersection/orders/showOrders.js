@@ -27,7 +27,7 @@ class ShowOrders extends Component {
         const data1 = localStorage.getItem('login_user_data');
         const userData = JSON.parse(data1);
         const user_token = userData.token
-        this.props.getOrders({user_token})
+        this.props.getOrderDetail({user_token})
         const {Orders}=this.props
         console.log(Orders,"vadvavadvavdavdvadvavd") 
     }
@@ -123,7 +123,7 @@ const mapStateToProps = state => {
   
   const mapDispatchToProps = dispatch => {
     return {
-      getOrders: (payload) => dispatch(actions.getOrders(payload)),
+        getOrderDetail: (payload) => dispatch(actions.getOrders(payload)),
       getPDF:(payload)=>dispatch(actions.getOrderPDF(payload)),
      
     }

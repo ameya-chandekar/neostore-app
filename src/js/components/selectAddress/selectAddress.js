@@ -30,7 +30,8 @@ export class SelectAddress extends Component {
         this.state = {
             checked: false,
             id: '',
-            show: false
+            show: false,
+            placed:false,
         }
 
     }
@@ -102,27 +103,6 @@ radioHandler = (e, id) => {
 }
 
 // Proceed to checkout handler for onClick event
-// proceedCheckout = async(e) => {
-//     e.preventDefault();
-//     const data = localStorage.getItem('cart') ? localStorage.getItem('cart') : [];
-
-//     const data1 = data ? JSON.parse(data) : []
-//     data1.push({ flag: 'checkout' })
-//     const data2 = localStorage.getItem('login_user_data');
-//     const userData = JSON.parse(data2);
-//     const user_token = userData.token
-//     const placeOrder=this.props.placeOrder()
-//     await  placeOrder({data1,user_token})
-//     .then(result => {
-
-//         localStorage.setItem('cart', [[]])
-//         this.props.history.push('/thanksPage')
-//         this.setState({ show: true })
-//     }).catch(err => {
-//         alert(`OOps.. some error occured. Details: ${err}`)
-//     })
-
-// }
 proceedCheckout = async(e) => {
     e.preventDefault();
     const data = localStorage.getItem('cart') ? localStorage.getItem('cart') : [];
@@ -132,19 +112,50 @@ proceedCheckout = async(e) => {
     const data2 = localStorage.getItem('login_user_data');
     const userData = JSON.parse(data2);
     const user_token = userData.token
-    console.log(user_token,"token on place order")
-    this.props.placeOrder({data1,user_token});
-    // await  placeOrder(data1,user_token)
-    // .then(result => {
-
+    const placeOrder=()=>{
+      this.props.placeOrder({data1,user_token})
+      
+        
+}
+placeOrder();
+    // if()
+    // {
     //     localStorage.setItem('cart', [[]])
     //     this.props.history.push('/thanksPage')
     //     this.setState({ show: true })
-    // }).catch(err => {
+    // }
+    // .catch(err => {
     //     alert(`OOps.. some error occured. Details: ${err}`)
     // })
-
 }
+
+
+
+
+
+// proceedCheckout = async(e) => {
+//     e.preventDefault();
+//     const data = localStorage.getItem('cart') ? localStorage.getItem('cart') : [];
+
+//     const data1 = data ? JSON.parse(data) : []
+//     data1.push({ flag: 'checkout' })
+//     const data2 = localStorage.getItem('login_user_data');
+//     const userData = JSON.parse(data2);
+//     const user_token = userData.token
+//     console.log(user_token,"token on place order")
+//     this.props.placeOrder({data1,user_token});
+//     // await  placeOrder(data1,user_token)
+//     // .then(result => {
+
+//     //     localStorage.setItem('cart', [[]])
+//     //     this.props.history.push('/thanksPage')
+//     //     this.setState({ show: true })
+//     // }).catch(err => {
+//     //     alert(`OOps.. some error occured. Details: ${err}`)
+//     // })
+
+// }
+
 
 render() {
     const steps = ['Cart', 'Delivery Address'];
