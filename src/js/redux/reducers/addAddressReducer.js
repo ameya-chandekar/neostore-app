@@ -2,6 +2,7 @@ import * as actionType from '../actions/actionTypes';
 import { updateObject } from '../utility/utility';
 
 const initialState = {
+    isUpdated:false,
     isAdded: false,
     Addresses:{}
 }
@@ -15,7 +16,10 @@ const reducer = (state = initialState, action) => {
             return updateObject(state, action.payload)  
             
             case actionType.DELETE_ADDRESS:
-            return updateObject(state, action.payload)  
+            return updateObject(state, action.payload)
+            
+            case actionType.UPDATE_ADDRESS:
+            return updateObject(state, action.payload)
 
         default: return state;
     }

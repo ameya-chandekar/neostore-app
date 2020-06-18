@@ -26,7 +26,7 @@ const CHANGE_PASS={type:'POST',url:ROOT_URL+'changePassword/'}
 
 const ADD_TO_CART ={type :'POST',url:ROOT_URL+'addDataToCart/' };
 const GET_CART_PRODUCT={type :'GET',url:ROOT_URL+'getCartData/' };
-
+const PLACE_ORDER={type :'POST',url:ROOT_URL+'addProductToCartCheckout/' };
 const EDIT_PROFILE_DETAILS={type:'PUT',url:ROOT_URL+'profile'}
 
 const GET_PROFILE={type:'GET',url:ROOT_URL+'getCustProfile/'};
@@ -65,6 +65,7 @@ export const API = {
 
 
 	addtocart:(data ,cb,data2)=>request(data, cb, ADD_TO_CART,data2),
+	placeOrder:(data ,cb,data2)=>request(data, cb, PLACE_ORDER,data2),
 	// getCartProduct: (data, cb) => {
 	
 	// 	return request({}, cb, { type: 'GET', url: `${ROOT_URL}getCartData/${data}` })

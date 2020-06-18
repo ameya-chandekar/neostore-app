@@ -5,14 +5,15 @@ import { API } from '../../api/api';
 const address = (payload) => {
     // console.log(payload);
     return {
-        type: actionType.UPDATE_ADDRESS,
+        type: actionType.PLACE_ORDER,
         payload: payload
     };
 };
-export const updateAddress = (payload) => {
+export const placeOrder = (payload) => {
     return (dispatch, getState) => {
-        const data = payload.data
+        const data = payload.data1
         const data2 = {"Authorization" : `Bearer ${payload.user_token}`}
+        console.log(data2,"ab kya kare bhaiyaa")
         let cb = {
             success: (res) => {
                 console.log("from add addresss action");
@@ -27,7 +28,8 @@ export const updateAddress = (payload) => {
 
             }
         }
-        API.updateAddress(data, cb,data2)
+        API.placeOrder(data, cb,data2)
     }
+    
 }
 

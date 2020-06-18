@@ -13,7 +13,16 @@ import { connect } from 'react-redux';
 // import * as actions from '../../../redux/actions';
 import * as actions from '../../redux/actions';
 import * as action from '../../redux/actions/updateAddressAction';
-
+import * as actionss from '../../redux/actions/placeOrderAction';
+import {
+    Button,
+    RadioGroup,
+    FormLabel,
+    FormControl,
+    FormControlLabel,
+    Radio,
+    OutlinedInput
+} from '@material-ui/core';
 export class SelectAddress extends Component {
     constructor(props) {
         super(props);
@@ -67,7 +76,9 @@ selectAddress = (el) => {
     const data1 = localStorage.getItem('login_user_data');
     const userData = JSON.parse(data1);
     const user_token = userData.token
-    if(this.props.updateAddress({data ,user_token}))
+    this.props.updateAddress({data ,user_token})
+   
+    if(true)
     {
         this.setState({ show: true })
         sweetalert2.fire({text:'You Can Proceed to buy now'})
@@ -97,7 +108,11 @@ radioHandler = (e, id) => {
 
 //     const data1 = data ? JSON.parse(data) : []
 //     data1.push({ flag: 'checkout' })
-//     await addToCartApi(data1)
+//     const data2 = localStorage.getItem('login_user_data');
+//     const userData = JSON.parse(data2);
+//     const user_token = userData.token
+//     const placeOrder=this.props.placeOrder()
+//     await  placeOrder({data1,user_token})
 //     .then(result => {
 
 //         localStorage.setItem('cart', [[]])
@@ -108,6 +123,28 @@ radioHandler = (e, id) => {
 //     })
 
 // }
+proceedCheckout = async(e) => {
+    e.preventDefault();
+    const data = localStorage.getItem('cart') ? localStorage.getItem('cart') : [];
+
+    const data1 = data ? JSON.parse(data) : []
+    data1.push({ flag: 'checkout' })
+    const data2 = localStorage.getItem('login_user_data');
+    const userData = JSON.parse(data2);
+    const user_token = userData.token
+    console.log(user_token,"token on place order")
+    this.props.placeOrder({data1,user_token});
+    // await  placeOrder(data1,user_token)
+    // .then(result => {
+
+    //     localStorage.setItem('cart', [[]])
+    //     this.props.history.push('/thanksPage')
+    //     this.setState({ show: true })
+    // }).catch(err => {
+    //     alert(`OOps.. some error occured. Details: ${err}`)
+    // })
+
+}
 
 render() {
     const steps = ['Cart', 'Delivery Address'];
@@ -152,6 +189,14 @@ render() {
                                     </div>
 
                                 </div>
+
+                                {/* <div><FormControl className="mb-3" >
+                                        <RadioGroup aria-label="gender" name="gender1"  onChange={(e) => this.selectAddress(el)} >
+                                            <FormControlLabel   control={<Radio />}/>
+                                          
+                                        </RadioGroup>
+
+                                    </FormControl></div> */}
                                 <div className="row m-1">
                                     <div className="col-2">
                                         <input type="checkbox" onChange={(e) => this.selectAddress(el)} />
@@ -185,6 +230,7 @@ render() {
 const mapStateToProps = state => {
     return {
         address: state.Address.Addresses,
+        isUpdated: state.Address.isUpdated,
 
     }
 
@@ -194,7 +240,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         getAddress: (payload) => dispatch(actions.getAddress(payload)),
-        updateAddress:(payload)=>dispatch(action.updateAddress(payload))
+        updateAddress:(payload)=>dispatch(action.updateAddress(payload)),
+        placeOrder:(payload)=>dispatch(actionss.placeOrder(payload)),
 
     }
 }
