@@ -71,8 +71,8 @@ handleChange=(e) =>{
 }
 
 componentDidUpdate(prevProps){
- 
- 
+
+  
 }
 
 componentDidMount(){

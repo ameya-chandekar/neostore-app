@@ -29,5 +29,6 @@ export const updateAddress = (payload) => {
         }
         API.updateAddress(data, cb,data2)
     }
+    
 }
 

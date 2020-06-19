@@ -17,7 +17,6 @@ class ShowOrders extends Component {
         const data1 = localStorage.getItem('login_user_data');
         const userData = JSON.parse(data1);
         const user_token = userData.token
-               
         this.props.getPDF({orderdata,user_token  })
         const {OrderInvoice}=this.props
          window.open(ROOT_URL+this.props.OrderInvoice.receipt)
@@ -29,13 +28,13 @@ class ShowOrders extends Component {
         const user_token = userData.token
         this.props.getOrderDetail({user_token})
         const {Orders}=this.props
-        console.log(Orders,"vadvavadvavdavdvadvavd") 
+        
     }
     
     render() {
         const {Orders}=this.props
         const order =Orders.product_details
-        console.log(order,"vadvavadvavdavdvadvavd") 
+  
 
         return (
             <div>
@@ -45,7 +44,7 @@ class ShowOrders extends Component {
                     //     console.log("itemmmmmmmmmm",item)
                         // return(
                             order?order.map((i)=>{
-                                console.log(i.product_details,"aaalalalalalalalalalalalalalalaalalaal")
+                                // console.log(i.product_details,"aaalalalalalalalalalalalalalalaalalaal")
                                 const productimg=i.product_details
                                 return(
                                     <div className="orders m-2" style={{ border: "1px groove", borderRadius: " 5px" }}>
@@ -67,47 +66,6 @@ class ShowOrders extends Component {
             </div>
         );
 
-
-
-
-
-
-
-
-
-
-        // return (
-        //     <div>
-                
-        //         {
-        //             order?order.map((el)=>{
-        //                 const item =el.product_details
-        //                 console.log("itemmmmmmmmmm",item)
-                        
-        //                 return(
-        //                     item.map((i)=>{
-        //                         const productimg=i.product_details
-        //                         return(
-        //                             <div className="orders" style={{ border: "1px groove", borderRadius: " 5px" }}>
-        //                             <div> <span>TRANSIT Order By :</span><span>{i.order_id}</span></div>
-        //                             <div><span>Placed on</span><span>{i.createdAt}</span> <span> /₹{i.total_productCost}</span></div>
-        //                             <div><hr /></div>
-        //                             <div style={{width:"10%",height:"10%"}}>
-        //                               { productimg.map((img)=>{
-        //                                    return(<img style={{width:"100%",height:"100%"}} src={ROOT_URL+img.product_image}/>)
-        //                                } )} </div>
-        //                             <div><hr /></div>
-        //                             <div className="btn btn-primary">Download invoice as PDF</div>
-        //                         </div>
-        //                         )
-        //                     })
-                           
-        //                 )
-        //             }):null
-        //         }
-               
-        //     </div>
-        // );
     }
 }
 

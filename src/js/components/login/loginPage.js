@@ -76,8 +76,6 @@ export class LoginPage extends Component {
         
     }
 
-
-    
 componentDidUpdate(prevProps){
     if(this.props.isLogin){
         console.log("redirected" );
