@@ -126,10 +126,10 @@ export class EditProfileDetails extends Component {
                     </div><hr />
                     {this.state.userData ?
                         <div className="row">
-                            <div className="col-6 text-center">
+                            <div className="col-lg-4 col-md-12 text-center">
                             <Usersoption/>
                             </div>
-                            <div className="col-6 mt-2">
+                            <div className="col-lg-8 col-md-12 ">
 
                                 <div className="container" style={{border:'1px groove' ,borderRadius:'5px'} }>
                                     <h3 className="mt-2">Edit Profile</h3>
@@ -220,7 +220,7 @@ export class EditProfileDetails extends Component {
                                         <FormHelperText id="component-error-text">{this.state.emailErrorText}</FormHelperText>
                                         <label className="mb-1 mt-2">Choose Profile picture to upload</label>
                                         <input type='file' className="mb-2 mt-1" onChange={(e) => { this.imgHandler(e) }} id="img" name="profilePicture" accept="image/*" />
-                                        <button className="btn btn-info mt-3" onClick={this.editHandler}>Edit</button>
+                                        <button className="btn btn-info mt-3" style={{width:"20%"}} onClick={this.editHandler}>Edit</button>
                                     </FormControl>
                                     
 

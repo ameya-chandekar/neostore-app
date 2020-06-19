@@ -32,7 +32,7 @@ class Usersoption extends Component {
                     {profileimage ? <img src={url + profileimage} />
                         : <img src={proimg} />}
                 </div>
-                <div className="row text-center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h5>{data ? data.first_name : null}&nbsp;&nbsp;&nbsp;{data ? data.last_name : null}</h5></div>
+                <div className="row text-center pl-5 pt-2" style={{color:"red",marginLeft:"10px"}}><h6 className="pl-5">{data ? data.first_name : null}&nbsp;&nbsp;&nbsp;{data ? data.last_name : null}</h6></div>
                 <div className="row"><div className="col"> <Link to="/UserOrders"><button className="btn profile-img-btn"> Order</button></Link></div></div>
                 <div className="row"><div className="col"  > <Link to="/UserProfile"><button className="btn profile-img-btn"> Profile</button></Link></div></div>
                 <div className="row"><div className="col"> <Link to="/UserAddress"><button className="btn profile-img-btn"> Address</button></Link></div></div>
