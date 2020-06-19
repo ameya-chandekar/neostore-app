@@ -6,7 +6,7 @@ import { DELETE_ADDRESS } from '../redux/actions/actionTypes';
 
 //App API's
 const live = false;
-
+const UPDATE_RATING={type:'PUT',url:ROOT_URL + 'updateProductRatingByCustomer/'}
 const GET_PRODUCT = { type: 'GET', url: ROOT_URL + 'defaultTopRatingProduct/' };
 const GET_ALL_PRODUCT = { type: 'GET', url: ROOT_URL + 'commonProducts/' };
 // const GET_PRODUCT_BY_CATEG = { type: 'GET', url: ROOT_URL+'getProductByCateg/' };
@@ -33,6 +33,7 @@ const GET_PROFILE={type:'GET',url:ROOT_URL+'getCustProfile/'};
 const FORGOT_PASSWORD={type:'POST',url:ROOT_URL+'forgotPassword'};
 const RECOVER_PASSWORD={type:'POST',url:ROOT_URL+'recoverPassword'};
 export const API = {
+	updateRating:(data,cb,data2)=>request(data,cb,UPDATE_RATING,data2),
 	getProduct: (data, cb) => request(data, cb, GET_PRODUCT),
 	getAllCategories: (data, cb) => request(data, cb, GET_ALL_CATEGORIES),
 	getAllColors: (data, cb) => request(data, cb, GET_ALL_COLORS),

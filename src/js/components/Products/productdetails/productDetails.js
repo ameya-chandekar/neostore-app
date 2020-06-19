@@ -7,6 +7,7 @@ import Tab from "@material-ui/core/Tab";
 import Rating from "@material-ui/lab/Rating";
 import Box from '@material-ui/core/Box';
 import ReactRating from 'react-rating';
+import ReactStars from "react-rating-stars-component";
 import sweetalert2 from 'sweetalert2';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import '../productdetails/productDetails.css'
@@ -28,7 +29,7 @@ export class ProductDetails extends Component {
   }
   handleimage = (imgurl) => {
     const url = imgurl;
-    console.log(url, "879896re9r8w89er98w7r97r98wer986wr7w6rwe869r");
+    // console.log(url, "879896re9r8w89er98w7r97r98wer986wr7w6rwe869r");
     this.setState({
       imageurl: url
     })
@@ -58,12 +59,30 @@ export class ProductDetails extends Component {
     });
 };
 
+
+handleRatingSubmit = async (e) => {
+  e.preventDefault();
+  
+      let data = {
+          product_id: this.props.productid,
+          product_rating: this.state.rating,
+      };
+      console.log(data,"rating submit function called")
+      const data2 = localStorage.getItem('login_user_data');
+      const userData = JSON.parse(data2);
+      const user_token = userData.token
+      this.props.updateRating({data,user_token})
+          sweetalert2.fire({
+              'text':'Rating has been updated successfully'
+          })
+   
+};
   render() {
     const { imageurl } = this.state
-    console.log("product ------------- id", this.props.productid);
+    // console.log("product ------------- id", this.props.productid);
     const product_details = this.props.allProduct[0] ? this.props.allProduct[0] : [];
     const subimages = product_details.subImages_id ? product_details.subImages_id.product_subImages : [];
-    console.log("inside product detailsasmsnlaskndlkandlakdnalkndadalnaldna ", product_details)
+    // console.log("inside product detailsasmsnlaskndlkandlakdnalkndadalnaldna ", product_details)
     return (
       <div>
         <Navbar />
@@ -78,7 +97,7 @@ export class ProductDetails extends Component {
                 {
                   // console.log(subimages,"for map") 
                   subimages.map((el) => {
-                    console.log(el)
+                    // console.log(el)
                     return (
                       <div className="col-4" style={{ width: "50px", height: "80px", border: "1px solid" }}>
                         <img src={ROOT_URL + el} style={{ width: "100%", height: "100%", padding: "10px" }}
@@ -143,14 +162,26 @@ export class ProductDetails extends Component {
                   <Box component="fieldset" mb={3}>
                     {/* <Rating name="pristine" onChange={this.handleRating} /> */}
                     {/* <ReactRating onChange={(value) => { this.handleRating(value) }} placeholderRating={this.state.rating ? this.state.rating : 0} /> */}
-
-                    <Rating
-          name="customized-empty"
-          defaultValue={2}
+                    <ReactStars
+                    count={5}
+                    /* onChange={} */
+                    onChange={(value) => { this.handleRating(value) }} 
+                    size={24}
+                    half={true}
+                    emptyIcon={<i className="far fa-star"></i>}
+                    halfIcon={<i className="fa fa-star-half-alt"></i>}
+                    fullIcon={<i className="fa fa-star"></i>}
+                    color2={"#ffd700"}
+                    value={this.state.rating ? this.state.rating : 0}
+  />
+                    {/* <Rating
+                    size="large" 
+          name="half-rating"
+          defaultValue={0}
           precision={0.5}
           emptyIcon={<StarBorderIcon fontSize="inherit" />}
           onChange={(value) => { this.handleRating(value) }} placeholderRating={this.state.rating ? this.state.rating : 0}
-        />
+        /> */}
                   </Box>
                 </div>
 
@@ -161,7 +192,7 @@ export class ProductDetails extends Component {
                 onClick={this.handleRatingSubmit}
                 disabled={false}
                 data-dismiss="modal"
-            />
+            >Done</button>
                 </div>
               </div>
             </div>
@@ -203,6 +234,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onGetProductByid: (payload) => dispatch(actions.getProductById(payload)),
+    updateRating:(payload)=>dispatch(actions.updateRating(payload)),
     //    onproductbycateg:()=>dispatch(actions.getproductbycateg()),
   }
 }
