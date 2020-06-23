@@ -12,7 +12,10 @@ const storeAllProduct = (payload) => {
 export const getAllProduct = (payload) => {
 
     return (dispatch, getState) => {
-        const data = {}
+        
+        const data = {
+            cat_id:payload.cat_id,col_id:payload.color_id,
+        }
       
 
         //console.log(data);

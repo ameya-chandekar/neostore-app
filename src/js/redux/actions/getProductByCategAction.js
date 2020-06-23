@@ -14,16 +14,16 @@ export const getproductbycateg = (payload) => {
         // let data={}
         
         const data =payload.catogorie_id
-        console.log("kkkkkkk",data);
+        console.log("kkkkkkadadadadak",data);
         let cb = {
             success: (res) => {
-                console.log("on api calllllllll",res);
+                console.log(res,"slider image res from action")
                 const newState={
                   
                     productdetails:[...res.product_details]
                 }
                 dispatch(productbycatid(newState))
-
+                
             },
             error: (err) => {
             //    console.log("abcdegjhhhhhh",err)

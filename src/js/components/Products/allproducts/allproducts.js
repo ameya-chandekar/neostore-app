@@ -13,6 +13,7 @@ export class Allproducts extends Component {
 
         }
     }
+
     componentDidMount() {
        
         this.props.onGetAllProduct()

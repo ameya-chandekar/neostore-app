@@ -21,23 +21,30 @@ class CategoriesAccordian extends Component {
         this.state = {
             Categorie: [],
             Colors:[],
-            cat_id:"",
+            cat_id:null,
+            color_id:null,
         }
     }
     // const {cat_id}=this.state
-    sortbycategorie=(catogorie_id)=>{
-            // this.setState({
-            //     cat_id:catogorie_id
-            // })
-         console.log("categorie id to be passed",catogorie_id)
-        this.props.onproductbycateg({catogorie_id})
+    sortbycategorie=(cat_id)=>{
+            this.setState({
+                cat_id:cat_id
+            })
+         
+       let   {color_id}=this.state;
+       console.log(this.state.cat_id,"lalalalalalalalalalalalalalalalaal")
+
+        this.props.onGetAllProduct({cat_id,color_id})
         
     }
 
     sortbycolor=(color_id)=>{
-
+        this.setState({
+            color_id:color_id
+        })
         console.log(" color id to be passed",color_id)
-        this.props.onproductbycolor({color_id})
+        let   {cat_id}=this.state;
+        this.props.onGetAllProduct({color_id,cat_id})
         
     }
     componentDidMount() {
@@ -156,8 +163,8 @@ const mapStateToProps = state => {
   
   const mapDispatchToProps = dispatch => {
     return {
-      onproductbycateg:(payload)=>dispatch(actions.getproductbycateg(payload)),
-      onproductbycolor:(payload)=>dispatch(actions.getproductbycolor(payload)),
+        onGetAllProduct:(payload)=>dispatch(actions.getAllProduct(payload)),
+    //   onproductbycolor:(payload)=>dispatch(actions.getproductbycolor(payload)),
     }
   }
   

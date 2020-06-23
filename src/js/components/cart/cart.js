@@ -183,7 +183,7 @@ subtractOne = (id) => {
               </Step>
            
               <Step key="Address">
-              <StepLabel><Link to="/deliveryAddress"> Delivery Address</Link></StepLabel>
+              {/* <StepLabel><Link to="/deliveryAddress"> Delivery Address</Link></StepLabel> */}
               </Step>
          
           </Stepper>

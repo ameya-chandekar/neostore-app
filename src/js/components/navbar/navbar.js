@@ -6,6 +6,7 @@ import React, { Component } from 'react'
 //redux imports
 import { connect } from 'react-redux';
 import * as actions from '../../redux/actions';
+import * as actionss from '../../redux/actions/placeOrderAction';
 class Navbar extends Component {
   constructor(props) {
     super(props)
@@ -26,8 +27,21 @@ handleSearch=  async(e) => {
 this.props.onSearch({searchText})
 }
 
-  handleLogout = () => {
+  handleLogout = async () => {
+    let data1 = localStorage.getItem("cart")
+    ? JSON.parse(localStorage.getItem("cart"))
+    : null;
+    const data2 = localStorage.getItem('login_user_data');
+    const userData = JSON.parse(data2);
+    const user_token = userData.token
+
+  if (data1) {
+    data1.push({ flag: "logout" });
+    await  this.props.placeOrder({data1,user_token});
+  }
+
     localStorage.removeItem("login_user_data")
+    localStorage.setItem('cart', [[]])
     sweetalert2.fire({
       "title": 'Logged Out',
       'text': 'Logged out successfully',
@@ -115,6 +129,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onSearch:(payload)=>dispatch(actions.getProductBySearchText(payload)),
+    placeOrder:(payload)=>dispatch(actionss.placeOrder(payload)),
+
   }
 }
 

@@ -18,7 +18,7 @@ export const deleteAddress = (payload) => {
         
         let cb = {
             success: (res) => {
-                console.log();
+                console.log(res,"delete address res");
                 const newState={
                   
                     Addresses:[...res]
