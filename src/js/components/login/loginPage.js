@@ -19,8 +19,10 @@ import { GoogleLogin } from 'react-google-login';
 import Navbar from '../navbar/navbar'
 import Footer from '../footer/footer'
 import "./loginPage.css"
+
+//redux
 import { connect } from 'react-redux';
-import * as actions from '../../redux/actions/logInAction';
+import * as actions from '../../redux/actions'
 import FormHelperText from'@material-ui/core/FormHelperText'
 
 const responseGoogle = (response) => {
@@ -87,8 +89,13 @@ componentDidUpdate(prevProps){
         this.props.history.push('/')
    
     }
+    if (localStorage.getItem('login_user_data')) {
+        const data1 = localStorage.getItem('login_user_data');
+        const userData = JSON.parse(data1);
+        const user_token = userData.token
+        this.props.getCartProduct({user_token})
 }
-
+}
 
 // Functions for validation
 
@@ -256,7 +263,8 @@ handlePassChange=(e)=>{
     
     const mapDispatchToProps = dispatch => {
         return {
-        onLogIn: (payload) => dispatch(actions.login(payload))
+        onLogIn: (payload) => dispatch(actions.login(payload)),
+        getCartProduct:(payload)=> dispatch(actions.getCartProduct(payload)),
         }
     }
     

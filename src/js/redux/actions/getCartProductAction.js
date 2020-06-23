@@ -11,7 +11,7 @@ const cartdata = (payload) => {
 
 export const getCartProduct = (payload) => {
     return (dispatch, getState) => {
-        const data = payload.cust_id
+        // const data = payload.cust_id
         const data2 = {"Authorization" : `Bearer ${payload.user_token}`}
         let cb = {
             success: (res) => {
@@ -27,7 +27,7 @@ export const getCartProduct = (payload) => {
 
             }
         }
-        API.getCartProduct(data, cb, data2)
+        API.getCartProduct( cb, data2)
     }
 }
 

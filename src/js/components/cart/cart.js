@@ -43,7 +43,7 @@ getCartData=()=>{
   try{
       let result=localStorage.getItem('cart')
       ? JSON.parse(localStorage.getItem('cart'))
-      : null ;
+      : [] ;
       this.setState({
           cartData:result
       });
@@ -151,7 +151,7 @@ subtractOne = (id) => {
 
   render() {
     const steps = ['Cart', 'Delivery Address'];    
-    const data1 = localStorage.getItem('loginUserData');
+    const data1 = localStorage.getItem('login_User_Data');
 
 
     // ------------------------------------

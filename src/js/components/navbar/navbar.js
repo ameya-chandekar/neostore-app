@@ -30,7 +30,8 @@ this.props.onSearch({searchText})
   handleLogout = async () => {
     let data1 = localStorage.getItem("cart")
     ? JSON.parse(localStorage.getItem("cart"))
-    : null;
+    : [];
+    if (localStorage.getItem('login_user_data')) {
     const data2 = localStorage.getItem('login_user_data');
     const userData = JSON.parse(data2);
     const user_token = userData.token
@@ -39,7 +40,7 @@ this.props.onSearch({searchText})
     data1.push({ flag: "logout" });
     await  this.props.placeOrder({data1,user_token});
   }
-
+    }
     localStorage.removeItem("login_user_data")
     localStorage.setItem('cart', [[]])
     sweetalert2.fire({
