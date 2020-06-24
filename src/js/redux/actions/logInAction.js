@@ -27,7 +27,11 @@ export const login = (payload) => {
                
             }
         }
-        API.logIn(data, cb)
+       return API.logIn(data, cb).then(res => {
+            
+            // Return something
+            return true;
+        }).catch((error) => {  });
     }
 }
 

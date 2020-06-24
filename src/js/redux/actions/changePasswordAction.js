@@ -31,7 +31,15 @@ export const changePassword = (payload) => {
 
             }
         }
-        API.changePassword(data, cb,data2)
+      return  API.changePassword(data, cb,data2)
+      .then(res => {
+        // console.log(res, "action returning promise")
+        // Return something
+        return true;
+    }).catch((error) => { 
+        // console.log(error, "errror action returning promise")
+        // return error;
+     });
     }
 }
 

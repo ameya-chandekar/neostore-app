@@ -13,6 +13,7 @@ class Navbar extends Component {
 
     this.state = {
       searchText:"",
+      login: false,
 
     }
   }
@@ -31,24 +32,47 @@ this.props.onSearch({searchText})
     let data1 = localStorage.getItem("cart")
     ? JSON.parse(localStorage.getItem("cart"))
     : [];
-    if (localStorage.getItem('login_user_data')) {
     const data2 = localStorage.getItem('login_user_data');
     const userData = JSON.parse(data2);
     const user_token = userData.token
 
   if (data1) {
     data1.push({ flag: "logout" });
-    await  this.props.placeOrder({data1,user_token});
+    await  this.props.placeOrder({data1,user_token})
+    
   }
-    }
+    
     localStorage.removeItem("login_user_data")
+    localStorage.removeItem("editAddress")
+    localStorage.getItem("login_user_data")
     localStorage.setItem('cart', [[]])
     sweetalert2.fire({
       "title": 'Logged Out',
       'text': 'Logged out successfully',
       "icon": 'success'
     })
+    this.setState({ login: false })
   }
+   componentDidMount() {
+   
+    if (this.props.login === 'true') {
+        this.setState({
+            login: true
+        })
+    }
+    else {
+        this.setState({
+            login: false
+        })
+    }
+}
+componentDidUpdate(prevProps, prevState) {
+  console.log(prevState,"prevsatet");
+  console.log(prevProps,"prevpropss");
+  console.log(this.props,"this.props")
+}
+
+
   render() {
 
     return (
@@ -97,11 +121,12 @@ this.props.onSearch({searchText})
                       </span>
 
                     </button>
-                    {this.props.login == 'true' ?
+                    {this.state.login == true ?
                       <div className="dropdown-menu bg-light  " aria-labelledby="navbarDropdown">
                         <Link to="/UserProfile"> <button className="dropdown-item " >Profile</button></Link>
                         <Link to="/"> <button className="dropdown-item" href="#" onClick={this.handleLogout}>Logout</button></Link>
-                      </div> :
+                      </div> 
+                        :
                       <div className="dropdown-menu bg-light  " aria-labelledby="navbarDropdown">
                         <Link to="/Loginpage"> <button className="dropdown-item " >Login</button></Link>
                         <Link to="/RegisterPage"> <button className="dropdown-item" href="#">Register</button></Link>

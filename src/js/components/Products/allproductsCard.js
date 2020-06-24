@@ -53,8 +53,8 @@ console.log("forrrrrr atiiiiii",id)
           };
           let cartData = localStorage.getItem("cart")
               ? JSON.parse(localStorage.getItem("cart"))
-              : null;
-          if (cartData === null) {
+              : [];
+          if (cartData === []) {
               let tempData = [];
               tempData.push(finalData);
               localStorage.setItem("cart", JSON.stringify(tempData));

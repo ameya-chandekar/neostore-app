@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import IconButton from "@material-ui/core/IconButton";
 import Icon from "@material-ui/core/Icon";
+import Swal from 'sweetalert2';
 
 // import Input from "@material-ui/core/Input";
 // import FilledInput from "@material-ui/core/FilledInput";
@@ -53,6 +54,15 @@ handleSubmit=()=>{
     const user_token = userData.token
     const {oldPassword,newPassword,cPassword}=this.state
     this.props.changePass({oldPassword,newPassword,cPassword,user_token})
+    .then(result => {
+      console.log(result,"password changed")
+      Swal.fire({
+        'title': 'Password changed successfully',
+        "icon": 'success'
+    });
+    //   this.props.history.push("/UserProfile")
+    })
+
 }
 
 //this is for password show/hide toggle

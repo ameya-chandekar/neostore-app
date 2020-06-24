@@ -8,6 +8,9 @@ import PopularProducts from "../popularproducts/popularProducts";
 
 export class HomePage extends Component {
   
+componentDidUpdate(prevProps, prevState) {
+  localStorage.getItem('login_user_data');
+}
 
   
   render() {

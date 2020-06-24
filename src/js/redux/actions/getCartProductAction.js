@@ -9,15 +9,29 @@ const cartdata = (payload) => {
     };
 };
 
+// // Action
+// export const checkClient = (cliente) => {
+//     return dispatch => {
+//         // Return the promise
+//         return axios.get(...).then(res => {
+//             ...
+//             // Return something
+//             return true;
+//         }).catch((error) => {  });
+//     }
+// }
+
+
 export const getCartProduct = (payload) => {
     return (dispatch, getState) => {
         // const data = payload.cust_id
         const data2 = {"Authorization" : `Bearer ${payload.user_token}`}
         let cb = {
+            
             success: (res) => {
                 console.log("cart p from action ",res);
                 const newState = {
-                    // isAdded: true,
+                    isAdded: true,
                     cartProductdetails:{...res}
                 }
                 dispatch(cartdata(newState))
@@ -27,7 +41,11 @@ export const getCartProduct = (payload) => {
 
             }
         }
-        API.getCartProduct( cb, data2)
+       return API.getCartProduct( cb, data2).then(res => {
+            
+            // Return something
+            return true;
+        }).catch((error) => {  });
     }
 }
 

@@ -72,21 +72,28 @@ export class LoginPage extends Component {
         this.setState({ submitted: true });
         const { username, password } = this.state;
         if (username && password) {
-            this.props.onLogIn({username, password});
+            this.props.onLogIn({username, password})
+            .then(result => {
+                const {userdetails}=this.props
+                localStorage.setItem('login_user_data',JSON.stringify(userdetails))
+                
+                this.props.history.push('/')
+                console.log(this.props.isLogin,"islogin?");
+            })
         }
-        console.log(this.props.isLogin);
+        
         
     }
 
-componentDidUpdate(prevProps){
+ componentDidUpdate(prevProps){
     if(this.props.isLogin){
-        console.log("redirected" );
-        console.log("user response after login ----------------",this.props.userdetails);
-        const {userdetails}=this.props
+        // console.log("redirected" );
+        // console.log("user response after login ----------------",this.props.userdetails);
+        // const {userdetails}=this.props
 
-        localStorage.setItem('login_user_data',JSON.stringify(userdetails))
+        // localStorage.setItem('login_user_data',JSON.stringify(userdetails))
         
-        this.props.history.push('/')
+        // this.props.history.push('/')
    
     }
     if (localStorage.getItem('login_user_data')) {
@@ -94,6 +101,13 @@ componentDidUpdate(prevProps){
         const userData = JSON.parse(data1);
         const user_token = userData.token
         this.props.getCartProduct({user_token})
+        .then(result => {
+            // The checkClient call is now done!
+            console.log(`success: ${result}`);
+            // let cartdata=this.prop.cartdata?this.prop.cartdata:[];
+            console.log(this.props.cartdata,"data to add in cart")
+            // Do something
+        })
 }
 }
 
@@ -254,7 +268,9 @@ handlePassChange=(e)=>{
     const mapStateToProps = state => {
         return {
         isLogin:state.login.isLogin,
-        userdetails:state.login.userdetails
+        userdetails:state.login.userdetails,
+        cartdata:state.cart.cartProductdetails,
+        isAdded:state.cart.isAdded
         
         };
         

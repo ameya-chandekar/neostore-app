@@ -40,6 +40,7 @@ async componentDidMount(){
 // Getting cart products from local Storage
 
 getCartData=()=>{
+  
   try{
       let result=localStorage.getItem('cart')
       ? JSON.parse(localStorage.getItem('cart'))
