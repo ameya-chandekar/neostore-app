@@ -41,8 +41,7 @@ import * as actions from '../../redux/actions/index';
   }
 
     handlecart = async (id, data) => {
-      this.props.onaddtocart(id);
-console.log("forrrrrr atiiiiii",id)
+    //   this.props.onaddtocart(id);
       try {
           let finalData = {
               _id: data._id,

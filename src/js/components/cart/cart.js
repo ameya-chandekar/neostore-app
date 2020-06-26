@@ -30,8 +30,9 @@ export class Cart extends Component {
 }
   
 async componentDidMount(){
+
   try{
-      this.getCartData();
+    this.getCartData();
   }catch(error){
       alert('Error in getting data')
   }
@@ -41,7 +42,7 @@ async componentDidMount(){
 
 getCartData=()=>{
   
-  try{
+  try{  
       let result=localStorage.getItem('cart')
       ? JSON.parse(localStorage.getItem('cart'))
       : [] ;
@@ -87,7 +88,6 @@ handleDelete=async (id)=>{
               return item._id!== id;
 
           });
-
           
           localStorage.setItem('cart',JSON.stringify(cart));
           this.props.onDeleteCartProduct(id);
@@ -140,21 +140,37 @@ subtractOne = (id) => {
 // this.props.onDeleteCartProduct({p_id,user_token})
 
 // }
-//   componentDidMount() {
-// if( localStorage.getItem('login_user_data')){
-//     const data1 = localStorage.getItem('login_user_data');
-//     const userData = JSON.parse(data1);
-//     const user_token = userData.token
-//     // const cust_id=userData.customer_details.customer_id;
-//     this.props.onGetCartProduct({ user_token })}
-//   }
+  // componentDidMount() {
 
+    // const data1 = localStorage.getItem('login_user_data');
+    // const userData = JSON.parse(data1);
+    // const user_token = userData.token
+    // // const cust_id=userData.customer_details.customer_id;
+    // this.props.onGetCartProduct({ user_token })}
+  
+  // }
+  getOldCartData=()=>{
+
+    let finalData = this.props.cartProducts.product_details ? this.props.cartProducts.product_details.map((item) => {
+      item._id = item.product_id._id;
+      return item
+  }) : [];
+
+
+  localStorage.setItem("cart", JSON.stringify(finalData));
+  localStorage.setItem("cart_count", finalData.length);
+    // let cartData=[]
+    // cartData=this.props.cartProducts?this.props.cartProducts.product_details:[[]]
+     
+    //  localStorage.setItem('cart', JSON.stringify(cartData));
+  }
 
   render() {
     const steps = ['Cart', 'Delivery Address'];    
     const data1 = localStorage.getItem('login_User_Data');
+    this.getOldCartData();
 
-
+console.log(this.props.cartProducts.product_details,"products in cart after login resume")
     // ------------------------------------
     let orderTotal = 0
     this.state.cartData ? orderTotal = this.state.cartData
@@ -311,12 +327,8 @@ subtractOne = (id) => {
      <Footer />
      </div>
     )
-
   }
-
   }
-
-  
 }
 
 

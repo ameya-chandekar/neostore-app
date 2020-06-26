@@ -44,8 +44,7 @@ this.props.onSearch({searchText})
     
     localStorage.removeItem("login_user_data")
     localStorage.removeItem("editAddress")
-    localStorage.getItem("login_user_data")
-    localStorage.setItem('cart', [[]])
+    localStorage.setItem('cart', [])
     sweetalert2.fire({
       "title": 'Logged Out',
       'text': 'Logged out successfully',
@@ -66,11 +65,11 @@ this.props.onSearch({searchText})
         })
     }
 }
-componentDidUpdate(prevProps, prevState) {
-  console.log(prevState,"prevsatet");
-  console.log(prevProps,"prevpropss");
-  console.log(this.props,"this.props")
-}
+// componentDidUpdate(prevProps, prevState) {
+//   console.log(prevState,"prevsatet");
+//   console.log(prevProps,"prevpropss");
+//   console.log(this.props,"this.props")
+// }
 
 
   render() {

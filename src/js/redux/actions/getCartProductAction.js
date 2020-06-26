@@ -41,7 +41,8 @@ export const getCartProduct = (payload) => {
 
             }
         }
-       return API.getCartProduct( cb, data2).then(res => {
+       return API.getCartProduct( cb, data2)
+       .then(res => {
             
             // Return something
             return true;

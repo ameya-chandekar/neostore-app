@@ -6,18 +6,17 @@ import * as actions from '../../../redux/actions';
 export class Allproducts extends Component {
     constructor(props) {
         super(props)
-
         this.state = {
             data: [],
             catid:''
 
         }
     }
-
     componentDidMount() {
-       
-        this.props.onGetAllProduct()
-
+       let category_id="";
+       let color_id="";
+        this.props.onGetAllProduct({category_id:"",color_id:""})
+        // getCommonProducts({"category_id":""})
     }
     // componentDidUpdate(){
 
@@ -72,7 +71,7 @@ const mapStateToProps = state => {
   
   const mapDispatchToProps = dispatch => {
     return {
-      onGetAllProduct: () => dispatch(actions.getAllProduct()),
+      onGetAllProduct: (payload) => dispatch(actions.getAllProduct(payload)),
     //    onproductbycateg:()=>dispatch(actions.getproductbycateg()),
     }
   }

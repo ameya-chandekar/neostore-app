@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 // import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import Icon from "@material-ui/core/Icon";
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 // import Input from "@material-ui/core/Input";
 // import FilledInput from "@material-ui/core/FilledInput";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
@@ -23,7 +23,7 @@ import "./loginPage.css"
 //redux
 import { connect } from 'react-redux';
 import * as actions from '../../redux/actions'
-import FormHelperText from'@material-ui/core/FormHelperText'
+import FormHelperText from '@material-ui/core/FormHelperText'
 
 const responseGoogle = (response) => {
     console.log(response);
@@ -39,12 +39,13 @@ export class LoginPage extends Component {
             username: '',
             password: '',
             submitted: false,
-            emailErrorText:'',
-            passErrorText:'',
+            emailErrorText: '',
+            passErrorText: '',
+            cartdata: [],
             // errormsg:"czxsc"
         }
     }
-    
+
     //this is for password show/hide toggle
     handleClickShowPassword = () => {
         this.setState({
@@ -60,97 +61,92 @@ export class LoginPage extends Component {
 
 
 
-//this is to set state on change 
-    handleChange=(e) =>{
+    //this is to set state on change 
+    handleChange = (e) => {
         const { name, value } = e.target;
         this.setState({ [name]: value });
-        
+
     }
-    handleSubmit=(e)=> {
+    handleSubmit = (e) => {
         e.preventDefault();
 
         this.setState({ submitted: true });
         const { username, password } = this.state;
         if (username && password) {
-            this.props.onLogIn({username, password})
-            .then(result => {
-                const {userdetails}=this.props
-                localStorage.setItem('login_user_data',JSON.stringify(userdetails))
-                
-                this.props.history.push('/')
-                console.log(this.props.isLogin,"islogin?");
-            })
+            this.props.onLogIn({ username, password })
+                .then(result => {
+                    const { userdetails } = this.props
+                    localStorage.setItem('login_user_data', JSON.stringify(userdetails))
+                    const data1 = localStorage.getItem('login_user_data');
+                    const userData = JSON.parse(data1);
+                    const user_token = userData.token
+                    this.props.getCartProduct({ user_token })
+                        .then(result => {
+                            // The checkClient call is now done!
+                            this.props.history.push('/')
+                            this.setState({
+                                cartdata: this.props.cartdata
+                            })
+                            console.log(`success: ${result}`);
+                            // let cartdata=this.prop.cartdata?this.prop.cartdata:[];
+                            console.log(this.state.cartdata, "data to add in cart")
+                            // Do something
+                        })
+
+                    console.log(this.props.isLogin, "islogin?");
+                })
+                .catch((error) => {
+                    return error;
+                })
         }
-        
-        
     }
 
- componentDidUpdate(prevProps){
-    if(this.props.isLogin){
-        // console.log("redirected" );
-        // console.log("user response after login ----------------",this.props.userdetails);
-        // const {userdetails}=this.props
+    componentDidUpdate(prevProps) {
+        // if (this.props.isLogin) {
+        //     console.log("redirected");
+        //     console.log("user response after login ----------------", this.props.userdetails);
+        //     const { userdetails } = this.props
 
-        // localStorage.setItem('login_user_data',JSON.stringify(userdetails))
-        
-        // this.props.history.push('/')
-   
-    }
-    if (localStorage.getItem('login_user_data')) {
-        const data1 = localStorage.getItem('login_user_data');
-        const userData = JSON.parse(data1);
-        const user_token = userData.token
-        this.props.getCartProduct({user_token})
-        .then(result => {
-            // The checkClient call is now done!
-            console.log(`success: ${result}`);
-            // let cartdata=this.prop.cartdata?this.prop.cartdata:[];
-            console.log(this.props.cartdata,"data to add in cart")
-            // Do something
-        })
-}
-}
+        //     localStorage.setItem('login_user_data', JSON.stringify(userdetails))
 
-// Functions for validation
+        //     this.props.history.push('/')
 
-handleEmailChange=(e)=>{
-    if(e.target.value=='')
-    {
-        this.setState({emailErrorText:'Please enter Email '})
+        // }
     }
-    else if(/^([a-zA-Z])+([0-9a-zA-Z\.\-])+\@+(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,10})+$/.test(e.target.value))
-    {
-        this.setState({emailErrorText:''})
+
+    // Functions for validation
+
+    handleEmailChange = (e) => {
+        if (e.target.value == '') {
+            this.setState({ emailErrorText: 'Please enter Email ' })
+        }
+        else if (/^([a-zA-Z])+([0-9a-zA-Z\.\-])+\@+(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,10})+$/.test(e.target.value)) {
+            this.setState({ emailErrorText: '' })
+        }
+        else {
+            this.setState({ emailErrorText: 'Enter a valid email' })
+        }
     }
-    else
-    {
-        this.setState({emailErrorText:'Enter a valid email'})
+    handlePassChange = (e) => {
+        const cond = /^[A-Za-z]\w{7,11}$/;
+        if (e.target.value == '') {
+            this.setState({ passErrorText: 'Please enter password ' })
+        }
+        else if (e.target.value.match(cond)) {
+            this.setState({ passErrorText: '' })
+        }
+        else {
+            this.setState({ passErrorText: 'password should have 8-12 characters and should contain only aplhanumeric values' })
+        }
     }
-}
-handlePassChange=(e)=>{
-   const  cond = /^[A-Za-z]\w{7,11}$/;
-    if(e.target.value=='')
-    {
-        this.setState({passErrorText:'Please enter password '})
-    }
-    else if(e.target.value.match(cond))
-    {
-        this.setState({passErrorText:''})
-    }
-    else
-    {
-        this.setState({passErrorText:'password should have 8-12 characters and should contain only aplhanumeric values'})
-    }
-}
 
     render() {
 
-        console.log("login responseeee",this.props.userdetails);
-        
-        console.log("username",this.state.username);
-        console.log("password",this.state.password);
-        // console.log("user response after login",this.props.userdetails.token)
+        // console.log("login responseeee",this.props.userdetails);
 
+        // console.log("username",this.state.username);
+        // console.log("password",this.state.password);
+        // console.log("user response after login",this.props.userdetails.token)
         return (
 
             <div>
@@ -184,8 +180,8 @@ handlePassChange=(e)=>{
                                     <form class="form-signin" onSubmit={this.handleSubmit}>
                                         <div class="mb-3 mt-3">
                                             {/* <input type="email" id="inputEmail" class="form-control mt-3 mb-4 pt-4 pb-4" placeholder="Email Address" required autofocus /> */}
-                                            <FormControl className="form-control" variant="outlined" error={this.state.emailErrorText ? true:false}
-                                            onChange={this.handleEmailChange} onBlur={this.handleEmailChange}>
+                                            <FormControl className="form-control" variant="outlined" error={this.state.emailErrorText ? true : false}
+                                                onChange={this.handleEmailChange} onBlur={this.handleEmailChange}>
                                                 <InputLabel htmlFor="outlined-adornment-email">Email</InputLabel>
                                                 <OutlinedInput
                                                     id="username"
@@ -207,14 +203,14 @@ handlePassChange=(e)=>{
                                                     }
                                                     labelWidth={70}
                                                 />
-                                                 <FormHelperText id="component-error-text">{this.state.emailErrorText}</FormHelperText>
+                                                <FormHelperText id="component-error-text">{this.state.emailErrorText}</FormHelperText>
                                             </FormControl>
                                         </div>
 
                                         <div class="mb-3 mt-5">
                                             {/* <input type="password" id="inputPassword" class="form-control mb-3 pt-4 pb-4" placeholder="Password" required /> */}
-                                            <FormControl className="formControl" variant="outlined" error={this.state.passErrorText ? true:false}
-                                            onChange={this.handlePassChange} onBlur={this.handlePassChange}>
+                                            <FormControl className="formControl" variant="outlined" error={this.state.passErrorText ? true : false}
+                                                onChange={this.handlePassChange} onBlur={this.handlePassChange}>
                                                 <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                                                 <OutlinedInput
                                                     id="password"
@@ -240,7 +236,7 @@ handlePassChange=(e)=>{
                                             </FormControl>
                                         </div>
                                         <div>
-                                            <button  class="btn btn-danger text-uppercase float-left mb-5" type="submit">Login</button>
+                                            <button class="btn btn-danger text-uppercase float-left mb-5" type="submit">Login</button>
                                         </div>
                                     </form>
                                 </div>
@@ -249,8 +245,8 @@ handlePassChange=(e)=>{
                     </div>
                     <div className="row " >
                         <div className="col-lg-12 d-flex justify-content-center">
-                         <Link to="/RegisterPage">   <button className="btn">Register Now</button> </Link> <span style={{ marginTop: "7px" }}>|</span>
-                         <Link to="/forgotPassword">   <button className="btn">Forgot Password</button></Link>
+                            <Link to="/RegisterPage">   <button className="btn">Register Now</button> </Link> <span style={{ marginTop: "7px" }}>|</span>
+                            <Link to="/forgotPassword">   <button className="btn">Forgot Password</button></Link>
                         </div>
                     </div>
                 </div>
@@ -265,26 +261,25 @@ handlePassChange=(e)=>{
 
 
 
-    const mapStateToProps = state => {
-        return {
-        isLogin:state.login.isLogin,
-        userdetails:state.login.userdetails,
-        cartdata:state.cart.cartProductdetails,
-        isAdded:state.cart.isAdded
-        
-        };
-        
-        
-    }
-    
-    const mapDispatchToProps = dispatch => {
-        return {
+const mapStateToProps = state => {
+    return {
+        isLogin: state.login.isLogin,
+        userdetails: state.login.userdetails,
+        cartdata: state.cart.cartProductdetails,
+        isAdded: state.cart.isAdded
+
+    };
+
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
         onLogIn: (payload) => dispatch(actions.login(payload)),
-        getCartProduct:(payload)=> dispatch(actions.getCartProduct(payload)),
-        }
+        getCartProduct: (payload) => dispatch(actions.getCartProduct(payload)),
     }
-    
-    export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
 //   export default LoginPage
 
 

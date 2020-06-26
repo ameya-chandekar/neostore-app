@@ -8,8 +8,6 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import "./categories.css"
 import { API } from '../../../api/api'
-
-
 //redux imports
 import { connect } from 'react-redux';
 import * as actions from '../../../redux/actions';
@@ -21,30 +19,55 @@ class CategoriesAccordian extends Component {
         this.state = {
             Categorie: [],
             Colors:[],
-            cat_id:null,
-            color_id:null,
+            category_id:"",
+            color_id:"",
         }
     }
+
+
+
+
+//     sortbycategorie=(catogorie_id)=>{
+//         // this.setState({
+//         //     cat_id:catogorie_id
+//         // })
+//      console.log("categorie id to be passed",catogorie_id)
+//     this.props.onproductbycateg({catogorie_id})
+    
+// }
+
+// sortbycolor=(color_id)=>{
+
+//     console.log(" color id to be passed",color_id)
+//     this.props.onproductbycolor({color_id})
+    
+// }
+
+
     // const {cat_id}=this.state
-    sortbycategorie=(cat_id)=>{
+    sortbycategorie=(categ_id)=>{
             this.setState({
-                cat_id:cat_id
+                category_id:categ_id
             })
          
        let   {color_id}=this.state;
-       console.log(this.state.cat_id,"lalalalalalalalalalalalalalalalaal")
 
-        this.props.onGetAllProduct({cat_id,color_id})
+    const category_id=categ_id?categ_id:"";
+       console.log(category_id,"lalalalalalalalalalalalalalalalaal")
+const payload={category_id:category_id,color_id:color_id}
+        this.props.onGetAllProduct(payload)
         
     }
 
-    sortbycolor=(color_id)=>{
+    sortbycolor=(col_id)=>{
         this.setState({
-            color_id:color_id
+            color_id:col_id
         })
-        console.log(" color id to be passed",color_id)
-        let   {cat_id}=this.state;
-        this.props.onGetAllProduct({color_id,cat_id})
+        // console.log(" color id to be passed",color_id    )
+        let   {category_id}=this.state;
+        
+        const color_id=col_id?col_id:"";
+        this.props.onGetAllProduct({color_id,category_id})
         
     }
     componentDidMount() {
@@ -78,22 +101,17 @@ class CategoriesAccordian extends Component {
 
 
     }
-
-  
     render() {
         let { Categorie,Colors } = this.state;
-        console.log("category",Categorie + "color",Colors);
-
+        // console.log("category",Categorie + "color",Colors);
         return (
             <div>
                 <div>
-                    <ExpansionPanel>
-                        
+                    <ExpansionPanel>                   
                         <ExpansionPanelDetails >
                             <div className="btn " style={{width:"100%" ,height:"100%"}}> <b>All product</b></div>
                         </ExpansionPanelDetails>
                     </ExpansionPanel>
-
 
                     <ExpansionPanel>
                         <ExpansionPanelSummary
@@ -105,25 +123,16 @@ class CategoriesAccordian extends Component {
                         <ExpansionPanelDetails >
                             <div className="row">
                                 {Categorie.map(el => {
-                           
+                        
                                     return (
-
                                         <div className=" col-12 btn Categories-btn" onClick={()=>this.sortbycategorie(el.category_id)}><h6>{el.category_name }</h6>
                                         </div>
                                     )
                                 })}
-
-
                             </div>
-
 
                         </ExpansionPanelDetails>
                     </ExpansionPanel>
-
-
-
-
-
 
                     <ExpansionPanel>
                         <ExpansionPanelSummary
@@ -138,7 +147,9 @@ class CategoriesAccordian extends Component {
                                 {Colors.map(el => {
                                     return (
 
-                                        <div className=" col-4 mb-2 Categories-btn "><button className="btn"  style={{backgroundColor:el.color_code,width:"80%",height:"100%",border:"0.5px solid "}} onClick={()=>this.sortbycolor(el.color_id)}></button>
+                                        <div className=" col-4 mb-2 Categories-btn "><button className="btn" 
+                                         style={{backgroundColor:el.color_code,width:"80%",height:"100%",border:"0.5px solid "}}
+                                          onClick={()=>this.sortbycolor(el.color_id)}></button>
                                         </div>
                                     )
                                 })}
@@ -164,6 +175,7 @@ const mapStateToProps = state => {
   const mapDispatchToProps = dispatch => {
     return {
         onGetAllProduct:(payload)=>dispatch(actions.getAllProduct(payload)),
+    //     onproductbycateg:(payload)=>dispatch(actions.getproductbycateg(payload)),
     //   onproductbycolor:(payload)=>dispatch(actions.getproductbycolor(payload)),
     }
   }

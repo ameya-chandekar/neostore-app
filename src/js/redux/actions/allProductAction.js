@@ -1,7 +1,5 @@
 import * as actionType from './actionTypes';
 import { API } from '../../api/api';
-
-
 const storeAllProduct = (payload) => {
     // console.log(payload);
     return {
@@ -12,13 +10,15 @@ const storeAllProduct = (payload) => {
 export const getAllProduct = (payload) => {
 
     return (dispatch, getState) => {
-        
-        const data = {
-            cat_id:payload.cat_id,col_id:payload.color_id,
-        }
-      
+        //  const data=payload;
+        let cat_id=payload.category_id?payload.category_id:"";
+        let col_id=payload.color_id?payload.color_id:"";
 
-        //console.log(data);
+
+        const data={category_id:cat_id,color_id:col_id}
+        //  const data ={payload}
+
+        console.log(data,"data in all product action");
         let cb = {
             success: (res) => {
 console.log("18--------18----18---180----18-",res);
@@ -40,3 +40,5 @@ console.log("18--------18----18---180----18-",res);
     }
 
 }
+
+

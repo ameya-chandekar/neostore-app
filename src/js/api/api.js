@@ -8,7 +8,7 @@ import { DELETE_ADDRESS } from '../redux/actions/actionTypes';
 const live = false;
 const UPDATE_RATING={type:'PUT',url:ROOT_URL + 'updateProductRatingByCustomer/'}
 const GET_PRODUCT = { type: 'GET', url: ROOT_URL + 'defaultTopRatingProduct/' };
-const GET_ALL_PRODUCT = { type: 'GET', url: ROOT_URL + 'commonProducts?'} ;
+const GET_ALL_PRODUCT = { type: 'GET', url: ROOT_URL + 'commonProducts'} ;
 // const GET_PRODUCT_BY_CATEG = { type: 'GET', url: ROOT_URL+'getProductByCateg/' };
 // const GET_PRODUCT_BY_COLOR = { type: 'GET', url: ROOT_URL+'getProductBycolor/' };
 
@@ -38,14 +38,42 @@ export const API = {
 	getAllCategories: (data, cb) => request(data, cb, GET_ALL_CATEGORIES),
 	getAllColors: (data, cb) => request(data, cb, GET_ALL_COLORS),
 
-	getAllProduct: (data, cb) => request(data, cb, GET_ALL_PRODUCT,{"category_id":data.cat_id,
+	getAllProduct: (data, cb) =>
+	{
+		console.log(data.payload, "data from API.js file for all product ")
+		
+				return request({"category_id":data.category_id,
+				"color_id":data.color_id}, cb,
+					
+					
+
+				// 	{params:{"category_id":data.category_id,
+				// 	"color_id":data.color_id,
+				// 	"sortBy":data.sortBy,
+				// 	"sortIn":data.sortIn,
+				// 	"name":data.name,
+				// 	"pageNo":data.pageNo?data.pageNo:1,
+				// 	"perPage":data.perPage?data.perPage:100}
+				// }
+
+
+			{ type: 'GET', url: `${ROOT_URL}commonProducts`}
+		
+		)
+				
+			},
+	// request(data, cb,{ type: 'GET', url: `${ROOT_URL}commonProducts?category_id=${data}`}
+
+
+		// ,{"category_id":data,
 	// "color_id":data.col_id,
 	// "sortBy":data.sortBy,
 	// "sortIn":data.sortIn,
 	// "name":data.name,
 	// "pageNo":data.pageNo?data.pageNo:1,
 	// "perPage":data.perPage?data.perPage:100
-}),
+        //   }
+// ),
 	
 	getProductByCateg: (data, cb) => {
 
@@ -64,10 +92,6 @@ export const API = {
 		return request({}, cb, { type: 'GET', url: `${ROOT_URL}commonProducts?color_id=${data}` })
 	},
 
-
-	getProductById: (data, cb) => {
-		return request({}, cb, { type: 'GET', url: `${ROOT_URL}getProductByProdId/${data}` })
-	},
 	getProductBySearchText: (data, cb) => {
 		return request({}, cb, { type: 'GET', url: `${ROOT_URL}getProductBySearchText/${data}` })
 	},

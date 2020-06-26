@@ -114,7 +114,6 @@ proceedCheckout = async(e) => {
     const user_token = userData.token
     const placeOrder=()=>{
       this.props.placeOrder({data1,user_token})
-      
         
 }
 placeOrder();
