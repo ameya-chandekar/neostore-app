@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import StarIcon from '@material-ui/icons/Star';
 import AllProductCard from '../allproductsCard'
 import { API } from '../../../api/api'
 import { connect } from 'react-redux';
@@ -35,12 +38,27 @@ export class Allproducts extends Component {
         })
         return productCard;
     }
+
+
+  
     render() {
         return (
             <div className="popular-products text-center">
+                
+                <div className="row">
+                    <div className="col-12">
+                    <div>
+                        <span>Sort By:</span>
+                    <button className="btn btn-light text-primary m-2"><StarIcon onClick={()=>this.sortByStarRating({category_id:this.state.category_id,sortBy:"product_rating",sortIn:true})} /></button>
+                    <button className="btn btn-light text-primary m-2"><b>₹</b><ArrowUpwardIcon onClick={()=>this.sortByHighToLow({category_id:this.state.category_id,sortBy:"product_cost",sortIn:false})} /></button>
+                    <button className="btn btn-light text-primary m-2"><b>₹</b><ArrowDownwardIcon onClick={()=>this.sortbyLowToHigh({category_id:this.state.category_id,sortBy:"product_cost",sortIn:true})} /></button>
+                    </div>
+                    </div>
+                </div>
                 <div className="row">
                     <div className="col-12">
                         <div className="popular-product-wraapper mt-5 mb-5">
+
                             <h5>All products</h5>
 
 
@@ -51,7 +69,8 @@ export class Allproducts extends Component {
                 </div>
 
                 <div className="row">
-                    {this.productCard()}
+                    <div className="col-12"><div>{this.productCard()}</div></div>
+                    
                 </div>
             </div>
 

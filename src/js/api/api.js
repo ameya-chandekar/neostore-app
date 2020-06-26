@@ -75,21 +75,24 @@ export const API = {
         //   }
 // ),
 	
-	getProductByCateg: (data, cb) => {
-
-		return request({}, cb, { type: 'GET', url: `${ROOT_URL}commonProducts?category_id=${data}`})
-		
-	},
-
 	// getProductByCateg: (data, cb) => {
-	// 	//GET_PRODUCT_BY_CATEG.url = GET_PRODUCT_BY_CATEG.url + data;
-	// 	return request({}, cb, { type: 'GET', url: `${ROOT_URL}getProductByCateg/${data}` })
+
+	// 	return request({}, cb, { type: 'GET', url: `${ROOT_URL}commonProducts?category_id=${data}`})
+		
 	// },
 
-	getProductByColor: (data, cb) => {
-		// GET_PRODUCT_BY_COLOR.url = GET_PRODUCT_BY_COLOR.url + data;
-		// return request({}, cb, GET_PRODUCT_BY_COLOR)
-		return request({}, cb, { type: 'GET', url: `${ROOT_URL}commonProducts?color_id=${data}` })
+	// // getProductByCateg: (data, cb) => {
+	// // 	//GET_PRODUCT_BY_CATEG.url = GET_PRODUCT_BY_CATEG.url + data;
+	// // 	return request({}, cb, { type: 'GET', url: `${ROOT_URL}getProductByCateg/${data}` })
+	// // },
+
+	// getProductByColor: (data, cb) => {
+	// 	// GET_PRODUCT_BY_COLOR.url = GET_PRODUCT_BY_COLOR.url + data;
+	// 	// return request({}, cb, GET_PRODUCT_BY_COLOR)
+	// 	return request({}, cb, { type: 'GET', url: `${ROOT_URL}commonProducts?color_id=${data}` })
+	// },
+	getProductById: (data, cb) => {
+		return request({}, cb, { type: 'GET', url: `${ROOT_URL}getProductByProdId/${data}` })
 	},
 
 	getProductBySearchText: (data, cb) => {
