@@ -42,24 +42,14 @@ export const API = {
 	{
 		console.log(data.payload, "data from API.js file for all product ")
 		
-				return request({"category_id":data.category_id,
-				"color_id":data.color_id}, cb,
-					
-					
-
-				// 	{params:{"category_id":data.category_id,
-				// 	"color_id":data.color_id,
-				// 	"sortBy":data.sortBy,
-				// 	"sortIn":data.sortIn,
-				// 	"name":data.name,
-				// 	"pageNo":data.pageNo?data.pageNo:1,
-				// 	"perPage":data.perPage?data.perPage:100}
-				// }
-
-
-			{ type: 'GET', url: `${ROOT_URL}commonProducts`}
+				return request(
+					{"category_id":data.category_id,
+					 "color_id":data.color_id,
+					 "sortBy":data.sortBy, 
+					 "sortIn":data.sortIn,}
+					 , cb,	{ type: 'GET', url: `${ROOT_URL}commonProducts`}
 		
-		)
+							)
 				
 			},
 	// request(data, cb,{ type: 'GET', url: `${ROOT_URL}commonProducts?category_id=${data}`}

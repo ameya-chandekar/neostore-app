@@ -13,9 +13,11 @@ export const getAllProduct = (payload) => {
         //  const data=payload;
         let cat_id=payload.category_id?payload.category_id:"";
         let col_id=payload.color_id?payload.color_id:"";
+        let sortby=payload.sortBy?payload.sortBy:"";
+        let sortin=payload.sortIn?payload.sortIn:"";
 
 
-        const data={category_id:cat_id,color_id:col_id}
+        const data={category_id:cat_id,color_id:col_id,sortBy:sortby,sortIn:sortin}
         //  const data ={payload}
 
         console.log(data,"data in all product action");

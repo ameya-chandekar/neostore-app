@@ -40,6 +40,21 @@ export class Allproducts extends Component {
     }
 
 
+    // For sorting products by rating
+    sortByStarRating = async (data) => {
+        this.props.onGetAllProduct(data);
+    }
+
+    // For sorting products by Price High to low  
+    sortByHighToLow = async (data) => {
+        this.props.onGetAllProduct(data);
+    }
+
+    //For sorting products by Price Low To High  
+    sortbyLowToHigh = async (data) => {
+        this.props.onGetAllProduct(data);
+       
+    }
   
     render() {
         return (
@@ -49,9 +64,9 @@ export class Allproducts extends Component {
                     <div className="col-12">
                     <div>
                         <span>Sort By:</span>
-                    <button className="btn btn-light text-primary m-2"><StarIcon onClick={()=>this.sortByStarRating({category_id:this.state.category_id,sortBy:"product_rating",sortIn:true})} /></button>
-                    <button className="btn btn-light text-primary m-2"><b>₹</b><ArrowUpwardIcon onClick={()=>this.sortByHighToLow({category_id:this.state.category_id,sortBy:"product_cost",sortIn:false})} /></button>
-                    <button className="btn btn-light text-primary m-2"><b>₹</b><ArrowDownwardIcon onClick={()=>this.sortbyLowToHigh({category_id:this.state.category_id,sortBy:"product_cost",sortIn:true})} /></button>
+                    <button className="btn btn-light text-primary m-2"><StarIcon onClick={()=>this.sortByStarRating({category_id:this.props.category_id,color_id:this.props.color_id,sortBy:"product_rating",sortIn:true})} /></button>
+                    <button className="btn btn-light text-primary m-2"><b>₹</b><ArrowUpwardIcon onClick={()=>this.sortByHighToLow({category_id:this.props.category_id,color_id:this.props.color_id,sortBy:"product_cost",sortIn:false})} /></button>
+                    <button className="btn btn-light text-primary m-2"><b>₹</b><ArrowDownwardIcon onClick={()=>this.sortbyLowToHigh({category_id:this.props.category_id,color_id:this.props.color_id,sortBy:"product_cost",sortIn:true})} /></button>
                     </div>
                     </div>
                 </div>
