@@ -38,19 +38,24 @@ this.props.onSearch({searchText})
 
   if (data1) {
     data1.push({ flag: "logout" });
-    await  this.props.placeOrder({data1,user_token})
+    this.props.placeOrder({data1,user_token})
+    .then(()=>{
+
+      localStorage.removeItem("login_user_data")
+      localStorage.removeItem("editAddress")
+      localStorage.setItem('cart', [])
+      sweetalert2.fire({
+        "title": 'Logged Out',
+        'text': 'Logged out successfully',
+        "icon": 'success'
+      })
+      this.setState({ login: false })
+      
+    })
     
   }
     
-    localStorage.removeItem("login_user_data")
-    localStorage.removeItem("editAddress")
-    localStorage.setItem('cart', [])
-    sweetalert2.fire({
-      "title": 'Logged Out',
-      'text': 'Logged out successfully',
-      "icon": 'success'
-    })
-    this.setState({ login: false })
+   
   }
    componentDidMount() {
    

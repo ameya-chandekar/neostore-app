@@ -44,7 +44,7 @@ export const getCartProduct = (payload) => {
        return API.getCartProduct( cb, data2)
        .then(res => {
             
-            // Return something
+            console.log(res,"this is from ACTION OF get  cart    data")
             return true;
         }).catch((error) => {  });
     }

@@ -28,7 +28,11 @@ export const placeOrder = (payload) => {
 
             }
         }
-        API.placeOrder(data, cb,data2)
+     return   API.placeOrder(data, cb,data2).then(res => {
+        
+        // Return something
+        return true;
+    }).catch((error) => {  });
     }
     
 }

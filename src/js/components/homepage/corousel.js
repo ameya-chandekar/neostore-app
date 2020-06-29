@@ -10,7 +10,8 @@ export class Corousel extends Component {
     super(props);
 
     this.state = {
-      data: []
+      data: [],
+      category_id:"",
     };
   }
 
@@ -28,10 +29,17 @@ export class Corousel extends Component {
       });
   }
 
-  handleImageClick = (catogorie_id) => {
-    console.log(catogorie_id, "onlick of image cate id")
-    this.props.onproductbycateg({catogorie_id});
-    console.log(this.props.history)
+  handleImageClick = (categ_id) => {
+   
+  //   this.setState({
+  //     category_id:catogorie_id
+  // })
+  const category_id=categ_id?categ_id:"";
+    console.log(category_id, "onlick of image cate id")
+    this.props.onGetAllProduct({category_id})
+    
+    // this.props.onproductbycateg({catogorie_id});
+    // console.log(this.props.history)
   }
 
   render() {
@@ -115,7 +123,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onproductbycateg: (payload) => dispatch(actions.getproductbycateg(payload)),
+    onGetAllProduct: (payload) => dispatch(actions.getAllProduct(payload)),
   }
 }
 

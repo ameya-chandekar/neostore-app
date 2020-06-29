@@ -41,14 +41,25 @@ async componentDidMount(){
 // Getting cart products from local Storage
 
 getCartData=()=>{
-  
+  let result;
   try{  
-      let result=localStorage.getItem('cart')
+    result= this.props.cartProducts.product_details?
+    this.props.cartProducts.product_details
+    ( console.log(this.props.cartProducts.product_details,"hun ja re bava adddddddddd"),
+      this.setState({
+      cartData:result
+    })
+  )
+
+    :
+    (  result=localStorage.getItem('cart')
       ? JSON.parse(localStorage.getItem('cart'))
-      : [] ;
+      : [],
       this.setState({
           cartData:result
-      });
+      })
+    )
+      
 
       let a =result.map((item=>{
           return item.total_productCost*item.quantity;
@@ -168,7 +179,7 @@ subtractOne = (id) => {
   render() {
     const steps = ['Cart', 'Delivery Address'];    
     const data1 = localStorage.getItem('login_User_Data');
-    this.getOldCartData();
+    // this.getOldCartData();
 
 console.log(this.props.cartProducts.product_details,"products in cart after login resume")
     // ------------------------------------
@@ -188,7 +199,7 @@ console.log(this.props.cartProducts.product_details,"products in cart after logi
   //   console.log(products);
   //   const steps = ['Cart', 'Delivery Address'];
   //  const yes=false
-   if(this.state.cartData.length>0 ){
+   if(this.state.cartData.length>0){
     return (
       <div>
         <Navbar login={localStorage.getItem('login_user_data') ? 'true' : 'false'} />
