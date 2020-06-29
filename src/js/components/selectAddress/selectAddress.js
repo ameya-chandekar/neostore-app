@@ -112,11 +112,16 @@ proceedCheckout = async(e) => {
     const data2 = localStorage.getItem('login_user_data');
     const userData = JSON.parse(data2);
     const user_token = userData.token
-    const placeOrder=()=>{
+ 
       this.props.placeOrder({data1,user_token})
+      .then(result => {
         
-}
-placeOrder();
+                    localStorage.setItem('cart', [[]])
+                    this.props.history.push('/thankYou')
+                    this.setState({ show: true })
+                }).catch(err => {
+                    alert(`OOps.. some error occured. Details: ${err}`)
+                })   
     // if()
     // {
     //     localStorage.setItem('cart', [[]])
@@ -127,10 +132,6 @@ placeOrder();
     //     alert(`OOps.. some error occured. Details: ${err}`)
     // })
 }
-
-
-
-
 
 // proceedCheckout = async(e) => {
 //     e.preventDefault();
@@ -152,9 +153,7 @@ placeOrder();
 //     // }).catch(err => {
 //     //     alert(`OOps.. some error occured. Details: ${err}`)
 //     // })
-
 // }
-
 
 render() {
     const steps = ['Cart', 'Delivery Address'];
@@ -234,9 +233,6 @@ render() {
     )
 }
 }
-
-
-
 const mapStateToProps = state => {
     return {
         address: state.Address.Addresses,
@@ -246,7 +242,6 @@ const mapStateToProps = state => {
 
 
 }
-
 const mapDispatchToProps = dispatch => {
     return {
         getAddress: (payload) => dispatch(actions.getAddress(payload)),

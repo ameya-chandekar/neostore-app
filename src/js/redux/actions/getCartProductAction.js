@@ -38,13 +38,12 @@ export const getCartProduct = (payload) => {
             },
             error: (err) => {
 
-
             }
         }
        return API.getCartProduct( cb, data2)
        .then(res => {
             
-            console.log(res,"this is from ACTION OF get  cart    data")
+            console.log(res,"this is from ACTION OF get  cart  data")
             return true;
         }).catch((error) => {  });
     }

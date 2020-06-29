@@ -35,6 +35,7 @@ this.props.onSearch({searchText})
     const data2 = localStorage.getItem('login_user_data');
     const userData = JSON.parse(data2);
     const user_token = userData.token
+    
 
   if (data1) {
     data1.push({ flag: "logout" });
@@ -49,10 +50,10 @@ this.props.onSearch({searchText})
         'text': 'Logged out successfully',
         "icon": 'success'
       })
-      this.setState({ login: false })
+      
       
     })
-    
+    this.setState({ login: false })
   }
     
    
@@ -70,6 +71,11 @@ this.props.onSearch({searchText})
         })
     }
 }
+
+componentDidUpdate(prevProps, prevState) {
+  
+}
+
 // componentDidUpdate(prevProps, prevState) {
 //   console.log(prevState,"prevsatet");
 //   console.log(prevProps,"prevpropss");
@@ -125,7 +131,7 @@ this.props.onSearch({searchText})
                       </span>
 
                     </button>
-                    {this.state.login == true ?
+                    {this.props.login == 'true' ?
                       <div className="dropdown-menu bg-light  " aria-labelledby="navbarDropdown">
                         <Link to="/UserProfile"> <button className="dropdown-item " >Profile</button></Link>
                         <Link to="/"> <button className="dropdown-item" href="#" onClick={this.handleLogout}>Logout</button></Link>

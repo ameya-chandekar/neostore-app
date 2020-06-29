@@ -32,6 +32,7 @@ export class Cart extends Component {
 async componentDidMount(){
 
   try{
+console.log(this.props.cartData,"arrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr")
     this.getCartData();
   }catch(error){
       alert('Error in getting data')
@@ -41,25 +42,14 @@ async componentDidMount(){
 // Getting cart products from local Storage
 
 getCartData=()=>{
-  let result;
+  
   try{  
-    result= this.props.cartProducts.product_details?
-    this.props.cartProducts.product_details
-    ( console.log(this.props.cartProducts.product_details,"hun ja re bava adddddddddd"),
-      this.setState({
-      cartData:result
-    })
-  )
-
-    :
-    (  result=localStorage.getItem('cart')
+     let result=localStorage.getItem('cart')
       ? JSON.parse(localStorage.getItem('cart'))
-      : [],
+      : [];
       this.setState({
           cartData:result
-      })
-    )
-      
+      })  
 
       let a =result.map((item=>{
           return item.total_productCost*item.quantity;
