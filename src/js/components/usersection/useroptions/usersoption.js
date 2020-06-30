@@ -26,6 +26,7 @@ class Usersoption extends Component {
         const data1 = localStorage.getItem('login_user_data');
         const userData = JSON.parse(data1);
         const profileimage = userData.customer_details.profile_img
+ console.log("profile image of user" ,url+profileimage)
         return (
             <div>
                 <div className="profile-img text-center">

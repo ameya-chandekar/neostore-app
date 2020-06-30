@@ -69,7 +69,7 @@ handleChange=(e) =>{
     
 }
   handleSubmit= async(e)=> {
-    this.handlefnameChange();
+    // this.handlefnameChange();
     e.preventDefault();
 
 
@@ -93,14 +93,14 @@ handleChange=(e) =>{
 }
 
 
-componentDidUpdate(prevProps){
-    if(this.props.registered){
-        console.log("redirected");
-    this.props.history.push('/Loginpage')
+// componentDidUpdate(prevProps){
+//     if(this.props.registered){
+//         console.log("redirected");
+//     this.props.history.push('/Loginpage')
    
     
-    }
-}
+//     }
+// }
 
 
 

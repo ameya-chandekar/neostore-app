@@ -64,6 +64,15 @@ export class EditAddress extends Component {
             const Data = JSON.parse(data1);
             const user_token = Data.token
        this.props.updateAddress({data ,user_token})
+
+       .then(result => {
+        
+                    
+                })
+                
+                .catch(err => {
+                    alert(`OOps.. some error occured. Details: ${err}`)
+                })   
     //    .then(res => {
     //                 sweetalert2.fire({
     //                     "title": 'Address edited successfully',

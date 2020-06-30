@@ -14,16 +14,17 @@ export const register = (payload) => {
         const data = { first_name: payload.first_name, last_name: payload.last_name, email: payload.email, pass: payload.pass, confirmPass: payload.confirmPass, phone_no: payload.phone_no, gender: payload.gender }
         let cb = {
             success: (res) => {
-                console.log();
+                console.log(data,"register data from action");
                 const newState = {
                     isRegister: true,
                     userdetails: { ...res }
                 }
+                console.log(newState,"res of the register action")
                 dispatch(registerUser(newState))
 
             },
             error: (err) => {
-
+                console.log(err,"error of the register action")
 
             }
         }
