@@ -22,6 +22,7 @@ import RecoverPassword from'./js/components/login/recoverPassword'
 import ForgotPassword from './js/components/login/forgotPassword'
 import SelectAddress from './js/components/selectAddress/selectAddress'
 import ThankYou from './js/components/selectAddress/thankYou'
+import EditAddress from './js/components/usersection/editAddress'
 function App() {
     return (
         <Router>
@@ -45,6 +46,8 @@ function App() {
                 <Route exact path="/UserChangePassword" component={UserChangePassword}/>  
                 <Route exact path="/addAddress" component={Addnewaddress}/>
                 <Route exact path ="/selectAddress" component={SelectAddress}/>
+                <Route exact path ="/editAddress" component={EditAddress}/>
+                
                 <Route path="/thankYou" component={ThankYou}/>
             </Switch>
 

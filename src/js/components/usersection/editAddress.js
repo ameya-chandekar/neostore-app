@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import userIcon from '../../assets/images/profile-placeholder.png';
+// import userIcon from '../../assets/images/profile-placeholder.png';
 import { Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import ReorderIcon from '@material-ui/icons/Reorder';
 import PersonIcon from '@material-ui/icons/Person';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import SyncAltIcon from '@material-ui/icons/SyncAlt';
-import UserProfile from '../UserProfile/UserProfile';
-import Header from '../Header/Header';
-import { addCustomerAddress, getCustomerAddress, editCustomerAddress } from '../../api/api';
+// import UserProfile from '../UserProfile/UserProfile';
+import UserOption from './useroptions/usersoption'
+import Navbar from '../navbar/navbar';
+// import { addCustomerAddress, getCustomerAddress, editCustomerAddress } from '../../api/api';
 import sweetalert2 from 'sweetalert2';
 
 export class EditAddress extends Component {
@@ -56,7 +57,7 @@ export class EditAddress extends Component {
                     'state': `${state}`,
                     'country': `${country}`
                 }
-                const result = await editCustomerAddress(userData)
+                // const result = await editCustomerAddress(userData)
                     .then(res => {
                         sweetalert2.fire({
                             "title": 'Address edited successfully',
@@ -81,7 +82,7 @@ export class EditAddress extends Component {
         
     
     render() {
-        const data1 = localStorage.getItem('loginUserData')
+        const data1 = localStorage.getItem('login_user_data')
         const userData = JSON.parse(data1);
 
 
@@ -92,7 +93,7 @@ export class EditAddress extends Component {
         return (
             <div>
 
-                <Header login={localStorage.getItem('loginUserData') ? 'true' : 'false'} />
+                <Navbar login={localStorage.getItem('login_user_data') ? 'true' : 'false'} />
                 {userData ?
                     <div className="container m-4">
                         <div className="row">
@@ -104,21 +105,16 @@ export class EditAddress extends Component {
                         </div><hr />
 
                         <div className="row">
-                            <div className="col-6 text-center">
-                                <img src={userIcon} alt="userIcon" height="30%" style={{ borderRadius: "100%" }} />
-                                <h4 className="text-danger mt-2">{userData.customer_details.first_name} {userData.customer_details.last_name}</h4>
-                                <div className="mb-2"><Link to="/order"><Button variant="outlined" fullWidth><ReorderIcon /> &nbsp;Order</Button></Link></div>
-                                <div className="mb-2"><Link to="/profile"><Button variant="outlined" fullWidth><PersonIcon /> &nbsp; Profile</Button></Link></div>
-                                <div className="mb-2"><Link to="/address"><Button variant="outlined" fullWidth><MenuBookIcon /> &nbsp; Addresses</Button></Link></div>
-                                <div className="mb-2"><Link to="/changePassword"><Button variant="outlined" fullWidth><SyncAltIcon /> &nbsp; Change Password</Button></Link></div>
+                            <div className="col-4 text-center">
+                             <UserOption/>
                             </div>
-                            <div className="col-6 mt-2">
+                            <div className="col-8 mt-2">
 
                                 <div className="container">
 
 
                                     <div>
-                                        <div className="container" style={{ border: "1px solid grey", borderRadius: "7%" }}>
+                                        <div className="container" style={{border:"1px groove",borderRadius:"5px"}}>
                                             <form>
                                                 <div className="form-group mt-3">
                                                     <label className="lead"> Enter Address</label>
@@ -142,7 +138,8 @@ export class EditAddress extends Component {
                                                     <input type='text' className="form-control" defaultValue={address.country} onChange={(e) => { this.setState({ country: e.target.value }) }} />
                                                 </div>
                                                 <div className="form-group mt-3 mb-3">
-                                                    <button className="btn btn-primary" onClick={this.editHandler}>Edit</button>
+                                                    <button className="btn mx-2 " style={{border:"1px groove",borderRadius:"5px"}} onClick={this.editHandler}><i class="fa fa-floppy-o m-1" aria-hidden="true"/>Save</button>
+                                                    <button className="btn mx-2" style={{border:"1px groove",borderRadius:"5px"}} onClick={this.editHandler}><i class="fa fa-times m-1" aria-hidden="true"/>Cancel</button>
                                                 </div>
                                             </form>
                                         </div>

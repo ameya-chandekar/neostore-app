@@ -30,6 +30,7 @@ export const getCartProduct = (payload) => {
             
             success: (res) => {
                 console.log("cart p from action ",res);
+                
                 const newState = {
                     isAdded: true,
                     cartProductdetails:{...res}
