@@ -27,7 +27,11 @@ export const updateAddress = (payload) => {
 
             }
         }
-        API.updateAddress(data, cb,data2)
+        API.updateAddress(data, cb,data2).then(res => {
+            
+            // Return something
+            return true;
+        }).catch((error) => {  });
     }
     
 }

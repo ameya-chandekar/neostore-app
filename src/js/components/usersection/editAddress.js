@@ -12,6 +12,9 @@ import Navbar from '../navbar/navbar';
 // import { addCustomerAddress, getCustomerAddress, editCustomerAddress } from '../../api/api';
 import sweetalert2 from 'sweetalert2';
 
+
+import { connect } from 'react-redux';
+import * as actions from '../../redux/actions';
 export class EditAddress extends Component {
     constructor(props) {
         super(props);
@@ -25,71 +28,74 @@ export class EditAddress extends Component {
 
         }
     }
-   
+
     editHandler = async (e) => {
-        
+
         e.preventDefault();
         // const [address,pincode,city,state,country]=this.state
-        const address1 = this.state.address;
+        const Address = this.state.address;
         const pincode = this.state.pincode;
         const city = this.state.city;
         const state = this.state.state;
         const country = this.state.country;
 
-            if (pincode.length !== 6 || isNaN(pincode)) {
-                this.setState({
-                    pincodeErrorMessage: 'Pincode should be exact 6 numeric digits'
-                })
-            }
-
-            else {
-                this.setState({
-                    pincodeErrorMessage: ''
-                })
-                const userAddress = localStorage.getItem('editAddress');
-                console.log('userAddress in editAddress', userAddress);
-                const address = JSON.parse(userAddress);
-                const userData = {
-                    'address_id': `${address.address_id}`,
-                    'address': `${address1}`,
-                    'pincode': `${pincode}`,
-                    'city': `${city}`,
-                    'state': `${state}`,
-                    'country': `${country}`
-                }
-                // const result = await editCustomerAddress(userData)
-                    .then(res => {
-                        sweetalert2.fire({
-                            "title": 'Address edited successfully',
-                            'text': 'Congratulations, your address has been edited',
-                            "icon": 'success'
-                        })
-                        this.props.history.push('/address');
-
-                    }).catch(err => {
-                        sweetalert2.fire({
-                            "title": 'OOPS, Error occured',
-                            'text': `Please check the Error :- ${err}`,
-                            "icon": 'error'
-                        })
-                    })
-            }
+        if (!pincode.length == 6 || isNaN(pincode)) {
+            this.setState({
+                pincodeErrorMessage: 'Pincode should be exact 6 numeric digits'
+            })
         }
 
-        componentWillUnmount(){
-            localStorage.removeItem('editAddress')
+        else {
+            this.setState({
+                pincodeErrorMessage: ''
+            })
+            const userAddress = localStorage.getItem('editAddress');
+            console.log('userAddress in editAddress', userAddress);
+            const address = JSON.parse(userAddress);
+            const data = {
+                'address_id': `${address.address_id}`,
+                'address': `${Address}`,
+                'pincode': `${pincode}`,
+                'city': `${city}`,
+                'state': `${state}`,
+                'country': `${country}`
+            }
+            const data1 = localStorage.getItem('login_user_data');
+            const Data = JSON.parse(data1);
+            const user_token = Data.token
+       this.props.updateAddress({data ,user_token})
+    //    .then(res => {
+    //                 sweetalert2.fire({
+    //                     "title": 'Address edited successfully',
+    //                     'text': 'Congratulations, your address has been edited',
+    //                     "icon": 'success'
+    //                 })
+    //                 this.props.history.push('/address');
+
+    //             })
+    //             .catch(err => {
+    //                 sweetalert2.fire({
+    //                     "title": 'OOPS, Error occured',
+    //                     'text': `Please check the Error :- ${err}`,
+    //                     "icon": 'error'
+    //                 })
+    //             })
         }
-        
-    
+    }
+
+    componentWillUnmount() {
+        localStorage.removeItem('editAddress')
+    }
+
+
     render() {
         const data1 = localStorage.getItem('login_user_data')
         const userData = JSON.parse(data1);
 
 
         const userAddress = localStorage.getItem('editAddress');
-        console.log('userAddress in editAddress', userAddress);
         const address = JSON.parse(userAddress);
-        
+
         return (
             <div>
 
@@ -106,7 +112,7 @@ export class EditAddress extends Component {
 
                         <div className="row">
                             <div className="col-4 text-center">
-                             <UserOption/>
+                                <UserOption />
                             </div>
                             <div className="col-8 mt-2">
 
@@ -114,7 +120,7 @@ export class EditAddress extends Component {
 
 
                                     <div>
-                                        <div className="container" style={{border:"1px groove",borderRadius:"5px"}}>
+                                        <div className="container" style={{ border: "1px groove", borderRadius: "5px" }}>
                                             <form>
                                                 <div className="form-group mt-3">
                                                     <label className="lead"> Enter Address</label>
@@ -138,8 +144,8 @@ export class EditAddress extends Component {
                                                     <input type='text' className="form-control" defaultValue={address.country} onChange={(e) => { this.setState({ country: e.target.value }) }} />
                                                 </div>
                                                 <div className="form-group mt-3 mb-3">
-                                                    <button className="btn mx-2 " style={{border:"1px groove",borderRadius:"5px"}} onClick={this.editHandler}><i class="fa fa-floppy-o m-1" aria-hidden="true"/>Save</button>
-                                                    <button className="btn mx-2" style={{border:"1px groove",borderRadius:"5px"}} onClick={this.editHandler}><i class="fa fa-times m-1" aria-hidden="true"/>Cancel</button>
+                                                    <button className="btn mx-2 " style={{ border: "1px groove", borderRadius: "5px" }} onClick={this.editHandler}><i class="fa fa-floppy-o m-1" aria-hidden="true" />Save</button>
+                                                    <button className="btn mx-2" style={{ border: "1px groove", borderRadius: "5px" }}><i class="fa fa-times m-1" aria-hidden="true" />Cancel</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -161,8 +167,24 @@ export class EditAddress extends Component {
         )
     }
 }
+const mapStateToProps = state => {
+    return {
+        address: state.Address.Addresses,
+        isUpdated: state.Address.isUpdated,
 
-export default EditAddress
+    }
+
+
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        updateAddress:(payload)=>dispatch(actions.updateAddress(payload)),
+    
+
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditAddress);
 
 
 

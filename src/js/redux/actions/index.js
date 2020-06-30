@@ -18,4 +18,5 @@ export {changePassword} from'./changePasswordAction';
 export {getOrders} from './getUserOrderAction.js';
 export {getOrderPDF} from './getPDFAction';
 export {updateRating} from './updateProductRatingAction';
+export {updateAddress} from './updateAddressAction';
 // export {placeOrder} from '/placeOrder'
