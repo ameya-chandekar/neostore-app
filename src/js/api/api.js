@@ -96,6 +96,7 @@ export const API = {
 	
 	// 	return request({}, cb, { type: 'GET', url: `${ROOT_URL}getCartData/${data}` })
 	// },
+	
 	getCartProduct:(cb,data2)=>request(null, cb, GET_CART_PRODUCT,data2),
 	deleteCartProduct:(data ,cb,data2)=>{
 		return request({}, cb, { type: 'DELETE', url: `${ROOT_URL}deleteCustomerCart/${data}`},data2)

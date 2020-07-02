@@ -11,9 +11,13 @@ import ReactStars from "react-rating-stars-component";
 import sweetalert2 from 'sweetalert2';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import '../productdetails/productDetails.css'
+
 import { connect } from 'react-redux';
 import * as actions from '../../../redux/actions';
+
 import { ROOT_URL } from '../../../api/globals'
+import Swal from 'sweetalert2';
+
 export class ProductDetails extends Component {
 
   constructor(props) {
@@ -77,6 +81,67 @@ handleRatingSubmit = async (e) => {
           })
    
 };
+
+
+
+
+handlecart = async (id, data) => {
+  //   this.props.onaddtocart(id);
+    try {
+        let finalData = {
+            _id: data._id,
+            product_id: data,
+            product_cost: data.product_cost,
+            total_productCost: data.product_cost,
+            quantity: 1
+        };
+        let cartData = localStorage.getItem("cart")
+            ? JSON.parse(localStorage.getItem("cart"))
+            : [];
+        if (cartData === []) {
+            let tempData = [];
+            tempData.push(finalData);
+            localStorage.setItem("cart", JSON.stringify(tempData));
+            localStorage.getItem('cart'.length)
+
+
+            Swal.fire({
+                'title': 'Product added to cart successfully',
+                "icon": 'success'
+            });
+
+        } else {
+            let existed_item = cartData.find(item => id === item._id);
+            if (existed_item) {
+                Swal.fire({
+                    'title': 'Product already exists in cart',
+                    "icon": 'warning'
+                });
+            } else {
+                cartData.push(finalData);
+                localStorage.setItem("cart", JSON.stringify(cartData));
+                localStorage.getItem('cart'.length)
+                this.setState({ cartCount: 1 });
+                Swal.fire({
+                    'title': 'Product added to cart successfully',
+                    "icon": 'success'
+                });
+
+                localStorage.getItem('cart'.length);
+                this.setState({ cartCount: this.state.cartCount + 1 })
+            }
+        }
+
+    } catch (error) {
+        Swal.fire({
+            title: "Already added to cart",
+            text: "Please check cart",
+            icon: "warning",
+            timer: 2000
+        });
+        console.log(error);
+    }
+};
   render() {
     const { imageurl } = this.state
     // console.log("product ------------- id", this.props.productid);
@@ -90,7 +155,7 @@ handleRatingSubmit = async (e) => {
           <div className="row mt-5">
             <div className="col-lg-6 col-md-12">
               <div classname="row">
-                <div className="details-img" ><img src={imageurl ? imageurl : ROOT_URL + product_details.product_image} /></div>
+                <div className="details-img img-fluid" ><img src={imageurl ? imageurl : ROOT_URL + product_details.product_image} /></div>
               </div>
               <div className="row" style={{ margin: "20px" }}>
 
@@ -134,7 +199,7 @@ handleRatingSubmit = async (e) => {
                   <div className="col"><button className="bbtn btn-info  "><i class="fa fa-twitter"></i></button></div>
                 </div>
                 <div>
-                  <button className="btn btn-info mr-2">Add to cart</button>
+                  <button className="btn btn-info mr-2" onClick={()=>{this.handlecart(product_details.product_id,product_details)}}>Add to cart</button>
                   <span></span>
                   {/* <button className="btn btn-danger ml-2"></button> */}
                   <button
