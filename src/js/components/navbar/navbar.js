@@ -34,14 +34,14 @@ this.props.onSearch({searchText})
     : [];
     const data2 = localStorage.getItem('login_user_data');
     const userData = JSON.parse(data2);
-    const user_token = userData.token
+    const user_token = userData?userData.token:""
     
 
   if (data1) {
     data1.push({ flag: "logout" });
     this.props.placeOrder({data1,user_token})
     .then(()=>{
-
+      this.setState({ login: false })
       localStorage.removeItem("login_user_data")
       localStorage.removeItem("editAddress")
       localStorage.setItem('cart', [])
@@ -53,7 +53,7 @@ this.props.onSearch({searchText})
       
       
     })
-    this.setState({ login: false })
+    
   }
     
    
@@ -131,7 +131,7 @@ componentDidUpdate(prevProps, prevState) {
                       </span>
 
                     </button>
-                    {this.props.login == 'true' ?
+                    {this.state.login == true ?
                       <div className="dropdown-menu bg-light  " aria-labelledby="navbarDropdown">
                         <Link to="/UserProfile"> <button className="dropdown-item " >Profile</button></Link>
                         <Link to="/"> <button className="dropdown-item" href="#" onClick={this.handleLogout}>Logout</button></Link>

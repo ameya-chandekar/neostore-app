@@ -45,9 +45,7 @@ class Usersoption extends Component {
 const mapStateToProps = state => {
     return {
         Profile: state.getProfile.profile,
-
     }
-
 
 }
 const mapDispatchToProps = dispatch => {
