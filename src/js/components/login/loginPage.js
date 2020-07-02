@@ -83,14 +83,21 @@ export class LoginPage extends Component {
                     this.props.getCartProduct({ user_token })
                         .then(result => {
                             // The checkClient call is now done!
-                            this.props.history.push('/')
                             this.setState({
                                 cartdata: this.props.cartdata
                             })
-                            console.log(`success: ${result}`);
+                            let {cartdata}=this.props
+                            console.log(`success: ${JSON.stringify(cartdata)}`);
+
+                            let finalData = cartdata ? cartdata.map((product) => {
+                                product._id = product.product_id._id;
+                                return product
+                            }) : [];
+                            localStorage.setItem("cart", JSON.stringify(finalData));
                             // let cartdata=this.prop.cartdata?this.prop.cartdata:[];
-                            console.log(this.state.cartdata, "data to add in cart")
+                            // console.log(this.state.cartdata, "data to add in cart")
                             // Do something
+                            this.props.history.push('/')
                         })
 
                     console.log(this.props.isLogin, "islogin?");
@@ -265,7 +272,7 @@ const mapStateToProps = state => {
     return {
         isLogin: state.login.isLogin,
         userdetails: state.login.userdetails,
-        cartdata: state.cart.cartProductdetails,
+        cartdata: state.cart.cartProductdetails.product_details,
         isAdded: state.cart.isAdded
 
     };
