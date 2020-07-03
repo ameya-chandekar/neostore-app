@@ -69,7 +69,8 @@ export class LoginPage extends Component {
     }
     handleSubmit = (e) => {
         e.preventDefault();
-
+        this.handleEmailChange();
+        this.handlePassChange();
         this.setState({ submitted: true });
         const { username, password } = this.state;
         if (username && password) {
@@ -124,10 +125,10 @@ export class LoginPage extends Component {
     // Functions for validation
 
     handleEmailChange = (e) => {
-        if (e.target.value == '') {
+        if (this.state.username== '') {
             this.setState({ emailErrorText: 'Please enter Email ' })
         }
-        else if (/^([a-zA-Z])+([0-9a-zA-Z\.\-])+\@+(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,10})+$/.test(e.target.value)) {
+        else if (/^([a-zA-Z])+([0-9a-zA-Z\.\-])+\@+(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,10})+$/.test(this.state.username)) {
             this.setState({ emailErrorText: '' })
         }
         else {
@@ -136,10 +137,10 @@ export class LoginPage extends Component {
     }
     handlePassChange = (e) => {
         const cond = /^[A-Za-z]\w{7,11}$/;
-        if (e.target.value == '') {
+        if (this.state.password== '') {
             this.setState({ passErrorText: 'Please enter password ' })
         }
-        else if (e.target.value.match(cond)) {
+        else if (this.state.password.match(cond)) {
             this.setState({ passErrorText: '' })
         }
         else {

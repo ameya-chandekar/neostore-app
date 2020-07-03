@@ -49,6 +49,9 @@ handleChange=(e) =>{
 
 //submition of form
 handleSubmit=()=>{
+    this.handleoldpassChange();
+    this.handleNewPassChange();
+    this.handleCPassChange();
     const data1 = localStorage.getItem('login_user_data');
     const userData = JSON.parse(data1);
     const user_token = userData.token
@@ -80,7 +83,7 @@ handleMouseDownPassword = () => {
 
 //function for validation
 handleoldpassChange=(e)=>{
-    if(e.target.value==''){
+    if(this.state.oldPassword==''){
         this.setState({oldpassError:'old paswwor required'})
     }
     else{
@@ -91,11 +94,11 @@ handleoldpassChange=(e)=>{
 
 handleNewPassChange=(e)=>{
     const  cond = /^[A-Za-z]\w{7,11}$/;
-     if(e.target.value=='')
+     if(this.state.newPassword=='')
      {
          this.setState({newPassError:'Please enter password '})
      }
-     else if(e.target.value.match(cond))
+     else if(this.state.newPassword.match(cond))
      {
          this.setState({newPassError:''})
      }
@@ -108,7 +111,7 @@ handleNewPassChange=(e)=>{
   
   handleCPassChange=(e)=>{
   
-    if(e.target.value=='')
+    if(this.state.cPassword=='')
    {
      this.setState({cPassError:'Please enter confirm password '})
    }

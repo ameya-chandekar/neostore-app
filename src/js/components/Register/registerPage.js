@@ -11,11 +11,11 @@ import FormControl from "@material-ui/core/FormControl";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import MailIcon from '@material-ui/icons/Mail';
-import  RadioGroup from '@material-ui/core/RadioGroup'
+import RadioGroup from '@material-ui/core/RadioGroup'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Radio from '@material-ui/core/Radio';
 import FormLabel from '@material-ui/core/FormLabel';
-import FormHelperText from'@material-ui/core/FormHelperText'
+import FormHelperText from '@material-ui/core/FormHelperText'
 
 import Navbar from '../navbar/navbar'
 import Footer from '../footer/footer'
@@ -31,21 +31,21 @@ export class RegisterPage extends Component {
 
         this.state = {
             showPassword: false,
-            first_name:'',
-            last_name:'',
-            email:'',
-            pass:'',
-            confirmPass:'',
-            phone_no:'',
-            gender:'male',
+            first_name: '',
+            last_name: '',
+            email: '',
+            pass: '',
+            confirmPass: '',
+            phone_no: '',
+            gender: 'male',
 
-            first_nameError:'',
-            last_nameError:'',
-            emailError:'',
-            passError:'',
-            confirmPassError:'',
-            phone_noError:'',
-            
+            first_nameError: '',
+            last_nameError: '',
+            emailError: '',
+            passError: '',
+            confirmPassError: '',
+            phone_noError: '',
+
 
             submittedError: false,
         }
@@ -62,139 +62,130 @@ export class RegisterPage extends Component {
     }
 
 
-//this is to set state on change 
-handleChange=(e) =>{
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
-    
-}
-  handleSubmit= async(e)=> {
-    // this.handlefnameChange();
-    e.preventDefault();
+    //this is to set state on change 
+    handleChange = (e) => {
+        const { name, value } = e.target;
+        this.setState({ [name]: value });
 
-
-        this.setState({ submitted: true });
-        const { first_name,last_name,email,pass,confirmPass,phone_no,gender} = this.state;
-         if (first_name && last_name && email && pass && confirmPass && phone_no && gender) {
-             try {
-                 this.props.onRegister({first_name,last_name,email,pass,confirmPass,phone_no,gender} );
-                
-             } catch (error) {
-                 console.log(error);
-                 return false
-             }
-            
-            
-    } 
- 
-    console.log(this.props.registered);
-    
-   
-}
-
-
-// componentDidUpdate(prevProps){
-//     if(this.props.registered){
-//         console.log("redirected");
-//     this.props.history.push('/Loginpage')
-   
-    
-//     }
-// }
-
-
-
-//functions for validattions 
-handlefnameChange=(e)=>{
-    if(e.target.value=='')
-    {
-        this.setState({first_nameError:'Please enter first name'})
-        
     }
-    else if(e.target.value.match(/^[a-zA-Z]*$/)){
-        this.setState({first_nameError:''})
-    }
-    else
-    {
-        this.setState({first_nameError:'cannot have number'})
-    }
-}
-handlelnameChange=(e)=>{
-    if(e.target.value=='')
-    {
-        this.setState({last_nameError:'Please enter last name'})
-    }
-    else if(e.target.value.match(/^[a-zA-Z]*$/)){
-        this.setState({last_nameError:''})
-    }
-    else
-    {
-        this.setState({last_nameError:''})
-    }
-}
+    handleSubmit = async (e) => {
+        // this.handlefnameChange();
+        e.preventDefault();
+      this.handlefnameChange();
+      this.handlelnameChange();
+      this.handleEmailChange ();
+      this.handlePassChange();
+      this.handlePhoneNumber ();
 
-handleEmailChange=(e)=>{
-    if(e.target.value=='')
-    {
-        this.setState({emailError:'Please enter Email '})
-    }
-    else if(/^([a-zA-Z])+([0-9a-zA-Z\.\-])+\@+(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,10})+$/.test(e.target.value))
-    {
-        this.setState({emailError:''})
-    }
-    else
-    {
-        this.setState({emailError:'Enter a valid email'})
-    }
-}
+    this.setState({ submitted: true });
+    const { first_name, last_name, email, pass, confirmPass, phone_no, gender } = this.state;
+        if (first_name && last_name && email && pass && confirmPass && phone_no && gender) {
+            try {
+                this.props.onRegister({ first_name, last_name, email, pass, confirmPass, phone_no, gender });
 
-handlePassChange=(e)=>{
-    const  cond = /^[A-Za-z]\w{7,11}$/;
-     if(e.target.value=='')
-     {
-         this.setState({passError:'Please enter password '})
-     }
-     else if(e.target.value.match(cond))
-     {
-         this.setState({passError:''})
-     }
-     else
-     {
-         this.setState({passError:'password should have 8-12 characters and should contain only aplhanumeric values'})
-     }
- }
+            } catch (error) {
+                console.log(error);
+                return false
+            }
 
- handlePhoneNumber=(e)=>{
-    if(e.target.value=='')
-    {
-        this.setState({phone_noError:'Number Requred'})
+
+        }
+    //     else if (first_name == '') {
+    //         this.setState({ first_nameError: 'Please enter first name' })
+
+    //     }
+    //    else if (last_name == '') {
+    //         this.setState({ last_nameError: 'Please enter last name' })
+    //     }
+        console.log(this.props.registered);
+
     }
-  
-    else
-    {
-        this.setState({phone_noError:''})
+    // componentDidUpdate(prevProps){
+    //     if(this.props.registered){
+    //         console.log("redirected");
+    //     this.props.history.push('/Loginpage')
+
+
+    //     }
+    // }
+    //functions for validattions 
+    handlefnameChange = (e) => {
+        if (this.state.first_name == '') {
+            this.setState({ first_nameError: 'Please enter first name' })
+
+        }
+        else if (this.state.first_name.match(/^[a-zA-Z]*$/)) {
+            this.setState({ first_nameError: '' })
+        }
+        else {
+            this.setState({ first_nameError: 'cannot have number' })
+        }
     }
-}
-
-isNumber=(evt)=> {
-
-    evt = (evt) ? evt : window.event;
-    var charCode = (evt.which) ? evt.which : evt.keyCode;
-    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-      
-        this.setState({phone_noError:'* only numbers allowed'}) 
-
-        return false;
+    handlelnameChange = (e) => {
+        if (this.state.last_name == '') {
+            this.setState({ last_nameError: 'Please enter last name' })
+        }
+        else if (this.state.last_name.match(/^[a-zA-Z]*$/)) {
+            this.setState({ last_nameError: '' })
+        }
+        else {
+            this.setState({ last_nameError: '' })
+        }
     }
-    return true;
-}
+
+    handleEmailChange = (e) => {
+        if (this.state.email == '') {
+            this.setState({ emailError: 'Please enter Email ' })
+        }
+        else if (/^([a-zA-Z])+([0-9a-zA-Z\.\-])+\@+(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,10})+$/.test(this.state.email)) {
+            this.setState({ emailError: '' })
+        }
+        else {
+            this.setState({ emailError: 'Enter a valid email' })
+        }
+    }
+
+    handlePassChange = (e) => {
+        const cond = /^[A-Za-z]\w{7,11}$/;
+        if ( this.state.pass == '') {
+            this.setState({ passError: 'Please enter password ' })
+        }
+        else if (this.state.pass.match(cond)) {
+            this.setState({ passError: '' })
+        }
+        else {
+            this.setState({ passError: 'password should have 8-12 characters and should contain only aplhanumeric values' })
+        }
+    }
+
+    handlePhoneNumber = (e) => {
+        if (this.state.phone_no == '') {
+            this.setState({ phone_noError: 'Number Requred' })
+        }
+
+        else {
+            this.setState({ phone_noError: '' })
+        }
+    }
+
+    isNumber = (evt) => {
+
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+
+            this.setState({ phone_noError: '* only numbers allowed' })
+
+            return false;
+        }
+        return true;
+    }
+
     render() {
         // console.log("----------------------",this.props.registered);
-        
-        const { first_name,last_name,email,pass,confirmPass,phone_no,gender} = this.state;
-
-        console.table("fname:",first_name, "lname:",last_name, "email:",email, "pass:",pass, "cpass:",confirmPass,"number:",phone_no ,"gender:",gender)
-console.log(this.props.registered)
+        const { first_name, last_name, email, pass, confirmPass, phone_no, gender } = this.state;
+        console.table("fname:", first_name, "lname:", last_name, "email:", email, "pass:", pass, "cpass:", confirmPass, "number:", phone_no, "gender:", gender)
+        console.log(this.props.registered)
         return (
             <div>
                 <Navbar />
@@ -213,8 +204,8 @@ console.log(this.props.registered)
                                         <form class="form-signin" onSubmit={this.handleSubmit}>
                                             <div class="mb-5 mt-3">
                                                 {/* <input type="email" id="inputEmail" class="form-control mt-3 mb-4 pt-4 pb-4" placeholder="Email Address" required autofocus /> */}
-                                                <FormControl className="form-control" variant="outlined" error={this.state.first_nameError ? true:false}
-                                            onChange={this.handlefnameChange} onBlur={this.handlefnameChange}>
+                                                <FormControl className="form-control" variant="outlined" error={this.state.first_nameError ? true : false}
+                                                    onChange={this.handlefnameChange} onBlur={this.handlefnameChange}>
                                                     <InputLabel htmlFor="outlined-adornment-email">First Name</InputLabel>
                                                     <OutlinedInput
                                                         id="outlined-adornment-email"
@@ -235,15 +226,15 @@ console.log(this.props.registered)
                                                         }
                                                         labelWidth={70}
                                                     />
-                                                     <FormHelperText id="component-error-text">{this.state.first_nameError}</FormHelperText>
+                                                    <FormHelperText id="component-error-text">{this.state.first_nameError}</FormHelperText>
                                                 </FormControl>
 
                                             </div>
 
                                             <div class="mb-5 mt-3">
                                                 {/* <input type="email" id="inputEmail" class="form-control mt-3 mb-4 pt-4 pb-4" placeholder="Email Address" required autofocus /> */}
-                                                <FormControl className="form-control" variant="outlined" error={this.state.last_nameError ? true:false}
-                                            onChange={this.handlelnameChange} onBlur={this.handlelnameChange}>
+                                                <FormControl className="form-control" variant="outlined" error={this.state.last_nameError ? true : false}
+                                                    onChange={this.handlelnameChange} onBlur={this.handlelnameChange}>
                                                     <InputLabel htmlFor="outlined-adornment-email">Last name</InputLabel>
                                                     <OutlinedInput
                                                         id="outlined-adornment-email"
@@ -264,15 +255,15 @@ console.log(this.props.registered)
                                                         }
                                                         labelWidth={70}
                                                     />
-                                             <FormHelperText id="component-error-text">{this.state.last_nameError}</FormHelperText>
-                                                
+                                                    <FormHelperText id="component-error-text">{this.state.last_nameError}</FormHelperText>
+
                                                 </FormControl>
 
                                             </div>
 
                                             <div class="mb-5 mt-3">
                                                 {/* <input type="email" id="inputEmail" class="form-control mt-3 mb-4 pt-4 pb-4" placeholder="Email Address" required autofocus /> */}
-                                                <FormControl className="form-control" variant="outlined"  error={this.state.emailError ? true:false}onChange={this.handleEmailChange} onBlur={this.handleEmailChange}>
+                                                <FormControl className="form-control" variant="outlined" error={this.state.emailError ? true : false} onChange={this.handleEmailChange} onBlur={this.handleEmailChange}>
                                                     <InputLabel htmlFor="outlined-adornment-email">Email Address</InputLabel>
                                                     <OutlinedInput
                                                         id="outlined-adornment-email"
@@ -300,7 +291,7 @@ console.log(this.props.registered)
 
                                             <div class="mb-5 mt-3">
                                                 {/* <input type="password" id="inputPassword" class="form-control mb-3 pt-4 pb-4" placeholder="Password" required /> */}
-                                                <FormControl className="formControl" variant="outlined"  error={this.state.passError ? true:false}onChange={this.handlePassChange} onBlur={this.handlePassChange}>
+                                                <FormControl className="formControl" variant="outlined" error={this.state.passError ? true : false} onChange={this.handlePassChange} onBlur={this.handlePassChange}>
                                                     <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                                                     <OutlinedInput
                                                         id="outlined-adornment-password"
@@ -308,7 +299,7 @@ console.log(this.props.registered)
                                                         name="pass"
                                                         onChange={this.handleChange}
                                                         value={this.state.password}
-                                                      
+
                                                         endAdornment={
                                                             <InputAdornment position="end">
                                                                 <Icon
@@ -337,7 +328,7 @@ console.log(this.props.registered)
                                                         name="confirmPass"
                                                         onChange={this.handleChange}
                                                         value={this.state.password}
-                                                       
+
                                                         endAdornment={
                                                             <InputAdornment position="end">
                                                                 <Icon
@@ -357,9 +348,9 @@ console.log(this.props.registered)
 
                                             <div class="mb-5 mt-3">
                                                 {/* <input type="email" id="inputEmail" class="form-control mt-3 mb-4 pt-4 pb-4" placeholder="Email Address" required autofocus /> */}
-                                                <FormControl className="form-control" variant="outlined" error={this.state.phone_noError ? true:false}onChange={this.handlePhoneNumber} onBlur={this.handlePhoneNumber}
-                                                onKeyUp={this.isNumber}>
-                                                
+                                                <FormControl className="form-control" variant="outlined" error={this.state.phone_noError ? true : false} onChange={this.handlePhoneNumber} onBlur={this.handlePhoneNumber}
+                                                    onKeyUp={this.isNumber}>
+
                                                     <InputLabel htmlFor="outlined-adornment-email">Mobile Number</InputLabel>
                                                     <OutlinedInput
                                                         id="outlined-adornment-email"
@@ -388,14 +379,14 @@ console.log(this.props.registered)
 
                                             <FormControl component="fieldset">
                                                 <FormLabel component="legend">Gender</FormLabel>
-                                                <RadioGroup defaultValue="male" aria-label="gender" name="customized-radios" name="gender" onChange={this.handleChange}>                                                   
-                                                    <FormControlLabel value="male" control={<Radio/>} label="Male" />  
-                                                    <FormControlLabel value="female" control={<Radio/>} label="Female" />                                      
+                                                <RadioGroup defaultValue="male" aria-label="gender" name="customized-radios" name="gender" onChange={this.handleChange}>
+                                                    <FormControlLabel value="male" control={<Radio />} label="Male" />
+                                                    <FormControlLabel value="female" control={<Radio />} label="Female" />
                                                 </RadioGroup>
                                             </FormControl>
                                             <div>
-                                            <button type="submit" class="btn btn-danger text-uppercase float-left mb-3"  onClick={this.handleSubmit}>Register</button>
-                                        </div>
+                                                <button type="submit" class="btn btn-danger text-uppercase float-left mb-3" onClick={this.handleSubmit}>Register</button>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>
@@ -412,18 +403,18 @@ console.log(this.props.registered)
 }
 const mapStateToProps = state => {
     return {
-      registered:state.register.isRegister
-      
+        registered: state.register.isRegister
+
     };
-    
-    
-  }
-  
-  const mapDispatchToProps = dispatch => {
+
+
+}
+
+const mapDispatchToProps = dispatch => {
     return {
-      onRegister: (payload) => dispatch(actions.register(payload)) 
+        onRegister: (payload) => dispatch(actions.register(payload))
     }
-  }
-  
-  export default connect(mapStateToProps, mapDispatchToProps)(RegisterPage);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterPage);
 // export default RegisterPage

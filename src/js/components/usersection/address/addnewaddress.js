@@ -47,6 +47,11 @@ handleChange=(e) =>{
 }
 
  handleSubmit= async(e)=> {
+
+this.handleAddressChange();
+this.handleCityChange();
+this.handleCountryChange();
+this.handleStateChange();
   const data1 = localStorage.getItem('login_user_data');
   const userData = JSON.parse(data1);
   const user_token = userData.token
@@ -88,7 +93,7 @@ componentDidMount(){
 }
 //functions for validations
 handleAddressChange=(e)=>{
-  if(e.target.value=='')
+  if(this.state.address=='')
   {
       this.setState({addressError:'Please enter address'})      
   }
@@ -109,12 +114,16 @@ isNumber=(evt)=> {
 
       return false;
   }
+  else{
+    this.setState({pincodeError:''})
+    // return true;
+  }
 
-  return true;
+  
 }
 
 handleCityChange=(e)=>{
-  if(e.target.value=='')
+  if(this.state.city=='')
   {
       this.setState({cityError:'Please enter city name'})
       
@@ -127,7 +136,7 @@ handleCityChange=(e)=>{
 }
 
 handleStateChange=(e)=>{
-  if(e.target.value=='')
+  if(this.state.state=='')
   {
       this.setState({stateError:'Please enter state'})
       
@@ -140,7 +149,7 @@ handleStateChange=(e)=>{
 }
 
 handleCountryChange=(e)=>{
-  if(e.target.value=='')
+  if(this.state.country=='')
   {
       this.setState({countryError:'Please enter state'})
       
@@ -216,9 +225,6 @@ handleCountryChange=(e)=>{
                         />
                         <FormHelperText id="component-error-text">{this.state.addressError}</FormHelperText>
                         
-                        
-                          
-                      
                     </div>
                     <div className="mb-5">
                       <FormControl className="form-control" variant="outlined" error={this.state.pincodeError ? true:false}
