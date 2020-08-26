@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 // import userIcon from '../../assets/images/profile-placeholder.png';
-import { Button } from '@material-ui/core';
+// import { Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import ReorderIcon from '@material-ui/icons/Reorder';
-import PersonIcon from '@material-ui/icons/Person';
-import MenuBookIcon from '@material-ui/icons/MenuBook';
-import SyncAltIcon from '@material-ui/icons/SyncAlt';
+// import ReorderIcon from '@material-ui/icons/Reorder';
+// import PersonIcon from '@material-ui/icons/Person';
+// import MenuBookIcon from '@material-ui/icons/MenuBook';
+// import SyncAltIcon from '@material-ui/icons/SyncAlt';
 // import UserProfile from '../UserProfile/UserProfile';
 import UserOption from './useroptions/usersoption'
 import Navbar from '../navbar/navbar';
 // import { addCustomerAddress, getCustomerAddress, editCustomerAddress } from '../../api/api';
-import sweetalert2 from 'sweetalert2';
+// import sweetalert2 from 'sweetalert2';
 
 
 import { connect } from 'react-redux';
@@ -39,7 +39,7 @@ export class EditAddress extends Component {
         const state = this.state.state;
         const country = this.state.country;
 
-        if (!pincode.length == 6 || isNaN(pincode)) {
+        if (!pincode.length === 6 || isNaN(pincode)) {
             this.setState({
                 pincodeErrorMessage: 'Pincode should be exact 6 numeric digits'
             })

@@ -15,14 +15,14 @@ export class ProfileDetails extends Component {
         const userData = JSON.parse(data1);
         const user_token = userData.token
         this.props.getProfile({user_token})
-        const {Profile}=this.props
-        console.log(Profile,"vadvavadvavdavdvadvavd") 
+        // const {Profile}=this.props
+        // console.log(Profile,"vadvavadvavdavdvadvavd") 
     }
     render() {
         const {Profile}=this.props
-        console.log(Profile,"vadvavadvavdavdvadvavd") 
+        // console.log(Profile,"vadvavadvavdavdvadvavd") 
             const data =Profile.customer_proile
-                console.log(data,"data vala log")
+                // console.log(data,"data vala log")
         return (
             <div>
                 <div className="profile" style={{border:'1px groove' ,borderRadius:'5px'}}>

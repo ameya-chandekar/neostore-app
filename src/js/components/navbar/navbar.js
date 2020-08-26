@@ -1,6 +1,8 @@
 // import React from 'react'
 import { Link } from 'react-router-dom'
 import "./navbar.css"
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import TextField from '@material-ui/core/TextField';
 import sweetalert2 from 'sweetalert2'
 import React, { Component } from 'react'
 //redux imports
@@ -10,24 +12,23 @@ import * as actionss from '../../redux/actions/placeOrderAction';
 class Navbar extends Component {
   constructor(props) {
     super(props)
-
     this.state = {
       searchText:"",
-      login: false,
-
+      login: this.props.login,
     }
   }
-
-
-
-handleSearch=  async(e) => {
+handleSearch=  (e) => {
+  // this.props.history.push("/Products")
   const { name, value } = e.target;
-  await this.setState({ [name]: value });
+  this.setState({ [name]: value });
   const {searchText}=this.state
-  console.log(searchText)
-this.props.onSearch({searchText})
-}
+  
+  console.log(searchText,"seach text to be searched")
 
+  // const payload={name:searchText}
+  // this.props.onGetAllProduct(payload)
+  this.props.onSearch({searchText})
+}
   handleLogout = async () => {
     let data1 = localStorage.getItem("cart")
     ? JSON.parse(localStorage.getItem("cart"))
@@ -35,7 +36,6 @@ this.props.onSearch({searchText})
     const data2 = localStorage.getItem('login_user_data');
     const userData = JSON.parse(data2);
     const user_token = userData?userData.token:""
-    
 
   if (data1) {
     data1.push({ flag: "logout" });
@@ -49,17 +49,12 @@ this.props.onSearch({searchText})
         "title": 'Logged Out',
         'text': 'Logged out successfully',
         "icon": 'success'
-      })
-      
-      
+      })      
     })
-    
-  }
-    
-   
+  }      
   }
    componentDidMount() {
-   
+    this.props.onGetNavProduct({category_id:"",color_id:"",});
     if (this.props.login === 'true') {
         this.setState({
             login: true
@@ -71,20 +66,9 @@ this.props.onSearch({searchText})
         })
     }
 }
-
-componentDidUpdate(prevProps, prevState) {
-  
-}
-
-// componentDidUpdate(prevProps, prevState) {
-//   console.log(prevState,"prevsatet");
-//   console.log(prevProps,"prevpropss");
-//   console.log(this.props,"this.props")
-// }
-
-
   render() {
-
+    const localCartData = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem("cart")) : []
+    const cartCount = localCartData.length;
     return (
       <div className="navigation" >
 
@@ -102,7 +86,7 @@ componentDidUpdate(prevProps, prevState) {
             </button>
 
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
-              <div className="m-auto d-flex flex-row">
+              <div className="d-flex flex-row">
                 <ul className="navbar-nav navbar-ul ">
                   <li className="mx-5">  <Link to="/"><button className=" btn nav-btn nav-item " href="#">Home </button></Link></li>
 
@@ -112,26 +96,36 @@ componentDidUpdate(prevProps, prevState) {
                 </ul>
               </div>
               <div  >
-                <ul className="navbar-nav navbar-ul ">
-                  <li className="  ml-5 mr-1">
-                    <form className="form-inline  mt-2 ">
-                      <input className="form-control  nav-search px-5 searchbar " name="searchText" type="search" placeholder="Search product here.." aria-label="Search"
-                      onChange={this.handleSearch} />
-                      {/* <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> */}
-                    </form>
-                  </li>
-                  <li>
-                    <Link to="/Cart"><button className="btn btn-light mt-2 px-4" > <i style={{ color: 'rgb(68, 68, 68)', padding: '7px 3px' }} className="fa fa-cart-arrow-down"></i> </button></Link>
-                  </li>
-                  <li className="nav-item dropdown ">
+                <ul className="navbar-nav navbar-ul row ">
+                  <li className="searchbox" >
 
-                    <button style={{ color: 'rgb(68, 68, 68)', borderRadius: '4px' }} className=" px-4 mt-2 ml-1 btn btn-light dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <span style={{ backgroundColor: 'rgb(68, 68, 68)', borderRadius: '2px' }}>
+                    <Autocomplete
+
+                    style={{height:"45px",marginTop:"-17px"}}
+                      id="free-solo-demo"
+                      freeSolo
+                      options={this.props.suggetions?this.props.suggetions.map(options=> { return options.product_name }
+                      ):null}
+                      onChange={ this.handleSearch}
+                      name="searchText"
+                      renderInput={(params) => (
+                      <TextField {...params} className="serchbar" onChange={ this.handleSearch} onkeyPress={ this.handleSearch} margin="normal"  name="searchText" placeholder="Search Here..." variant="outlined" style={{ backgroundColor: "white",width:"100%", height:"45px"}} />
+                    )}
+                     />
+                  </li>
+                  <li className="cartbtn ">
+                    <Link to="/Cart"><button className="btn btn-light px-3 mt-2 mx-1" >  <span className="top_header_cart_count px-1"><sup>{cartCount}</sup></span><i style={{ color: 'rgb(68, 68, 68)', padding: '7px 3px' }} className="fa fa-cart-arrow-down"></i> </button></Link>
+                  </li>
+                  <li className="nav-item dropdown optionsbtn">
+
+                    <button style={{ color: 'rgb(68, 68, 68)', borderRadius: '4px' }} className="px-3 mt-2 mx-1  btn btn-light dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <span  style={{ backgroundColor: 'rgb(68, 68, 68)', borderRadius: '2px' }}>
                         <i style={{ color: 'white', padding: '7px 3px' }} className="fa fa-user"></i>
                       </span>
 
                     </button>
-                    {this.state.login == true ?
+ 
+                    {this.state.login ===true ?
                       <div className="dropdown-menu bg-light  " aria-labelledby="navbarDropdown">
                         <Link to="/UserProfile"> <button className="dropdown-item " >Profile</button></Link>
                         <Link to="/"> <button className="dropdown-item" href="#" onClick={this.handleLogout}>Logout</button></Link>
@@ -143,7 +137,6 @@ componentDidUpdate(prevProps, prevState) {
                       </div>
                     }
                   </li>
-
                 </ul>
               </div>
             </div>
@@ -153,21 +146,20 @@ componentDidUpdate(prevProps, prevState) {
     )
   }
 }
-
 const mapStateToProps = state => {
   return {   
- 
+    suggetions: state.navbarProducts.productdetails.product_details,
   };
   
   
 }
-
 const mapDispatchToProps = dispatch => {
   return {
+    // suggetions: (payload) => dispatch(actions.getAllProduct(payload)),
+    onGetNavProduct:(payload)=>dispatch(actions.getNavProduct(payload)),
     onSearch:(payload)=>dispatch(actions.getProductBySearchText(payload)),
     placeOrder:(payload)=>dispatch(actionss.placeOrder(payload)),
 
   }
 }
-
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

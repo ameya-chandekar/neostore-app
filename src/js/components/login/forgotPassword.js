@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Navbar from '../navbar/navbar';
-import Footer from '../footer/footer'
+// import Footer from '../footer/footer'
 // import { forgotPassword } from '../../api/api';
 import sweetalert2 from 'sweetalert2';
 
@@ -90,7 +90,7 @@ export class ForgotPassword extends Component {
         return (
             <div>
                 <Navbar login={localStorage.getItem('loginUserData') ? 'true' : 'false'} />
-                <div className=" form-group m-5 " style={{ border: "1px groove", borderRadius: "5px", width: "50%" }}>
+                <div className=" form-group" style={{ border: "1px groove", borderRadius: "5px", width: "50%",margin:"80px 350px" }}>
                     <div className=""><h1 className="text-center">Recover Password</h1></div>
                     <hr />
                     <div className="">

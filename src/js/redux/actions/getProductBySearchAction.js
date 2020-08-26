@@ -14,7 +14,7 @@ export const getProductBySearchText = (payload) => {
         // let data={}
         
         const data =payload.searchText
-        console.log("product id in action ",data);
+        console.log("text to be search from action ",data);
         let cb = {
             success: (res) => {
                 // console.log("on api calllllllll",res);

@@ -11,7 +11,7 @@ export class ContactUs extends Component {
             <div className="contact-us">
                 <Navbar />
                 <div className="contact-us-wrapper row">
-                <div className="contact-us-form col-12">
+                <div className="contact-us-form col-lg-12">
                     <form class="contact-form mt-5 mb-5">
                         <div className="row form-item">
                            <div className="col-12 text-center"> <h1> <b>Contact Form</b></h1></div>

@@ -8,7 +8,7 @@ export const active_server = 'dev';
 
 
 //for daily new one
-export const ROOT_URL ='https://e9988a0c6bbc.ngrok.io/';
+export const ROOT_URL ='http://180.149.241.208:3022/';
 
 
 

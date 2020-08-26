@@ -12,7 +12,7 @@ import Cart from './js/components/cart/cart'
 import ProductDetails from './js/components/Products/productdetails/productDetails';
 import UserProfile from './js/components/usersection/userProfile/userProfile'
 import  Addnewaddress  from './js/components/usersection/address/addnewaddress';
-import  ShowAddress  from './js/components/usersection/address/showAddress';
+// import  ShowAddress  from './js/components/usersection/address/showAddress';
 import UserOrders from './js/components/usersection/userOrders'
 import UserAddress from './js/components/usersection/userAddress/userAddress'
 import UserChangePassword from './js/components/usersection/changepassword/userChangePassword'
@@ -47,7 +47,6 @@ function App() {
                 <Route exact path="/addAddress" component={Addnewaddress}/>
                 <Route exact path ="/selectAddress" component={SelectAddress}/>
                 <Route exact path ="/editAddress" component={EditAddress}/>
-                
                 <Route path="/thankYou" component={ThankYou}/>
             </Switch>
 

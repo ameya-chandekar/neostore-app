@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import Navbar from '../../navbar/navbar'
 import Footer from '../../footer/footer'
 import Usersoption from'../useroptions/usersoption'
-import ProfileDetails from'../profiledetails/profileDetails'
+// import ProfileDetails from'../profiledetails/profileDetails'
 import ChangePassword from '../changepassword/changePassword'
-import ShowAddress from '../address/showAddress'
-import ShowOrders from '../orders/showOrders'
+// import ShowAddress from '../address/showAddress'
+// import ShowOrders from '../orders/showOrders'
 
 //css
 // import '../usersection/userProfile.css'

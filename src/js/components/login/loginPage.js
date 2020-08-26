@@ -125,7 +125,7 @@ export class LoginPage extends Component {
     // Functions for validation
 
     handleEmailChange = (e) => {
-        if (this.state.username== '') {
+        if (this.state.username=== '') {
             this.setState({ emailErrorText: 'Please enter Email ' })
         }
         else if (/^([a-zA-Z])+([0-9a-zA-Z\.\-])+\@+(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,10})+$/.test(this.state.username)) {
@@ -163,18 +163,28 @@ export class LoginPage extends Component {
                     <div className="row">
                         <div className="col-lg-6 col-md-12">
                             <div className="social-btn-wrapper">
-                                <div className="row"><div className="col-12 "><button className="btn btn-lg btn-primary social-login"><h6>Login With Facebook</h6></button></div></div>
+                                <div className="row"><div className="col-12 ">
+                                    <button className="text-centre btn btn-lg btn-primary social-login-fb" style={{height:"60%",width:"100%"}}> <h6><i style={{fontSize:"50px" }} class=" fa fa-facebook"></i>Login With Facebook</h6></button></div></div>
+                                
                                 <GoogleLogin
                                     clientId="1046035359147-c0uasts79ddvoa7obt5fltk2dud9b3sr.apps.googleusercontent.com"
                                     render={renderProps => (
-                                        <button className="btn google-btn" onClick={renderProps.onClick} disabled={renderProps.disabled}><b><i class="fa fa-google"></i> Login With Google</b></button>
+                                        <button className="btn google-btn"
+                                         onClick={renderProps.onClick} 
+                                         disabled={renderProps.disabled}
+                                         style={{height:"65%",width:"100%"}}
+                                         >
+                                         <b><i class="fa fa-google"></i> Login With Google</b>
+                                         </button>
                                     )}
                                     buttonText="Login"
                                     onSuccess={responseGoogle}
                                     onFailure={responseGoogle}
                                     cookiePolicy={'single_host_origin'}
                                 />
-                                <div className="row"><div className="col-12 "><button className="btn btn-lg btn- social-login"><h6>Login With Twiiter</h6></button></div></div>
+
+                                <div className="row"><div className="col-12 ">
+                                <button className="btn btn-lg btn-info social-login" style={{height:"60%",width:"100%"}}><h6> <i style={{fontSize:"50px" }} class=" fa fa-twitter"></i>Login With Twiiter</h6></button></div></div>
 
                             </div>
 

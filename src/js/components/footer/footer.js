@@ -22,7 +22,7 @@ function footer() {
             </div>
           </div>
 
-          <div className="col-lg-4">
+          <div className="col-lg-4 text-center">
             <div>
               <h5>Information</h5>
               <p>
@@ -35,7 +35,7 @@ function footer() {
             </div>
           </div>
 
-          <div className="col-lg-4">
+          <div className="col-lg-4 text-center" >
             <div>
               <h5>NewsLetter</h5>
               <p>Signup to get exclusive offer from our favorite brands and to be well up in the news<br></br>

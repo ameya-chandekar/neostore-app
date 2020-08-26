@@ -19,6 +19,7 @@ import getAddressReducer from '../reducers/getAddressReducer'
 import getProfileData from'../reducers/profileReducer'
 import getOrders from '../reducers/orderReducer'
 import forgotpassword from '../reducers/forgotPasswordReducer'
+import navbarProductReducer from '../reducers/navbarProductsReducer'
 // MiddleWare
 
 import thunk from 'redux-thunk';
@@ -39,7 +40,9 @@ const AppRootReducer = combineReducers({
     getAddress:getAddressReducer,
     getProfile:getProfileData,
     Orders:getOrders,
-    otpData:forgotpassword
+    otpData:forgotpassword,
+    navbarProducts:navbarProductReducer,
+
    
 
 })

@@ -20,7 +20,7 @@
 
    
 }
-.nav-search{width:100%}
+/* .nav-search{width:100%} */
 .navbar-ul{
     display: flex;
     flex: wrap;
@@ -29,4 +29,29 @@
 .dropdown-menu Link{text-decoration: none;}
 .searchbar{
     height: 45px
+}
+.top_header_cart_count{
+    background-color: red;
+    border-radius:50%;
+    font-size:20px;
+    color:white;
+}
+.searchbox{
+ margin: 10px 40px;
+ width:280px;
+}
+@media only screen and (max-width: 600px) {
+    
+ .cartbtn{
+    margin: 10px 20px;
+   }
+   .optionsbtn{
+    margin: 10px 20px;
+   }
+}
+@media only screen and (max-width: 1096px) {
+    .searchbox{
+        margin: 10px 40px;
+        width:200px;
+       }
 }

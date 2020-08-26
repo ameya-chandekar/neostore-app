@@ -32,7 +32,15 @@ export const editProfileDetails = (payload) => {
             //    console.log("abcdegjhhhhhh",err)
             }
         }
-        API.editProfileDetails(data, cb,data2)
+        return API.editProfileDetails(data, cb,data2)
+        .then(res => {
+            // console.log(res, "action returning promise")
+            // Return something
+            return true;
+        }).catch((error) => { 
+            // console.log(error, "errror action returning promise")
+            // return error;
+         });
     }
 }
 

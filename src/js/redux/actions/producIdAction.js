@@ -1,9 +1,5 @@
 import * as actionType from './actionTypes';
-import { API } from '../../api/api';
-
-
 const productidchanger = (payload) => {
-    // console.log(payload);
     return {
         type: actionType.PRODUCT_ID,
         payload: payload

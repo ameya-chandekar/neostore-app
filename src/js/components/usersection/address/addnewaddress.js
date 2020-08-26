@@ -13,6 +13,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FormHelperText from'@material-ui/core/FormHelperText';
+import {Link} from 'react-router-dom';
 
 //imports of redux
 
@@ -23,7 +24,6 @@ export class Addnewaddress extends Component {
 
 constructor(props) {
   super(props);
-
   this.state = {
     submitted:'',
     address:'',
@@ -93,7 +93,7 @@ componentDidMount(){
 }
 //functions for validations
 handleAddressChange=(e)=>{
-  if(this.state.address=='')
+  if(this.state.address==='')
   {
       this.setState({addressError:'Please enter address'})      
   }
@@ -187,7 +187,7 @@ handleCountryChange=(e)=>{
                             <Typography >Orders</Typography>
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails >
-                            <div className="btn " style={{width:"100%" ,height:"100%"}}> <b>Orders</b></div>
+                            <div className="btn " style={{width:"100%" ,height:"100%"}}> <Link to="/UserOrders"><b className="text-dark"> Orders</b></Link></div>
                         </ExpansionPanelDetails>
                     </ExpansionPanel>
 
@@ -200,8 +200,8 @@ handleCountryChange=(e)=>{
                             <Typography >Account</Typography>
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails >
-                            <div className="btn " style={{width:"100%" ,height:"100%"}}> <b>Profile</b></div>
-                            <div className="btn " style={{width:"100%" ,height:"100%"}}> <b>Addresses</b></div>
+                            <div className="btn " style={{width:"100%" ,height:"100%"}}><Link to="/UserProfile"> <b className="text-dark">Profile</b> </Link></div>
+                            <div className="btn " style={{width:"100%" ,height:"100%"}}> <Link to="/UserAddress"><b className="text-dark">Addresses</b></Link></div>
                             
                         </ExpansionPanelDetails>
                     </ExpansionPanel>
@@ -297,7 +297,7 @@ handleCountryChange=(e)=>{
                     </div>
                     <div><hr/></div>
                     <div className="mb-2">
-                        <button className="btn" onClick={this.handleSubmit}>Save</button>
+                        <button className="btn btn-danger" onClick={this.handleSubmit}>Save</button>
                         <button className="btn"> Cancel</button>
                     </div>
 

@@ -18,7 +18,7 @@ class ShowOrders extends Component {
         const userData = JSON.parse(data1);
         const user_token = userData.token
         this.props.getPDF({orderdata,user_token  })
-        const {OrderInvoice}=this.props
+        // const {OrderInvoice}=this.props
          window.open(ROOT_URL+this.props.OrderInvoice.receipt)
 
     }
@@ -27,7 +27,7 @@ class ShowOrders extends Component {
         const userData = JSON.parse(data1);
         const user_token = userData.token
         this.props.getOrderDetail({user_token})
-        const {Orders}=this.props
+        // const {Orders}=this.props
         
     }
     
@@ -39,12 +39,8 @@ class ShowOrders extends Component {
         return (
             <div>
                 {
-                    // order?order.map((el)=>{
-                    //     const item =el.product_details
-                    //     console.log("itemmmmmmmmmm",item)
-                        // return(
                             order?order.map((i)=>{
-                                // console.log(i.product_details,"aaalalalalalalalalalalalalalalaalalaal")
+                        
                                 const productimg=i.product_details
                                 return(
                                     <div className="orders m-2" style={{ border: "1px groove", borderRadius: " 5px" }}>
@@ -59,8 +55,9 @@ class ShowOrders extends Component {
                                     <div className="btn btn-primary m-1" onClick={()=>this.handleClick(i)}>Download invoice as PDF</div>
                                 </div>
                                 )
-                            
-                    }):null
+                                
+                    }):
+                    <div className="text-center"><h1 >You dont have any orders placed</h1></div>
                 }
                
             </div>

@@ -19,4 +19,5 @@ export {getOrders} from './getUserOrderAction.js';
 export {getOrderPDF} from './getPDFAction';
 export {updateRating} from './updateProductRatingAction';
 export {updateAddress} from './updateAddressAction';
+export {getNavProduct} from './navbarProductAction';
 // export {placeOrder} from '/placeOrder'

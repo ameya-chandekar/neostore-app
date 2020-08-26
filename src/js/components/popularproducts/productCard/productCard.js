@@ -61,14 +61,14 @@ import * as actions from '../../../redux/actions';
                   cartData.push(finalData);
                   localStorage.setItem("cart", JSON.stringify(cartData));
                   localStorage.getItem('cart'.length)
-                  this.setState({ cartCount: 1 });
+                //   this.setState({ cartCount: 1 });
                   Swal.fire({
                       'title': 'Product added to cart successfully',
                       "icon": 'success'
                   });
 
-                  localStorage.getItem('cart'.length);
-                  this.setState({ cartCount: this.state.cartCount + 1 })
+                //   localStorage.getItem('cart'.length);
+                //   this.setState({ cartCount: this.state.cartCount + 1 })
               }
           }
 
@@ -94,9 +94,9 @@ render(){
 
     <div className="product-card m-3">
       <div className="card " >
-        <img className="card-img-top" src={ROOT_URL + productDetails.product_image} alt="Card image" />
+        <img className="card-img-top" src={ROOT_URL + productDetails.product_image} alt="Card " />
         <div className="card-body">
-          <h6 className="card-title text-center"><Link to="/ProductDetails"><a href="#" onClick={()=>this.handledetails(productDetails.product_id)}>{productDetails.product_name}</a></Link></h6>
+          <h6 className="card-title text-center"><Link to="/ProductDetails"><a onClick={()=>this.handledetails(productDetails.product_id)}>{productDetails.product_name}</a></Link></h6>
        
         </div>
         <div className="text-center">

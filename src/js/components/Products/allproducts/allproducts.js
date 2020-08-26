@@ -3,7 +3,6 @@ import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import StarIcon from '@material-ui/icons/Star';
 import AllProductCard from '../allproductsCard'
-import { API } from '../../../api/api'
 import { connect } from 'react-redux';
 import * as actions from '../../../redux/actions';
 export class Allproducts extends Component {
@@ -12,14 +11,19 @@ export class Allproducts extends Component {
         this.state = {
             data: [],
             catid:''
-
         }
     }
+
     componentDidMount() {
-       let category_id="";
-       let color_id="";
-        this.props.onGetAllProduct({category_id:"",color_id:""})
+
+       this.props.onGetAllProduct({category_id:"",color_id:"", pageNo : this.props.pageNo, perPage : this.props.perPage})
         // getCommonProducts({"category_id":""})
+    }
+
+    componentDidUpdate(prevState,prevProps) {
+        if(this.props.pageNo !== 1 && this.props.pageNo !== prevProps.pageNo) {
+        this.props.onGetAllProduct({category_id:"",color_id:"", pageNo : this.props.pageNo, perPage : this.props.perPage})
+    }
     }
     // componentDidUpdate(){
 
@@ -96,10 +100,10 @@ export class Allproducts extends Component {
 
 const mapStateToProps = state => {
     return {
-      allProduct:state.productbycateg.productdetails,
+      allProduct:state.productbycateg.productdetails.product_details,
+      
         // productbycateg:state.productbycateg.productdetails.productbycateg.product_details
-    };
-    
+    }
     
   }
   

@@ -12,26 +12,28 @@ class Usersoption extends Component {
     componentDidMount() {
         const data1 = localStorage.getItem('login_user_data');
         const userData = JSON.parse(data1);
-        const profileimage = userData.customer_details.profile_img
+        // const profileimage = userData.customer_details.profile_img
         const user_token = userData.token
         this.props.getProfile({ user_token })
-        const { Profile } = this.props
-        console.log(Profile, "vadvavadvavdavdvadvavd")
+        // const { Profile } = this.props
+        // console.log(Profile, "profile from user options")
     }
+    
     render() {
 
         const { Profile } = this.props
         const data = Profile.customer_proile
         const url = "http://180.149.241.208:3022/";
-        const data1 = localStorage.getItem('login_user_data');
-        const userData = JSON.parse(data1);
-        const profileimage = userData.customer_details.profile_img
- console.log("profile image of user" ,url+profileimage)
+        const profileimage = data? data.profile_img:null
+        // console.log("profile image of user" ,url+profileimage)
         return (
             <div>
-                <div className="profile-img text-center">
-                    {profileimage ? <img src={url + profileimage} />
-                        : <img src={proimg} />}
+                <div className="profile-img text-center " >
+                <div className="profile-img-wrapper img-fluid">
+                    {profileimage ?
+                     <img  className="img-fluid"  src={url + profileimage} />
+                        : <img src={proimg} />
+                    }</div>
                 </div>
                 <div className="row text-center pl-5 pt-2" style={{color:"red",marginLeft:"10px"}}><h6 className="pl-5">{data ? data.first_name : null}&nbsp;&nbsp;&nbsp;{data ? data.last_name : null}</h6></div>
                 <div className="row"><div className="col"> <Link to="/UserOrders"><button className="btn profile-img-btn"> Order</button></Link></div></div>
@@ -56,3 +58,4 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Usersoption);
+

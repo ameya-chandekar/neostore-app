@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './corousel.css'
 import { Link } from 'react-router-dom'
+import { ROOT_URL } from '../../api/globals';
 // import Link from'react-router-dom'
 //redux imports
 import { connect } from 'react-redux';
@@ -14,10 +15,8 @@ export class Corousel extends Component {
       category_id:"",
     };
   }
-
-
   componentDidMount() {
-    return fetch("http://180.149.241.208:3022/getAllCategories")
+    return fetch(ROOT_URL+"getAllCategories")
       .then(res => res.json())
       .then(response => {
         this.setState({
@@ -43,7 +42,7 @@ export class Corousel extends Component {
   }
 
   render() {
-    const url = "http://180.149.241.208:3022/";
+    const url = ROOT_URL;
     const imageData = this.state.data;
 
     // let res = imageData.map(a => a.product_image);
@@ -73,7 +72,7 @@ export class Corousel extends Component {
                   )
                   : (
                     <div className="carousel-item ">
-                     <Link to="/Products"> <img className="d-block w-100" src={url + m.product_image} onClick={() => { this.handleImageClick(m.category_id) }} /></Link>
+                     <Link to="/Products"> <img className="d-block w-100" alt="images not available" src={url + m.product_image} onClick={() => { this.handleImageClick(m.category_id) }} /></Link>
                     </div>
                   )
 

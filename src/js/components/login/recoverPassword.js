@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import IconButton from "@material-ui/core/IconButton";
-import Icon from "@material-ui/core/Icon";
+// import Icon from "@material-ui/core/Icon";
 
 // import Input from "@material-ui/core/Input";
 // import FilledInput from "@material-ui/core/FilledInput";
@@ -67,7 +67,7 @@ import * as actions from '../../redux/actions/recoverPasswordAction';
 
 
   handleotpChange=(e)=>{
-    if(e.target.value=='')
+    if(e.target.value==='')
     {
         this.setState({otpError:'Please enter OTP'})
         
@@ -80,7 +80,7 @@ import * as actions from '../../redux/actions/recoverPasswordAction';
 
 handlepassChange=(e)=>{
   const  cond = /^[A-Za-z]\w{7,11}$/;
-   if(e.target.value=='')
+   if(e.target.value==='')
    {
        this.setState({passwordError:'Please enter password '})
    }
@@ -96,14 +96,14 @@ handlepassChange=(e)=>{
 
 handlecpassChange=(e)=>{
   
-   if(e.target.value=='')
+   if(e.target.value==='')
   {
     this.setState({confirmPasswordError:'Please enter confirm password '})
   }
-  else if(this.state.newPassword==this.state.confirmPassword){
+  else if(this.state.newPassword===this.state.confirmPassword){
     this.setState({confirmPasswordError:''})
   }
-else if(this.state.newPassword!=this.state.confirmPassword){
+else if(this.state.newPassword!==this.state.confirmPassword){
   this.setState({confirmPasswordError:'should match with new password'})
 }
   else

@@ -1,20 +1,20 @@
 import axios from 'axios';
 import { buildHeader, ipInfoHeader } from './helpers';
 import { ROOT_URL } from './globals';
-import { DELETE_ADDRESS } from '../redux/actions/actionTypes';
+// import { DELETE_ADDRESS } from '../redux/actions/actionTypes';
 
 
 //App API's
 const live = false;
 const UPDATE_RATING={type:'PUT',url:ROOT_URL + 'updateProductRatingByCustomer/'}
 const GET_PRODUCT = { type: 'GET', url: ROOT_URL + 'defaultTopRatingProduct/' };
-const GET_ALL_PRODUCT = { type: 'GET', url: ROOT_URL + 'commonProducts'} ;
+// const GET_ALL_PRODUCT = { type: 'GET', url: ROOT_URL + 'commonProducts'} ;
 // const GET_PRODUCT_BY_CATEG = { type: 'GET', url: ROOT_URL+'getProductByCateg/' };
 // const GET_PRODUCT_BY_COLOR = { type: 'GET', url: ROOT_URL+'getProductBycolor/' };
 
 const GET_ALL_CATEGORIES={type:'GET',url:ROOT_URL+'getAllCategories/'};
 const GET_ALL_COLORS={type:'GET',url:ROOT_URL+'getAllColors/'};
-const GET_ALL_SEARCH={type:'GET',url:ROOT_URL+'getProductBySearchText/'};
+// const GET_ALL_SEARCH={type:'GET',url:ROOT_URL+'getProductBySearchText/'};
 const REGISTER ={type :'POST',url:ROOT_URL+'register/' };
 const LOG_IN ={ type : 'POST' ,url:ROOT_URL + 'login/'};
 const GET_ORDERS={type:'GET',url:ROOT_URL+'getOrderDetails/'};
@@ -40,18 +40,16 @@ export const API = {
 
 	getAllProduct: (data, cb) =>
 	{
-		console.log(data.payload, "data from API.js file for all product ")
-		
-				return request(
-					{"category_id":data.category_id,
-					 "color_id":data.color_id,
-					 "sortBy":data.sortBy, 
-					 "sortIn":data.sortIn,}
-					 , cb,	{ type: 'GET', url: `${ROOT_URL}commonProducts`}
-		
-							)
+		console.log(data , "data from API.js file for all product ")
+		return request(data , cb,	{ type: 'GET', url: `${ROOT_URL}commonProducts`})
 				
-			},
+	},
+	getNavProduct: (data, cb) =>
+	{
+		console.log(data , "data from API.js file for all product ")
+		return request(data , cb,	{ type: 'GET', url: `${ROOT_URL}commonProducts`})
+				
+	},
 	// request(data, cb,{ type: 'GET', url: `${ROOT_URL}commonProducts?category_id=${data}`}
 
 
@@ -141,7 +139,7 @@ async function request(requestData, cb, featureURL, secureRequest = buildHeader(
 	try {
 		let response;
 
-		if (featureURL.type == 'GET') {
+		if (featureURL.type === 'GET') {
 		
 			response = await axios.get(url, {
 				headers: secureRequest,
@@ -161,7 +159,7 @@ async function request(requestData, cb, featureURL, secureRequest = buildHeader(
 		}
 		if (cb.complete) cb.complete();
 
-		if (response.status == 200) {
+		if (response.status === 200) {
 			cb.success(response.data);
 		} else {
 			cb.error(response.data);

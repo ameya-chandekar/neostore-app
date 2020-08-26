@@ -1,22 +1,25 @@
 import React, { Component } from "react";
+import SimpleTabs from "./simpleTabs"
 import Navbar from "../../navbar/navbar";
 import Footer from "../../footer/footer";
-import Paper from "@material-ui/core/Paper";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
+// import AppBar from '@material-ui/core/AppBar';
+// import Tabs from "@material-ui/core/Tabs";
+// import Tab from "@material-ui/core/Tab";
+// import Typography from '@material-ui/core/Typography';
 import Rating from "@material-ui/lab/Rating";
 import Box from '@material-ui/core/Box';
-import ReactRating from 'react-rating';
+// import ReactRating from 'react-rating';
 import ReactStars from "react-rating-stars-component";
 import sweetalert2 from 'sweetalert2';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
+// import StarBorderIcon from '@material-ui/icons/StarBorder';
 import '../productdetails/productDetails.css'
-
+import ReactImageMagnify from 'react-image-magnify';
 import { connect } from 'react-redux';
 import * as actions from '../../../redux/actions';
 
 import { ROOT_URL } from '../../../api/globals'
 import Swal from 'sweetalert2';
+// import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 export class ProductDetails extends Component {
 
@@ -28,6 +31,7 @@ export class ProductDetails extends Component {
       product_id: "",
       imageurl: "",
       rating: '',
+      showDetail: true,
 
     }
   }
@@ -121,14 +125,14 @@ handlecart = async (id, data) => {
                 cartData.push(finalData);
                 localStorage.setItem("cart", JSON.stringify(cartData));
                 localStorage.getItem('cart'.length)
-                this.setState({ cartCount: 1 });
+                // this.setState({ cartCount: 1 });
                 Swal.fire({
                     'title': 'Product added to cart successfully',
                     "icon": 'success'
                 });
 
-                localStorage.getItem('cart'.length);
-                this.setState({ cartCount: this.state.cartCount + 1 })
+                // localStorage.getItem('cart'.length);
+                // this.setState({ cartCount: this.state.cartCount + 1 })
             }
         }
 
@@ -144,10 +148,15 @@ handlecart = async (id, data) => {
 };
   render() {
     const { imageurl } = this.state
+    
     // console.log("product ------------- id", this.props.productid);
     const product_details = this.props.allProduct[0] ? this.props.allProduct[0] : [];
+    const product_desc=product_details.product_desc
+    const product_material=product_details.product_material
+    const product_dimension=product_details.product_dimension
+    const product_producer=product_details.product_producer
     const subimages = product_details.subImages_id ? product_details.subImages_id.product_subImages : [];
-    // console.log("inside product detailsasmsnlaskndlkandlakdnalkndadalnaldna ", product_details)
+    console.log("inside product detailsasmsnlaskndlkandlakdnalkndadalnaldna ", product_details)
     return (
       <div>
         <Navbar />
@@ -155,7 +164,24 @@ handlecart = async (id, data) => {
           <div className="row mt-5">
             <div className="col-lg-6 col-md-12">
               <div classname="row">
-                <div className="details-img img-fluid" ><img src={imageurl ? imageurl : ROOT_URL + product_details.product_image} /></div>
+                <div className="details-img img-fluid" >
+                  
+                  <div onMouseEnter={() => { this.setState({ showDetail: false}) }} onMouseLeave={() => { this.setState({ showDetail: true }) }} >
+                                            <ReactImageMagnify
+                                                {...{
+                                                    smallImage: {
+                                                        alt: "product",
+                                                        src: imageurl ? imageurl : ROOT_URL + product_details.product_image,
+                                                        width: 450,
+                                                        height: 300
+                                                    },
+                                                    largeImage: {
+                                                        src: imageurl ? imageurl : ROOT_URL + product_details.product_image,
+                                                        width: 1200,
+                                                        height: 1800,
+                                                    },
+                                                }}
+                                            /></div></div>
               </div>
               <div className="row" style={{ margin: "20px" }}>
 
@@ -175,6 +201,7 @@ handlecart = async (id, data) => {
 
               </div>
             </div>
+            {this.state.showDetail === true ? 
             <div className="col-lg-6 col-md-12">
               <div>
                 <h1>{product_details.product_name}</h1>
@@ -211,7 +238,7 @@ handlecart = async (id, data) => {
                 </button>
                 </div>
               </div>
-            </div>
+            </div>:null}
           </div>
           <div className="modal fade" id="myModal">
             <div className="modal-dialog modal-sm modal-dialog-centered">
@@ -264,19 +291,10 @@ handlecart = async (id, data) => {
           </div>
 
           <div className="row">
-            <Paper square>
-              <Tabs
-                // value={value}
-                indicatorColor="primary"
-                textColor="primary"
-                // onChange={handleChange}
-                aria-label="disabled tabs example"
-              >
-                <Tab label="Active" />
-
-                <Tab label="Active" />
-              </Tabs>
-            </Paper>
+           
+<div >
+     <SimpleTabs desc={product_desc} material={product_material} dimension={product_dimension} manufacturer={product_producer}/>
+    </div>
           </div>
         </div>
         <Footer />

@@ -8,13 +8,13 @@ import cart from '../../../assets/empty-cart.png'
 import { Link } from 'react-router-dom'
 import { ROOT_URL } from '../../api/globals'
 import '../cart/cart.css'
-import sweetalert2 from 'sweetalert2';
+// import sweetalert2 from 'sweetalert2';
 import Swal from 'sweetalert2';
 //redux
 import { connect } from 'react-redux';
 import * as actions from '../../redux/actions';
 
-const user_token = localStorage.getItem('user_token');
+// const user_token = localStorage.getItem('user_token');
 
 export class Cart extends Component {
   constructor(props) {
@@ -166,9 +166,14 @@ subtractOne = (id) => {
     //  localStorage.setItem('cart', JSON.stringify(cartData));
   }
 
+
+
+
+
+
   render() {
-    const steps = ['Cart', 'Delivery Address'];    
-    const data1 = localStorage.getItem('login_User_Data');
+    // const steps = ['Cart', 'Delivery Address'];    
+    // const data1 = localStorage.getItem('login_User_Data');
     // this.getOldCartData();
 
 console.log(this.props.cartProducts.product_details,"products in cart after login resume")
@@ -207,61 +212,103 @@ console.log(this.props.cartProducts.product_details,"products in cart after logi
           </Stepper>
         </div>
 
-        <div className="container row cart">
+        <div className="container  cart">
         <div className="row ">
             <div className="col-lg-8 col-md-12">
               <div className="container" style={{fontSize: "11px" }}>
-                <div className=" row">
-                  <div className="col-6">
-                    product
-                  </div>
-                  <div className="col-3">
-                    Quantity
-                  </div>
-                  <div className="col-1"><span>price</span></div>
-                  <div className="col-1"><span>Total</span></div>
-                </div>
-
-
-                {
+                
+              {
               
               
               this.state.cartData.length>0 ? this.state.cartData.map((el) => {
                     console.log(el, "ameyaaaaaaaaaaaaaaaaaaaaaaaa");
                     return (
-                      <div className="row ">
-                        <ul className="list-group list-group-flush ">
-                          <li className="list-group-item ">
-                            <div className="row">
-                              <div className="col-6">
-                                <div className="row ">
-                                  <div className="col-2" ><img style={{ width: "100%", height: "100%" }} src={ROOT_URL + el.product_id.product_image} /></div>
-                                  <div className="col-4">
+                
+                <div className=" row">
+                  <div className="col-lg-6  text-center">
+                    <div>
+                    <h6>product</h6>
+                    </div>
+                    <div>
+                  <div className="row text-center">
+                                  <div className="col-4" ><img style={{ width: "100%", height: "100%" }} alt="not available" src={ROOT_URL + el.product_id.product_image} /></div>
+                                  <div className="col-8">
                                     <div className="row"><div>{el.product_id.product_name}</div></div>
                                     <div className="row">status: &nbsp;<span>{el.product_id.product_stock ? " In Stock" : "out of stock"}</span></div>
                                   </div>
                                 </div>
-                              </div>
-                              <div className="col-3">
-                                <span className="btn btn-danger px-1 mt-1" style={{borderRadius:"50%",padding:"2px"}}onClick={()=>this.subtractOne(el._id)} >-</span>&nbsp;&nbsp;
+
+                  </div>
+                  </div>
+                  
+                  <div className="col-lg-3  text-center">
+                    <span>
+                    <h6>Quantity</h6>
+                    </span>
+                    <div>
+                    <span className="btn btn-danger px-1 mt-1" style={{borderRadius:"50%",padding:"2px"}}onClick={()=>this.subtractOne(el._id)} >-</span>&nbsp;&nbsp;
                                 <span className="p-1" style={{ border: "1px solid" }}>{el.quantity}</span>&nbsp;&nbsp;
-                                <span className="btn btn-danger px-1 mt-1" style={{borderRadius:"50%",padding:"2px"}} onClick={()=>this.addOne(el._id)} >+</span></div>
-                              <div className=""></div>
-                              <div className="col-1 ">{el.product_id.product_cost}</div>
-                              <div className="col-1 ">{el.product_cost*el.quantity}</div>
-                              <div className="col-1 btn"onClick={()=>{this.handleDelete(el.product_id.product_id)}}><i style={{color:"red"}} class="fa fa-trash" ></i></div>
+                                <span className="btn btn-danger px-1 mt-1" style={{borderRadius:"50%",padding:"2px"}} onClick={()=>this.addOne(el._id)} >+</span>
+                    </div>
+                  </div>
+                  <div className="col-lg-1 text-center "><div><h6>price</h6></div>
+                  <div className="  pt-2">{el.product_id.product_cost}</div>
+                  </div>
+                  <div className="col-lg-1 text-center "><div><h6>Total</h6></div>
+                  <div className=" pt-2">{el.product_cost*el.quantity}</div>
+                  </div>
+                  <div className="col-lg-1 text-center "><h6>Delete</h6>
+                  <div className=" btn"onClick={()=>{this.handleDelete(el.product_id.product_id)}}><i style={{color:"red"}} class="fa fa-trash" ></i></div>
+                  </div>
+                  
+                </div>
+                
+)
+}) : []
+}
+               
+                      <div className="">
+                        <ul className="list-group list-group-flush ">
+                          <li className="list-group-item ">
+                            <div className="row">
+                              <div className="col-6">
+                                
+                              </div>
+                              <div className="col-3 ">
+                               </div>
+                                                         
+                             
+                              
                             </div>
 
                           </li>
                         </ul>
                       </div>
 
-                    )
-                  }) : []
-                }
+                 
               </div>
 
             </div>
+
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             <div className="col-lg-4 col-md-12">
 
               <div Name="" >

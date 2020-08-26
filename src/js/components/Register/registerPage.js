@@ -22,7 +22,6 @@ import Footer from '../footer/footer'
 import "../Register/registerPage.css"
 
 //imports of redux
-
 import * as actions from '../../redux/actions/registerAction';
 import { connect } from 'react-redux';
 export class RegisterPage extends Component {
@@ -38,14 +37,13 @@ export class RegisterPage extends Component {
             confirmPass: '',
             phone_no: '',
             gender: 'male',
-
+            
             first_nameError: '',
             last_nameError: '',
             emailError: '',
             passError: '',
             confirmPassError: '',
             phone_noError: '',
-
 
             submittedError: false,
         }
@@ -88,7 +86,6 @@ export class RegisterPage extends Component {
                 return false
             }
 
-
         }
     //     else if (first_name == '') {
     //         this.setState({ first_nameError: 'Please enter first name' })
@@ -110,7 +107,7 @@ export class RegisterPage extends Component {
     // }
     //functions for validattions 
     handlefnameChange = (e) => {
-        if (this.state.first_name == '') {
+        if (this.state.first_name === '') {
             this.setState({ first_nameError: 'Please enter first name' })
 
         }
@@ -122,7 +119,7 @@ export class RegisterPage extends Component {
         }
     }
     handlelnameChange = (e) => {
-        if (this.state.last_name == '') {
+        if (this.state.last_name === '') {
             this.setState({ last_nameError: 'Please enter last name' })
         }
         else if (this.state.last_name.match(/^[a-zA-Z]*$/)) {
@@ -134,7 +131,7 @@ export class RegisterPage extends Component {
     }
 
     handleEmailChange = (e) => {
-        if (this.state.email == '') {
+        if (this.state.email === '') {
             this.setState({ emailError: 'Please enter Email ' })
         }
         else if (/^([a-zA-Z])+([0-9a-zA-Z\.\-])+\@+(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,10})+$/.test(this.state.email)) {
@@ -147,7 +144,7 @@ export class RegisterPage extends Component {
 
     handlePassChange = (e) => {
         const cond = /^[A-Za-z]\w{7,11}$/;
-        if ( this.state.pass == '') {
+        if ( this.state.pass === '') {
             this.setState({ passError: 'Please enter password ' })
         }
         else if (this.state.pass.match(cond)) {
@@ -159,7 +156,7 @@ export class RegisterPage extends Component {
     }
 
     handlePhoneNumber = (e) => {
-        if (this.state.phone_no == '') {
+        if (this.state.phone_no === '') {
             this.setState({ phone_noError: 'Number Requred' })
         }
 

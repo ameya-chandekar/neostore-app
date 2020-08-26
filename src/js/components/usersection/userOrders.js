@@ -8,16 +8,16 @@ import ShowAddress from './address/showAddress'
 import ShowOrders from './orders/showOrders'
 
 //css
-
 export class  UserOrders extends Component {
     render() {
         return (
             <div>
              <Navbar  login={localStorage.getItem('login_user_data') ? 'true' : 'false'}/>
-
+             {localStorage.getItem('login_user_data') ?
                 <div className="user-dashboard container mt-5 mb-5 ">
                     <h2>My Account</h2>
                     <hr/>
+
                     <div className="row">
                     <div className="col-lg-4 col-md-12">
                        <Usersoption/>
@@ -26,15 +26,14 @@ export class  UserOrders extends Component {
                     <div className="col-lg-8 col-md-12">
 
                         
-                        
-                        {/* <ShowAddress/> */}
-                        {/* <ChangePassword/> */}
-                        <ShowOrders/> 
+                        <ShowOrders/>
                     </div>
                    
                     </div>
                 </div>
-                
+                :<div>
+                    < h1 style={{margin:"100px 450px"}}>Please Login First </h1>
+                </div>}
                 <Footer/>
             </div>
         )

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import IconButton from "@material-ui/core/IconButton";
-import Icon from "@material-ui/core/Icon";
+
 import Swal from 'sweetalert2';
 
 // import Input from "@material-ui/core/Input";
@@ -15,8 +15,6 @@ import FormControl from "@material-ui/core/FormControl";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import FormHelperText from'@material-ui/core/FormHelperText'
-import { API } from '../../../api/api';
-
 
 //redux
 import { connect } from 'react-redux';
@@ -83,7 +81,7 @@ handleMouseDownPassword = () => {
 
 //function for validation
 handleoldpassChange=(e)=>{
-    if(this.state.oldPassword==''){
+    if(this.state.oldPassword===''){
         this.setState({oldpassError:'old paswwor required'})
     }
     else{
@@ -94,7 +92,7 @@ handleoldpassChange=(e)=>{
 
 handleNewPassChange=(e)=>{
     const  cond = /^[A-Za-z]\w{7,11}$/;
-     if(this.state.newPassword=='')
+     if(this.state.newPassword==='')
      {
          this.setState({newPassError:'Please enter password '})
      }
@@ -111,14 +109,14 @@ handleNewPassChange=(e)=>{
   
   handleCPassChange=(e)=>{
   
-    if(this.state.cPassword=='')
+    if(this.state.cPassword==='')
    {
      this.setState({cPassError:'Please enter confirm password '})
    }
-   else if(this.state.newPassword==this.state.cPassword){
+   else if(this.state.newPassword===this.state.cPassword){
      this.setState({cPassError:''})
    }
- else if(this.state.newPassword!=this.state.cPassword){
+ else if(this.state.newPassword!==this.state.cPassword){
    this.setState({cPassError:'should match with new password'})
  }
    else

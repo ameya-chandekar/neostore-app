@@ -2,29 +2,24 @@ import React, { Component } from 'react';
 import Navbar from '../../navbar/navbar'
 import Usersoption from '../useroptions/usersoption'
 // import userIcon from '../../assets/images/profile-placeholder.png';
-import { Link } from 'react-router-dom';
-import ReorderIcon from '@material-ui/icons/Reorder';
-import PersonIcon from '@material-ui/icons/Person';
-import MenuBookIcon from '@material-ui/icons/MenuBook';
-import SyncAltIcon from '@material-ui/icons/SyncAlt';
 // import UserProfile from '../UserProfile/UserProfile';
-import { getProfileData } from '../../../api/api';
+
 import CircularProgress from '@material-ui/core/CircularProgress';
-import EditIcon from '@material-ui/icons/Edit';
+// import EditIcon from '@material-ui/icons/Edit';
 import sweetalert2 from 'sweetalert2';
 import {
-    Button,
+  
     RadioGroup,
     FormLabel,
     FormControl,
     FormControlLabel,
     Radio,
-    OutlinedInput,
-    InputLabel,
-    InputAdornment,
-    Icon
+  
+  
+  
+   
 } from '@material-ui/core';
-import TextFieldsIcon from '@material-ui/icons/TextFields';
+
 import TextField from '@material-ui/core/TextField';
 import FormHelperText from "@material-ui/core/FormHelperText";
 // import {editUserProfile} from '../../api/api';
@@ -57,7 +52,7 @@ export class EditProfileDetails extends Component {
         const userData = JSON.parse(data1);
         const user_token = userData.token
         const { Profile } = this.props
-        const profileData = this.props.getProfile({ user_token })
+        // const profileData = this.props.getProfile({ user_token })
         // .then((res) => {
         //     console.log(Profile.customer_proile);
 
@@ -72,9 +67,7 @@ export class EditProfileDetails extends Component {
             [e.target.name]: e.target.value
         })
     }
-
     handleImage = async (e) => {
-
         const formData = new FormData();
         const imagefile = e.target.files[0]
         formData.append("first_name", this.state.first_name ? this.state.first_name : this.state.userData.first_name);
@@ -91,8 +84,6 @@ export class EditProfileDetails extends Component {
 
             submitData: formData
         })
-
-
         //   // 'Content-Type': 'multipart/form-data'
         //   await editUserProfile(formData).then(res=>{
         //     this.setState({profile_img:true})
@@ -119,32 +110,38 @@ export class EditProfileDetails extends Component {
         })
     }
     editHandler = async () => {
-
-
         console.log(this.state.submitData, "at the time whren we select image")
         const data1 = localStorage.getItem('login_user_data');
         const userData = JSON.parse(data1);
-        const user_token = userData.token
-        console.log(user_token, "token for edit profile")
+        const user_token = userData.token;
+        console.log(user_token, "token for edit profile");
+
+        // const { first_name, last_name, email, dob, phone_no, gender } = this.state;
+
         const submitData = this.state.submitData
-        const result = await this.props.editProfileDetails({ submitData, user_token })
-        // .then(res=>{
-        //     sweetalert2.fire({
-        //         'title':'Profile edited successfully',
-        //         'icon':'success'
-        //     })
-        // }).catch(err=>{
-        //     sweetalert2.fire({
-        //         'title':'OOps.. some error occured',
-        //         'text':`Error details: ${err}`
-        //     })
-        // })
+        // const result = await this.props.editProfileDetails({ submitData, user_token })
+            .then(res => {
+                sweetalert2.fire({
+                    'title': 'Profile edited successfully',
+                    'icon': 'success'
+
+                });
+                // return  <Redirect to="/UserProfile"/>
+                this.props.history.push('/UserProfile')
+            })
+            .catch(err => {
+                sweetalert2.fire({
+                    'title': 'OOps.. some error occured',
+                    'text': `Error details: ${err}`
+                })
+            })
     }
     render() {
+        
         return (
             <div>
                 <Navbar login={localStorage.getItem('login_user_data') ? 'true' : 'false'} />
-                <div className="container m-4">
+                <div className=" ">
                     <div className="row">
                         <div className="col-12">
                             <h1>My Account</h1>
@@ -159,11 +156,11 @@ export class EditProfileDetails extends Component {
 
                                 <div className="container" style={{ border: '1px groove', borderRadius: '5px' }}>
                                     <h3 className="mt-2">Edit Profile</h3>
-                                    <FormControl className="mb-3 mt-3" variant="outlined" 
-                                    error={this.state.firstNameErrorText ? true : false} fullWidth
-                                     defaultValue={this.state.userData.first_name} 
-                                     onChange={this.handleChangeInput} 
-                                     onBlur={this.handleChangeInput}>
+                                    <FormControl className="mb-3 mt-3" variant="outlined"
+                                        error={this.state.firstNameErrorText ? true : false} fullWidth
+                                        defaultValue={this.state.userData.first_name}
+                                        onChange={this.handleChangeInput}
+                                        onBlur={this.handleChangeInput}>
                                         <label>First Name</label>
                                         <input className="form-control"
                                             id="outlined-adornment-email"
@@ -181,7 +178,7 @@ export class EditProfileDetails extends Component {
                                         <FormHelperText id="component-error-text">{this.state.firstNameErrorText}</FormHelperText>
                                     </FormControl>
 
-                                   
+
                                     <FormControl className="mb-3" variant="outlined" error={this.state.lastNameErrorText ? true : false} fullWidth
                                         onChange={this.handleChangeInput} onBlur={this.handleChangeInput}>
                                         <label>Last Name</label>
@@ -210,9 +207,12 @@ export class EditProfileDetails extends Component {
                                     </FormControl> */}
 
                                     <FormControl className="mb-3" error={this.state.genderErrorText ? true : false} onBlur={this.handleGenderError}>
-                                        
+
                                         <FormLabel component="legend">Gender</FormLabel>
-                                        <RadioGroup aria-label="gender" name="gender1" defaultValue={this.state.userData.gender} onChange={this.handleChangeInput} >
+                                        <RadioGroup aria-label="gender"
+                                            name="gender1"
+                                            defaultValue={this.state.userData.gender}
+                                            onChange={this.handleChangeInput} >
                                             <span><FormControlLabel value="female" control={<Radio />} label="Female" />
                                                 <FormControlLabel value="male" control={<Radio />} label="Male" /></span>
                                         </RadioGroup>
@@ -226,7 +226,7 @@ export class EditProfileDetails extends Component {
                                             id="date"
                                             label="Birthdate"
                                             type="date"
-                                            defaultValue="2020-03-31"
+                                            defaultValue={this.state.userData.dob}
                                             onChange={(e) => this.dobHandler(e)}
                                             InputLabelProps={{
                                                 shrink: true,
@@ -234,7 +234,7 @@ export class EditProfileDetails extends Component {
                                         />
                                     </FormControl>
                                     <FormControl className="mb-3" variant="outlined" error={this.state.phoneNoErrorText ? true : false} fullWidth
-                                     onChange={this.handleChangeInput} onBlur={this.handleChangeInput}>
+                                        onChange={this.handleChangeInput} onBlur={this.handleChangeInput}>
                                         <label>Mobile No</label>
                                         <input className="form-control"
                                             id="outlined-adornment-password"
@@ -252,8 +252,8 @@ export class EditProfileDetails extends Component {
 
                                     </FormControl>
 
-                                    <FormControl className="mb-3" variant="outlined" error={this.state.emailErrorText ? true : false} fullWidth 
-                                    onChange={this.handleChangeInput} onBlur={this.handleChangeInput}>
+                                    <FormControl className="mb-3" variant="outlined" error={this.state.emailErrorText ? true : false} fullWidth
+                                        onChange={this.handleChangeInput} onBlur={this.handleChangeInput}>
                                         <label>Email id</label>
                                         <input className="form-control"
                                             id="outlined-adornment-email"
