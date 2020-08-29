@@ -28,7 +28,6 @@ export class Cart extends Component {
         
     }
 }
-  
 async componentDidMount(){
 
   try{
@@ -120,9 +119,9 @@ subtractOne = (id) => {
   const localCartData = JSON.parse(localStorage.getItem("cart"))
   const index = localCartData.findIndex(res=>{ return res._id === id  })
   if(localCartData[index].quantity <= 1){
-      window.confirm("Are you sure,to remove this item from cart")
-      this.deleteItem(id);
-      this.props.removeFromCart(id);
+      // window.confirm("Are you sure,to remove this item from cart")
+      this.handleDelete(id);
+      this.props.onDeleteCartProduct(id);
   }
   else if(localCartData[index].quantity > 1 && localCartData[index].quantity<=10){
       localCartData[index].quantity=localCartData[index].quantity-1;
@@ -132,24 +131,6 @@ subtractOne = (id) => {
   }
   
 }
-
-//   -----------------
-// handleDelete=(p_id)=>{
-//   const data1 = localStorage.getItem('login_user_data');
-//   const userData = JSON.parse(data1);
-//   const user_token = userData.token
-// this.props.onDeleteCartProduct({p_id,user_token})
-
-// }
-  // componentDidMount() {
-
-    // const data1 = localStorage.getItem('login_user_data');
-    // const userData = JSON.parse(data1);
-    // const user_token = userData.token
-    // // const cust_id=userData.customer_details.customer_id;
-    // this.props.onGetCartProduct({ user_token })}
-  
-  // }
   getOldCartData=()=>{
 
     let finalData = this.props.cartProducts.product_details ? this.props.cartProducts.product_details.map((item) => {
@@ -160,21 +141,14 @@ subtractOne = (id) => {
 
   localStorage.setItem("cart", JSON.stringify(finalData));
   localStorage.setItem("cart_count", finalData.length);
-    // let cartData=[]
-    // cartData=this.props.cartProducts?this.props.cartProducts.product_details:[[]]
-     
-    //  localStorage.setItem('cart', JSON.stringify(cartData));
   }
-
-
-
-
-
-
   render() {
     // const steps = ['Cart', 'Delivery Address'];    
     // const data1 = localStorage.getItem('login_User_Data');
     // this.getOldCartData();
+    const data1 = localStorage.getItem('login_user_data');
+    const userData = JSON.parse(data1);
+    const user_token = userData?userData.token:null
 
 console.log(this.props.cartProducts.product_details,"products in cart after login resume")
     // ------------------------------------
@@ -185,9 +159,6 @@ console.log(this.props.cartProducts.product_details,"products in cart after logi
     
     const gst = Math.round(orderTotal / 100 * 5);
     const total = Number(gst) + Number(orderTotal) 
-
-
-
   //   const { cartProducts } = this.props
   //   console.log(cartProducts, "data in state");
   //   const products = cartProducts.product_details
@@ -339,9 +310,16 @@ console.log(this.props.cartProducts.product_details,"products in cart after logi
                     </div>
                   </li>
                   <li className="list-group-item">
-                  <Link to="/selectAddress"><div className="btn btn-primary" style={{ width: "100%" }}>
-                      proceed to buy
-                                                </div></Link>
+
+                  {user_token
+                    ?<Link to="/selectAddress"><div className="btn btn-primary" style={{ width: "100%" }}>
+                      proceed to buy</div></Link>:
+                      <div className="btn btn-primary" style={{ width: "100%" }} disabled onClick={()=>alert("Please Login First")}>
+                      proceed to buy</div>
+                      }
+
+
+
                   </li>
                 </ul>
               </div>

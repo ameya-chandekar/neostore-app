@@ -28,7 +28,15 @@ export const register = (payload) => {
 
             }
         }
-        API.register(data, cb)
+        return API.register(data, cb) .then(res => {
+            // console.log(res, "action returning promise")
+            // Return something
+            return true;
+        }).catch((error) => { 
+            // console.log(error, "errror action returning promise")
+            // return error;
+         });
+
     }
 }
 

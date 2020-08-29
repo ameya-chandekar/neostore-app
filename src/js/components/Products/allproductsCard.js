@@ -111,7 +111,7 @@ import * as actions from '../../redux/actions/index';
       <div>
         <div className="product-card m-3">
       <div className="card p" >
-        <img className="card-img-top p-2 m-2" src={ROOT_URL + productDetails.product_image} alt="Card image" />
+        <img className="card-img-top p-2 " src={ROOT_URL + productDetails.product_image} alt="Card image" />
         <div className="card-body">
           <h6 className="card-title text-nowrap text-center"><Link to="/ProductDetails"><a href="#" onClick={()=>this.handledetails(productDetails.product_id)}>{productDetails.product_name}</a></Link></h6>
        

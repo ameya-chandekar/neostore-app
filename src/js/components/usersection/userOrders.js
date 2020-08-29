@@ -6,7 +6,7 @@ import ProfileDetails from'./profiledetails/profileDetails'
 import ChangePassword from './changepassword/changePassword'
 import ShowAddress from './address/showAddress'
 import ShowOrders from './orders/showOrders'
-
+import "./userOrders.css"
 //css
 export class  UserOrders extends Component {
     render() {
@@ -32,7 +32,7 @@ export class  UserOrders extends Component {
                     </div>
                 </div>
                 :<div>
-                    < h1 style={{margin:"100px 450px"}}>Please Login First </h1>
+                    < h1 className="loginFirst" >Please Login First </h1>
                 </div>}
                 <Footer/>
             </div>

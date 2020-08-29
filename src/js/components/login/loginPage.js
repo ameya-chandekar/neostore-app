@@ -136,7 +136,8 @@ export class LoginPage extends Component {
         }
     }
     handlePassChange = (e) => {
-        const cond = /^[A-Za-z]\w{7,11}$/;
+      const cond=  "^(?=.*[a-zA-Z])(?=.*[0-9])[A-Za-z0-9]+$";
+        // const cond = /^[A-Za-z]\w{6,11}$/;
         if (this.state.password== '') {
             this.setState({ passErrorText: 'Please enter password ' })
         }

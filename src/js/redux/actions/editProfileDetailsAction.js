@@ -11,13 +11,21 @@ const Profile = (payload) => {
 };
 export const editProfileDetails = (payload) => {
     return (dispatch, getState) => {
-        let data=payload.submitData
-        // const data2 = {"Authorization" : `Bearer ${payload.user_token}`}
+       var bodyFormData = new FormData();
+       bodyFormData.append('first_name', payload.first_name);
+       bodyFormData.append('last_name', payload.last_name);
+       bodyFormData.append('email', payload.email);
+       bodyFormData.append('dob', payload.dob);
+       bodyFormData.append('phone_no', payload.phone_no);
+       bodyFormData.append('gender', payload.gender);
+
+       if(payload.profile_img !== undefined)
+       bodyFormData.append('profile_img', payload.profile_img);
 
         const data2={ Authorization: 'Bearer ' + payload.user_token}
         // const data =payload.user_id
-        console.log("kkkkkkk",data);
-        console.log(data2,"token in edit actiion")
+
+        // console.log(data2,"token in edit actiion")
         let cb = {
             success: (res) => {
                 
@@ -32,7 +40,7 @@ export const editProfileDetails = (payload) => {
             //    console.log("abcdegjhhhhhh",err)
             }
         }
-        return API.editProfileDetails(data, cb,data2)
+        return API.editProfileDetails(bodyFormData, cb,data2)
         .then(res => {
             // console.log(res, "action returning promise")
             // Return something

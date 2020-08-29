@@ -145,7 +145,8 @@ async function request(requestData, cb, featureURL, secureRequest = buildHeader(
 				headers: secureRequest,
 				params: requestData,
 			});
-		} else if ('POST|PATCH|PUT'.includes(featureURL.type)) {
+		} 
+		else if ('POST|PATCH|PUT'.includes(featureURL.type)) {
 			response = await axios[featureURL.type.toLocaleLowerCase()](url,requestData, {
 				headers: secureRequest,
 			});

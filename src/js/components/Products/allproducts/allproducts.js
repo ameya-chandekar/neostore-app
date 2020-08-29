@@ -10,7 +10,8 @@ export class Allproducts extends Component {
         super(props)
         this.state = {
             data: [],
-            catid:''
+            catid:'',
+            initial : true
         }
     }
 
@@ -20,8 +21,9 @@ export class Allproducts extends Component {
         // getCommonProducts({"category_id":""})
     }
 
-    componentDidUpdate(prevState,prevProps) {
-        if(this.props.pageNo !== 1 && this.props.pageNo !== prevProps.pageNo) {
+    componentDidUpdate(prevProps,prevState) {
+        
+        if(( this.props.pageNo !== prevProps.pageNo)) {
         this.props.onGetAllProduct({category_id:"",color_id:"", pageNo : this.props.pageNo, perPage : this.props.perPage})
     }
     }
@@ -32,6 +34,7 @@ export class Allproducts extends Component {
     productCard = (ele) => {
         const product_details = this.props.allProduct?this.props.allProduct:[];
         console.log("all the productsssssss",product_details)
+        if (Array.isArray(product_details)) {
         const productCard = product_details.map(ele => {
             return (
                 <div className="col-lg-4 col-sm-12">
@@ -40,7 +43,14 @@ export class Allproducts extends Component {
 
             )
         })
+
         return productCard;
+        }
+        else {
+            return (<div className="col-lg-4 col-sm-12">
+            {product_details}
+            </div>)
+        }
     }
 
 

@@ -3,7 +3,7 @@ import Navbar from '../navbar/navbar';
 // import Footer from '../footer/footer'
 // import { forgotPassword } from '../../api/api';
 import sweetalert2 from 'sweetalert2';
-
+import "./forgotPassword.css"
 //redux
 import { connect } from 'react-redux';
 import * as actions from '../../redux/actions/forgotPasswordAction';
@@ -90,12 +90,12 @@ export class ForgotPassword extends Component {
         return (
             <div>
                 <Navbar login={localStorage.getItem('loginUserData') ? 'true' : 'false'} />
-                <div className=" form-group" style={{ border: "1px groove", borderRadius: "5px", width: "50%",margin:"80px 350px" }}>
+                <div className="recoverpass form-group" >
                     <div className=""><h1 className="text-center">Recover Password</h1></div>
                     <hr />
                     <div className="">
 
-                        <input type="text" className="form-control ml-5" placeholder="Enter your email" style={{ width: "80%" }} onChange={(e) => this.handlechange(e)} />
+                        <input type="text" className="form-control ml-3" placeholder="Enter your email" style={{ width: "80%" }} onChange={(e) => this.handlechange(e)} />
                         <span className="form-helper-text text-danger">{this.state.emailErr}</span><br />
                         <button type="submit" onClick={(e) => this.handleSubmit(e)} className="btn btn-primary ml-5 m-3">Submit</button>
 

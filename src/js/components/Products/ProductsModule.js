@@ -3,7 +3,7 @@ import Navbar from '../navbar/navbar'
 import Footer from '../footer/footer'
 // import CategoriesAccordian from './categories/categoriesAccordian'
 import AllProducts from './allproducts/allproducts'
-
+import "./productsModule.css"
 // import { makeStyles } from '@material-ui/core/styles';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -21,6 +21,7 @@ export class ProductsModule extends Component {
         super(props)
 
         this.state = {
+            maxPage: 2,
             pageNo: 1,
             perPage: 9,
             Categorie: [],
@@ -31,27 +32,7 @@ export class ProductsModule extends Component {
     }
 
 
-
-
-    //     sortbycategorie=(catogorie_id)=>{
-    //         // this.setState({
-    //         //     cat_id:catogorie_id
-    //         // })
-    //      console.log("categorie id to be passed",catogorie_id)
-    //     this.props.onproductbycateg({catogorie_id})
-
-    // }
-
-    // sortbycolor=(color_id)=>{
-
-    //     console.log(" color id to be passed",color_id)
-    //     this.props.onproductbycolor({color_id})
-
-    // }
-
-
-    // const {cat_id}=this.state
-    sortbycategorie = (categ_id) => {
+   sortbycategorie = (categ_id) => {
         this.setState({
             category_id: categ_id
         })
@@ -84,7 +65,8 @@ export class ProductsModule extends Component {
         if(mod > 0) maxPageNo++;
         if(nextPage <= maxPageNo ) { 
         this.setState({
-            pageNo : nextPage
+            pageNo : nextPage,
+            maxPage : maxPageNo
         }) 
         }
         else {
@@ -93,7 +75,7 @@ export class ProductsModule extends Component {
     }
     prevPage = () => {
         var prevPage = this.state.pageNo - 1;
-        if(prevPage !== 0) {
+        if(prevPage > 0) {
             this.setState({
                 pageNo : prevPage
             }) 
@@ -133,26 +115,29 @@ export class ProductsModule extends Component {
     }
 
 
+handleAllProduct=()=>{
 
+    // let { category_id,color_id } = this.state;
+    this.props.onGetAllProduct({ color_id:"", category_id:"" })
+}
 
 
     render() {
-
         let { Categorie, Colors } = this.state;
+        const {pageNo}=this.state
         return (
             <div>
                 <Navbar login={localStorage.getItem('login_user_data') ? 'true' : 'false'} />
                 <div className="allproducts">
                     <div className="row">
                         <div className="col-lg-3 col-md-12">
-
                             {/* <CategoriesAccordian /> */}
-
                             <div>
                                 <div>
                                     <ExpansionPanel>
                                         <ExpansionPanelDetails >
-                                            <div className="btn " style={{ width: "100%", height: "100%" }}> <b>All product</b></div>
+                                            <div className="btn " style={{ width: "100%", height: "100%" }} onClick={this.handleAllProduct}> 
+                                            <b>All product</b></div>
                                         </ExpansionPanelDetails>
                                     </ExpansionPanel>
 
@@ -168,7 +153,7 @@ export class ProductsModule extends Component {
                                                 {Categorie.map(el => {
 
                                                     return (
-                                                        <div className=" col-12 btn Categories-btn" onClick={() => this.sortbycategorie(el.category_id)}><h6>{el.category_name}</h6>
+                                                        <div className=" col-12 btn Categories-btn" onClick={() => {this.sortbycategorie(el.category_id) }}><h6>{el.category_name}</h6>
                                                         </div>
                                                     )
                                                 })}
@@ -207,8 +192,9 @@ export class ProductsModule extends Component {
                             <div className="pagination" style={{ marginLeft: "35%" }}>
                                 <ul className="pagination">
                                     {/* {this.initiatePagination()} */}
-                                    <li class="page-item"><a class="page-link" onClick={this.prevPage} >Previous</a></li>
-                                    <li class="page-item"><a class="page-link" onClick={this.nextPage} >Next</a></li>
+                                  <li className="page-item"><button class={" btn btn-danger m-1"} disabled={this.state.pageNo == 1} onClick={this.prevPage} >Previous</button></li>
+                                              
+                                 <li class="page-item"><button class=" btn btn-danger m-1" onClick={this.nextPage} disabled={ this.state.pageNo === this.state.maxPage }>Next</button></li>
                                 </ul>
                             </div>
                             </div>

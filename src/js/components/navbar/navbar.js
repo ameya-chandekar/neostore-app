@@ -9,6 +9,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import * as actions from '../../redux/actions';
 import * as actionss from '../../redux/actions/placeOrderAction';
+import { Redirect } from 'react-router-dom'
 class Navbar extends Component {
   constructor(props) {
     super(props)
@@ -22,13 +23,12 @@ handleSearch=  (e) => {
   const { name, value } = e.target;
   this.setState({ [name]: value });
   const {searchText}=this.state
-  
-  console.log(searchText,"seach text to be searched")
-
-  // const payload={name:searchText}
-  // this.props.onGetAllProduct(payload)
+  console.log(searchText,"searchtext")
   this.props.onSearch({searchText})
+  // this.props.history.push('/Products')
+  // return <Redirect to="/Products"/>
 }
+
   handleLogout = async () => {
     let data1 = localStorage.getItem("cart")
     ? JSON.parse(localStorage.getItem("cart"))
@@ -37,7 +37,7 @@ handleSearch=  (e) => {
     const userData = JSON.parse(data2);
     const user_token = userData?userData.token:""
 
-  if (data1) {
+  // if (data1) {
     data1.push({ flag: "logout" });
     this.props.placeOrder({data1,user_token})
     .then(()=>{
@@ -52,7 +52,7 @@ handleSearch=  (e) => {
       })      
     })
   }      
-  }
+  // }
    componentDidMount() {
     this.props.onGetNavProduct({category_id:"",color_id:"",});
     if (this.props.login === 'true') {
@@ -109,7 +109,7 @@ handleSearch=  (e) => {
                       onChange={ this.handleSearch}
                       name="searchText"
                       renderInput={(params) => (
-                      <TextField {...params} className="serchbar" onChange={ this.handleSearch} onkeyPress={ this.handleSearch} margin="normal"  name="searchText" placeholder="Search Here..." variant="outlined" style={{ backgroundColor: "white",width:"100%", height:"45px"}} />
+                      <TextField {...params} className="serchbar" onKeyUp={this.handleSearch} onChange={ this.handleSearch} onkeyPress={ this.handleSearch} margin="normal"  name="searchText" placeholder="Search Here..." variant="outlined" style={{ backgroundColor: "white",width:"100%", height:"45px"}} />
                     )}
                      />
                   </li>

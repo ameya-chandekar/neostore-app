@@ -14,39 +14,34 @@ import {
     FormControl,
     FormControlLabel,
     Radio,
-  
-  
-  
-   
+
 } from '@material-ui/core';
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 import TextField from '@material-ui/core/TextField';
 import FormHelperText from "@material-ui/core/FormHelperText";
 // import {editUserProfile} from '../../api/api';
-
 import moment from 'moment';
 //redux
 import { connect } from 'react-redux';
 // import * as actions from '../../../redux/actions';
 import * as actions from '../../../redux/actions/getProfileAction';
 import * as action from '../../../redux/actions/editProfileDetailsAction';
-
 export class EditProfileDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
             userData: {},
-            dateOfBirth: '',
             first_name: '',
             last_name: '',
             gender: '',
             dob: '',
             phone_no: '',
             email: '',
-            submitData: {}
         }
     }
-
     componentDidMount() {
         const data1 = localStorage.getItem('login_user_data');
         const userData = JSON.parse(data1);
@@ -55,71 +50,46 @@ export class EditProfileDetails extends Component {
         // const profileData = this.props.getProfile({ user_token })
         // .then((res) => {
         //     console.log(Profile.customer_proile);
-
         this.setState({
-            userData: Profile.customer_proile
+            // profile_img:Profile.customer_proile.profile_img,
+            first_name: Profile.customer_proile.first_name,
+            last_name: Profile.customer_proile.last_name,
+            gender: Profile.customer_proile.gender,
+            dob: Profile.customer_proile.dob,
+            phone_no: Profile.customer_proile.phone_no,
+            email: Profile.customer_proile.email,
         })
         // })
-
     }
     handleChangeInput = (e) => {
         this.setState({
             [e.target.name]: e.target.value
         })
     }
-    handleImage = async (e) => {
-        const formData = new FormData();
-        const imagefile = e.target.files[0]
-        formData.append("first_name", this.state.first_name ? this.state.first_name : this.state.userData.first_name);
-        formData.append("last_name", this.state.last_name ? this.state.last_name : this.state.userData.last_name);
-        formData.append("email", this.state.email ? this.state.email : this.state.userData.email);
-        formData.append("dob", this.state.birthdate ? moment(this.state.dateOfBirth).subtract(10, 'days').calendar() : moment(this.state.userData.birthdate).subtract(10, 'days').calendar());
-        // dob:info.data.customer_proile.dob ? info.data.customer_proile.dob : "",
-        formData.append("phone_no", this.state.phone_no ? this.state.phone_no : this.state.userData.phone_no);
-        formData.append("gender", this.state.gender ? this.state.gender : this.state.userData.gender);
-        formData.append("profile_img", imagefile);
 
-        console.log(formData, "at the time whren we select image")
+    handleImage =  (e) => {
         this.setState({
-
-            submitData: formData
-        })
-        //   // 'Content-Type': 'multipart/form-data'
-        //   await editUserProfile(formData).then(res=>{
-        //     this.setState({profile_img:true})
-        //     sweetalert2.fire({
-        //         title: "Profile Picture Changed",
-        //         text: "Please check profile",
-        //         icon: "success",
-        //         timer: 2000,
-        //       });
-        //   })
-
+            profile_img: e.target.files[0]
+        }) 
     }
 
-    // dobHandler = (e) => {
-    //     this.setState({
-    //         birthdate: Date.parse(e.target.value)
-    //     })
-    //     console.log('birthdate', this.state.birthdate)
-    // }
     dobHandler = (e) => {
-        console.log(Date.parse(e.target.value))
+        // console.log(e.target.value ,"what is the value")
         this.setState({
-            dateOfBirth: Date.parse(e.target.value),
+            dob: e.target.value,
         })
     }
-    editHandler = async () => {
-        console.log(this.state.submitData, "at the time whren we select image")
+
+    editHandler = () => {
         const data1 = localStorage.getItem('login_user_data');
         const userData = JSON.parse(data1);
         const user_token = userData.token;
-        console.log(user_token, "token for edit profile");
+        // console.log(user_token, "token for edit profile");
 
-        // const { first_name, last_name, email, dob, phone_no, gender } = this.state;
-
-        const submitData = this.state.submitData
-        // const result = await this.props.editProfileDetails({ submitData, user_token })
+        // const =this.state.profile_img.profile_img
+        const {profile_img,first_name,last_name,email,dob,phone_no,gender}=this.state;
+        console.log(profile_img,"profile img state" )
+        const result = this.props.editProfileDetails({ profile_img,first_name,last_name,email,dob,phone_no,gender, user_token })
             .then(res => {
                 sweetalert2.fire({
                     'title': 'Profile edited successfully',
@@ -137,7 +107,12 @@ export class EditProfileDetails extends Component {
             })
     }
     render() {
-        
+const {userData} = this.state;
+const {gender}=this.state
+const date =Date(this.state.dob)
+// const dob =userData.dob?userData.dob:null
+// console.log(dob,"dob from userdata")
+         const startDate= new Date()
         return (
             <div>
                 <Navbar login={localStorage.getItem('login_user_data') ? 'true' : 'false'} />
@@ -167,7 +142,7 @@ export class EditProfileDetails extends Component {
                                             type="text"
                                             name="first_name"
                                             autoComplete="off"
-                                            defaultValue={this.state.userData.first_name}
+                                            defaultValue={this.state.first_name}
 
                                             onChange={(e) => { this.setState({ first_name: e.target.value }) }}
                                             // value={this.state.password}
@@ -177,8 +152,6 @@ export class EditProfileDetails extends Component {
                                         />
                                         <FormHelperText id="component-error-text">{this.state.firstNameErrorText}</FormHelperText>
                                     </FormControl>
-
-
                                     <FormControl className="mb-3" variant="outlined" error={this.state.lastNameErrorText ? true : false} fullWidth
                                         onChange={this.handleChangeInput} onBlur={this.handleChangeInput}>
                                         <label>Last Name</label>
@@ -187,7 +160,7 @@ export class EditProfileDetails extends Component {
                                             type="text"
                                             name="last_name"
                                             autoComplete="off"
-                                            defaultValue={this.state.userData.last_name}
+                                            defaultValue={this.state.last_name}
                                             // value={this.state.password}
 
                                             labelWidth={100}
@@ -210,8 +183,8 @@ export class EditProfileDetails extends Component {
 
                                         <FormLabel component="legend">Gender</FormLabel>
                                         <RadioGroup aria-label="gender"
-                                            name="gender1"
-                                            defaultValue={this.state.userData.gender}
+                                            name="gender"
+                                            defaultValue={this.state.gender}
                                             onChange={this.handleChangeInput} >
                                             <span><FormControlLabel value="female" control={<Radio />} label="Female" />
                                                 <FormControlLabel value="male" control={<Radio />} label="Male" /></span>
@@ -220,19 +193,23 @@ export class EditProfileDetails extends Component {
                                     </FormControl>
 
 
-
-                                    <FormControl className="mb-3">
+                                    {/* <DatePicker
+                                     
+                                    selected={this.state.startDate} 
+                                    onChange={(e) => this.dobHandler(e)} 
+                                    /> */}
+                                      <FormControl className="mb-3">
                                         <TextField
                                             id="date"
                                             label="Birthdate"
                                             type="date"
-                                            defaultValue={this.state.userData.dob}
+                                            defaultValue= {date}
                                             onChange={(e) => this.dobHandler(e)}
                                             InputLabelProps={{
                                                 shrink: true,
                                             }}
                                         />
-                                    </FormControl>
+                                    </FormControl> 
                                     <FormControl className="mb-3" variant="outlined" error={this.state.phoneNoErrorText ? true : false} fullWidth
                                         onChange={this.handleChangeInput} onBlur={this.handleChangeInput}>
                                         <label>Mobile No</label>
@@ -241,7 +218,7 @@ export class EditProfileDetails extends Component {
                                             type="text"
                                             name="phone_no"
                                             onChange={this.handleChangeInput}
-                                            defaultValue={this.state.userData.phone_no}
+                                            defaultValue={this.state.phone_no}
                                             // value={this.state.password}
 
 
@@ -262,31 +239,26 @@ export class EditProfileDetails extends Component {
                                             onChange={this.handleChange}
 
                                             // value={this.state.password}
-                                            defaultValue={this.state.userData.email}
+                                            defaultValue={this.state.email}
                                             labelWidth={100}
                                         />
                                         <FormHelperText id="component-error-text">{this.state.emailErrorText}</FormHelperText>
                                         <label className="mb-1 mt-2">Choose Profile picture to upload</label>
-                                        <input type='file' className="mb-2 mt-1" onChange={(e) => { this.handleImage(e) }} id="img" name="profilePicture" accept="image/*" />
+                                        
+                                        <input type='file' className="mb-2 mt-1" defaultValue={this.state.profile_img} onChange={(e) => this.handleImage(e)} id="img" name="profilePicture"  />
+
                                         <button className="btn btn-info mt-3" style={{ width: "20%" }} onClick={this.editHandler}>Edit</button>
                                     </FormControl>
-
-
-
-
-
                                 </div>
 
                             </div>
-                        </div> : <div className="row container text-center m-5"><CircularProgress color="inherit" /></div>}
+                        </div> :  <div className="row container text-center m-5"><CircularProgress color="inherit" /></div>
+                    }
                 </div>
             </div>
         )
     }
 }
-
-
-
 const mapStateToProps = state => {
     return {
         Profile: state.getProfile.profile,

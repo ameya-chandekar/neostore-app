@@ -16,7 +16,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Radio from '@material-ui/core/Radio';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormHelperText from '@material-ui/core/FormHelperText'
-
+import sweetalert2 from 'sweetalert2';
 import Navbar from '../navbar/navbar'
 import Footer from '../footer/footer'
 import "../Register/registerPage.css"
@@ -79,7 +79,22 @@ export class RegisterPage extends Component {
     const { first_name, last_name, email, pass, confirmPass, phone_no, gender } = this.state;
         if (first_name && last_name && email && pass && confirmPass && phone_no && gender) {
             try {
-                this.props.onRegister({ first_name, last_name, email, pass, confirmPass, phone_no, gender });
+                this.props.onRegister({ first_name, last_name, email, pass, confirmPass, phone_no, gender })
+                .then(res => {
+                    sweetalert2.fire({
+                        'title': 'You Are Registered successfully',
+                        'icon': 'success'
+    
+                    });
+                    // return  <Redirect to="/UserProfile"/>
+                    this.props.history.push('/Loginpage')
+                })
+                .catch(err => {
+                    sweetalert2.fire({
+                        'title': 'OOps.. some error occured',
+                        'text': `Error details: ${err}`
+                    })
+                })
 
             } catch (error) {
                 console.log(error);

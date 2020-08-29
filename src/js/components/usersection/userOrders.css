@@ -1,0 +1,10 @@
+.loginFirst
+{
+    margin:100px 450px;
+}
+@media only screen and (max-width: 600px) {
+
+    .loginFirst{
+        margin:50px 100px;
+    }
+}

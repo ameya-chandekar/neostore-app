@@ -20,7 +20,7 @@ export const getProductBySearchText = (payload) => {
                 // console.log("on api calllllllll",res);
                 const newState={
                   
-                    productdetails:[...res.product_details]
+                    productdetails:res
                 }
                 dispatch(productbysearch(newState))
 
